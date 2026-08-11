@@ -2,11 +2,10 @@
   "name": "Hemşirelik Bakım Rehberim - NANDA-I Bakım Planı Asistanı",
   "short_name": "BakımRehberim",
   "description": "NANDA-I uyumlu dijital Bakım Planı Oluşturucu, Klinik Hesaplayıcılar ve Hazır Şablonlar.",
-
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0d9488",
+  "background_color": "#ffffff",
+  "theme_color": "#059669",
   "icons": [
     {
       "src": "assets/logo.png",

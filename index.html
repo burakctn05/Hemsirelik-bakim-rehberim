@@ -33,8 +33,8 @@
                     </p>
 
 
-                    <div style="font-size: 0.76rem; color: #5eead4; font-weight: 600; margin-top: 2px; letter-spacing: 0.03em;">
-                        👨‍⚕️ Geliştirici: <strong>Burak ÇETİN</strong>
+                    <div style="font-size: 0.78rem; color: var(--primary); font-weight: 700; margin-top: 2px; letter-spacing: 0.03em;">
+                        👨‍⚕️ Geliştirici: <strong>Hemşire Burak ÇETİN</strong>
                     </div>
 
                 </div>
@@ -50,8 +50,6 @@
                 <button class="nav-tab" data-tab="saved">💾 Kaydedilenler</button>
                 <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">🔍 Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span></button>
                 <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">💬 İletişim</button>
-                <button class="nav-tab" id="theme-toggle-btn" title="Koyu / Aydınlık Tema Değiştir">🌙 Tema</button>
-
             </nav>
         </div>
     </header>
@@ -139,7 +137,27 @@
                     <div class="feature-icon">💧</div>
                     <h3>Aldığı-Çıkardığı & Doz Hesabı</h3>
                     <p>Net sıvı bilanço hesabı (+/- mL), IV damla/dakika hızı ve enjeksiyonluk doz hesaplamalarını yapın.</p>
-                    <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
+            </div>
+
+            <!-- PWA Offline Banner -->
+            <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, var(--secondary-light), #ffffff); border: 2px solid var(--secondary); border-radius: var(--radius-md);">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div style="font-size: 2.2rem; background: #ffffff; width: 54px; height: 54px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
+                            📱
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 1.05rem; color: var(--text-primary);">
+                                Sitemizi Telefona Yükleyin (Hastane Servislerinde İnternetsiz Çalışır)
+                            </h4>
+                            <p style="margin-top: 4px; font-size: 0.86rem; color: var(--text-secondary);">
+                                İnternet çekmeyen hastane katlarında ve nöbetlerde tüm NANDA tanıları ve ölçekleri çevrim dışı kullanabilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" onclick="openPWAHelpModal()" style="border-radius: var(--radius-full); font-weight: 700;">
+                        📲 Nasıl Yüklenir? Rehberi Gör
+                    </button>
                 </div>
             </div>
         </section>
@@ -967,7 +985,7 @@
                 <div class="footer-brand">
                     <h3>🏥 Hemşirelik Bakım Rehberim</h3>
                     <p>Hemşirelik öğrencileri, intörnleri ve klinik hemşireler için geliştirilmiş NANDA-I, NIC & NOC uyumlu dijital karar destek ve bakım planı oluşturma platformu.</p>
-                    <p style="color: #5eead4; font-weight: 600;">👨‍⚕️ Geliştirici & Tasarım: <strong>Burak ÇETİN</strong></p>
+                    <p style="color: var(--primary); font-weight: 700;">👨‍⚕️ Geliştirici & Tasarım: <strong>Hemşire Burak ÇETİN</strong></p>
                 </div>
                 <div class="footer-col">
                     <h4>Hızlı Bağlantılar</h4>
@@ -1056,8 +1074,8 @@
                     <textarea id="contact-message-input" class="form-control" rows="4" placeholder="Mesajınızı veya önerinizi buraya yazabilirsiniz..." required style="resize: vertical;"></textarea>
                 </div>
 
-                <div style="background: var(--primary-glow); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(13,148,136,0.3); margin-bottom: 18px; font-size: 0.82rem; color: var(--text-secondary);">
-                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Burak ÇETİN | Hemşirelik Bakım Rehberim Destek Ekibi
+                <div style="background: var(--primary-light); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary); margin-bottom: 18px; font-size: 0.84rem; color: var(--text-primary);">
+                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN | Hemşirelik Bakım Rehberim Destek Ekibi
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
@@ -1103,7 +1121,7 @@
                 </p>
 
                 <div style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px;">
-                    👨‍⚕️ <strong>Geliştirici & Yazar:</strong> Burak ÇETİN | Hemşirelik Bakım Rehberim Platformu
+                    👨‍⚕️ <strong>Geliştirici & Yazar:</strong> Hemşire Burak ÇETİN | Hemşirelik Bakım Rehberim Platformu
                 </div>
             </div>
 
@@ -1113,6 +1131,89 @@
         </div>
     </div>
 
+    <!-- ===================================================================
+         MODAL: PWA INSTALLATION GUIDE
+         =================================================================== -->
+    <div id="pwa-help-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 580px;">
+            <div class="modal-header">
+                <div class="card-title">
+                    <span class="card-icon">📱</span>
+                    <h3>Telefona Yükleme & İnternetsiz Kullanım Rehberi</h3>
+                </div>
+                <button class="modal-close" onclick="closePWAHelpModal()">✕</button>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                <p style="margin-bottom: 16px;">
+                    Hemşirelik Bakım Rehberim platformunu App Store veya Play Store'a gerek kalmadan saniyeler içinde telefonunuza uygulama olarak ekleyebilirsiniz:
+                </p>
+
+                <div style="background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 14px;">
+                    <strong style="color: var(--primary); font-size: 0.95rem;">🤖 Android (Google Chrome):</strong>
+                    <ol style="margin-top: 6px; padding-left: 20px;">
+                        <li>Chrome tarayıcısında sağ üstteki <strong>üç noktaya (⋮)</strong> dokunun.</li>
+                        <li><strong>"Ana Ekrana Ekle"</strong> veya <strong>"Uygulamayı Yükle"</strong> seçeneğini seçin.</li>
+                        <li>Telefon ekranınızda amblemimiz belirecektir.</li>
+                    </ol>
+                </div>
+
+                <div style="background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 16px;">
+                    <strong style="color: var(--secondary-hover); font-size: 0.95rem;">🍏 iPhone / iPad (Safari):</strong>
+                    <ol style="margin-top: 6px; padding-left: 20px;">
+                        <li>Safari tarayıcısında alt ortadaki <strong>Paylaş (⬆️)</strong> butonuna dokunun.</li>
+                        <li>Aşağı kaydırıp <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokunun.</li>
+                        <li>Sağ üstteki <strong>"Ekle"</strong> butonuna basarak tamamlayın.</li>
+                    </ol>
+                </div>
+
+                <div style="background: var(--success-bg); color: var(--success); padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem;">
+                    ✅ Artık nöbetlerde ve serviste internetiniz kapalı olsa dahi uygulama ikona dokunarak milisaniyeler içinde açılacaktır!
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button type="button" class="btn btn-primary" onclick="closePWAHelpModal()">Anladım & Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         MOBILE STICKY FLOATING DOCK & BOTTOM SHEET (SELECTED DIAGNOSES)
+         =================================================================== -->
+    <div id="mobile-selected-diagnoses-dock" class="mobile-diagnoses-dock">
+        <div class="mobile-dock-info" onclick="openSelectedDiagnosesDrawer()">
+            <span class="mobile-dock-badge" id="mobile-dock-count-badge">
+                📋 <span id="mobile-dock-count-num">0</span> Tanı Seçildi
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Seçilenleri Gör ↑</span>
+        </div>
+        <div class="mobile-dock-actions">
+            <button type="button" class="btn btn-sm btn-primary" onclick="goToWizardStep(3)" style="border-radius: var(--radius-full); padding: 6px 14px;">
+                İleri: Özelleştir →
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet Drawer Backdrop & Content -->
+    <div id="selected-diagnoses-drawer-backdrop" class="bottom-sheet-backdrop" onclick="closeSelectedDiagnosesDrawer()">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">
+                    📋 Seçilen Hemşirelik Tanıları (<span id="drawer-diagnoses-count">0</span>)
+                </h4>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="closeSelectedDiagnosesDrawer()">✕ Kapat</button>
+            </div>
+            <div id="drawer-diagnoses-list" style="margin-bottom: 20px;">
+                <!-- Dynamically filled by JS -->
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary" onclick="closeSelectedDiagnosesDrawer()">Tanı Eklemeye Devam Et</button>
+                <button type="button" class="btn btn-primary" onclick="closeSelectedDiagnosesDrawer(); goToWizardStep(3);">İleri: Detayları Özelleştir →</button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Script Sequence for 100% Cross-Platform / File:// compatibility -->

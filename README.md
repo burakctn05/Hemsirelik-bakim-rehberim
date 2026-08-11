@@ -36,5 +36,5 @@ Bu proje **MIT Lisansı** altında açık kaynaklı olarak paylaşılmaktadır.
 NANDA-I, NIC ve NOC terminolojisi akademik klinik standartlara uygun olarak eğitim desteği amacıyla derlenmiştir.
 
 ---
-👨‍⚕️ **Geliştirici & Tasarım:** Burak ÇETİN  
+👨‍⚕️ **Geliştirici & Tasarım:** Hemşire Burak ÇETİN  
 Sürüm: `v2.5 Akademik Web Sürümü`

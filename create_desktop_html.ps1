@@ -16,11 +16,11 @@ $redirectHtml = @"
         window.location.href = "file:///c:/Users/Bilgisayar%C4%B1m/.gemini/antigravity-ide/scratch/nursing-care-app/index.html";
     </script>
 </head>
-<body style="font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 60px; background-color: #0f172a; color: #f8fafc;">
-    <div style="max-width: 500px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
-        <h2 style="color: #0d9488; margin-bottom: 12px;">🏥 Hemşirelik Bakım Rehberim</h2>
-        <p style="margin-bottom: 20px; color: #94a3b8;">Uygulama açılıyor, lütfen bekleyiniz...</p>
-        <a href="file:///c:/Users/Bilgisayar%C4%B1m/.gemini/antigravity-ide/scratch/nursing-care-app/index.html" style="color: #5eead4; text-decoration: none; font-weight: bold;">Doğrudan Açmak İçin Tıklayın →</a>
+<body style="font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 60px; background-color: #f8fafc; color: #0f172a;">
+    <div style="max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 16px; border: 2px solid #e0f2fe; box-shadow: 0 10px 25px rgba(14,165,233,0.1);">
+        <h2 style="color: #059669; margin-bottom: 12px;">🏥 Hemşirelik Bakım Rehberim</h2>
+        <p style="margin-bottom: 20px; color: #334155;">Uygulama açılıyor, lütfen bekleyiniz...</p>
+        <a href="file:///c:/Users/Bilgisayar%C4%B1m/.gemini/antigravity-ide/scratch/nursing-care-app/index.html" style="color: #0ea5e9; text-decoration: none; font-weight: bold;">Doğrudan Açmak İçin Tıklayın →</a>
     </div>
 </body>
 </html>
