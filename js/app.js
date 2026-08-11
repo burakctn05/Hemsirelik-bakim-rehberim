@@ -8,7 +8,14 @@ let currentStep = 1;
 let selectedDiagnosisForModal = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    initThemeToggle();
+    // Force light white theme, clear old dark theme localStorage keys
+    try {
+        localStorage.removeItem('bakimrehberim_theme');
+        localStorage.removeItem('nursiplan_theme');
+    } catch (e) {}
+    document.body.classList.remove('dark-theme', 'light-theme');
+
+    initServiceWorker();
     initTabNavigation();
     initCarePlanWizard();
     initCalculators();
@@ -24,8 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
     restoreDraftIfAvailable();
 });
 
+function initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('SW Registered:', reg.scope))
+                .catch(err => console.log('SW Registration failed:', err));
+        });
+    }
+}
 
+window.openPWAHelpModal = function() {
+    const modal = document.getElementById('pwa-help-modal');
+    if (modal) modal.classList.add('active');
+};
 
+window.closePWAHelpModal = function() {
+    const modal = document.getElementById('pwa-help-modal');
+    if (modal) modal.classList.remove('active');
+};
 
 function getDiagnosisTitle(cp) {
     if (cp.diagnosisTitle) return cp.diagnosisTitle;
@@ -57,29 +81,6 @@ function restoreDraftIfAvailable() {
         document.querySelectorAll('.wong-face-btn').forEach(btn => {
             if (btn.getAttribute('data-score') === String(v.agri || '0')) btn.classList.add('active');
             else btn.classList.remove('active');
-        });
-    }
-}
-
-/* ==========================================================================
-   0. Theme Toggle Handler
-   ========================================================================== */
-function initThemeToggle() {
-    let savedTheme = localStorage.getItem('bakimrehberim_theme');
-    if (!savedTheme) savedTheme = localStorage.getItem('nursiplan_theme') || 'dark';
-    const toggleBtn = document.getElementById('theme-toggle-btn');
-
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-        if (toggleBtn) toggleBtn.textContent = '☀️ Aydınlık';
-    }
-
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
-            const isLight = document.body.classList.contains('light-theme');
-            localStorage.setItem('bakimrehberim_theme', isLight ? 'light' : 'dark');
-            toggleBtn.textContent = isLight ? '☀️ Aydınlık' : '🌙 Tema';
         });
     }
 }
@@ -150,6 +151,8 @@ function initCarePlanWizard() {
         } else if (currentStep === 4) {
             renderCarePlanPreviewTable();
         }
+
+        updateMobileSelectedDockUI();
     };
 
     // Patient info form input change listeners
@@ -221,14 +224,20 @@ function initCarePlanWizard() {
             const symptomsInput = document.getElementById('modal-symptoms-input').value;
 
             // Selected NOC checkboxes
-            const selectedNoc = Array.from(document.querySelectorAll('.modal-noc-cb:checked')).map(cb => cb.value);
+            let selectedNoc = Array.from(document.querySelectorAll('.modal-noc-cb:checked')).map(cb => cb.value);
             const customNoc = document.getElementById('modal-custom-noc').value;
             if (customNoc.trim()) selectedNoc.push(customNoc.trim());
+            if (selectedNoc.length === 0 && selectedDiagnosisForModal.noc && selectedDiagnosisForModal.noc.length > 0) {
+                selectedNoc = [...selectedDiagnosisForModal.noc];
+            }
 
             // Selected NIC checkboxes
-            const selectedNic = Array.from(document.querySelectorAll('.modal-nic-cb:checked')).map(cb => cb.value);
+            let selectedNic = Array.from(document.querySelectorAll('.modal-nic-cb:checked')).map(cb => cb.value);
             const customNic = document.getElementById('modal-custom-nic').value;
             if (customNic.trim()) selectedNic.push(customNic.trim());
+            if (selectedNic.length === 0 && selectedDiagnosisForModal.nic && selectedDiagnosisForModal.nic.length > 0) {
+                selectedNic = [...selectedDiagnosisForModal.nic];
+            }
 
             const evalStatus = document.getElementById('modal-eval-status').value;
             const scoreBefore = document.getElementById('modal-score-before')?.value || '2';
@@ -545,17 +554,21 @@ window.openAddDiagnosisModal = function(diagId) {
 
     // NOC Checkboxes
     const nocContainer = document.getElementById('modal-noc-checkboxes');
-    nocContainer.innerHTML = (diag.noc || []).map(n => `
+    const nocList = (diag.noc && diag.noc.length > 0) ? diag.noc : ['Hastanın durumu stabil tutulacak ve takip edilecek.'];
+    const existingNoc = (existing?.noc && existing.noc.length > 0) ? existing.noc : null;
+    nocContainer.innerHTML = nocList.map(n => `
         <label style="display: block; font-size: 0.88rem; margin-bottom: 6px; cursor: pointer;">
-            <input type="checkbox" class="modal-noc-cb" value="${n}" ${existing?.noc ? existing.noc.includes(n) : true}> ${n}
+            <input type="checkbox" class="modal-noc-cb" value="${n}" ${existingNoc ? existingNoc.includes(n) : true}> ${n}
         </label>
     `).join('');
 
     // NIC Checkboxes
     const nicContainer = document.getElementById('modal-nic-checkboxes');
-    nicContainer.innerHTML = (diag.nic || []).map(n => `
+    const nicList = (diag.nic && diag.nic.length > 0) ? diag.nic : ['Vital bulgular düzenli takip edilecek.', 'Hekim istemine uygun tedavi uygulanacak.'];
+    const existingNic = (existing?.nic && existing.nic.length > 0) ? existing.nic : null;
+    nicContainer.innerHTML = nicList.map(n => `
         <label style="display: block; font-size: 0.88rem; margin-bottom: 6px; cursor: pointer;">
-            <input type="checkbox" class="modal-nic-cb" value="${n}" ${existing?.nic ? existing.nic.includes(n) : true}> ${n}
+            <input type="checkbox" class="modal-nic-cb" value="${n}" ${existingNic ? existingNic.includes(n) : true}> ${n}
         </label>
     `).join('');
 
@@ -569,8 +582,60 @@ window.openAddDiagnosisModal = function(diagId) {
     if (modal) modal.classList.add('active');
 };
 
+window.openSelectedDiagnosesDrawer = function() {
+    const backdrop = document.getElementById('selected-diagnoses-drawer-backdrop');
+    if (backdrop) backdrop.classList.add('active');
+    updateMobileSelectedDockUI();
+};
+
+window.closeSelectedDiagnosesDrawer = function() {
+    const backdrop = document.getElementById('selected-diagnoses-drawer-backdrop');
+    if (backdrop) backdrop.classList.remove('active');
+};
+
+function updateMobileSelectedDockUI() {
+    const dock = document.getElementById('mobile-selected-diagnoses-dock');
+    const countNum = document.getElementById('mobile-dock-count-num');
+    const drawerCount = document.getElementById('drawer-diagnoses-count');
+    const drawerList = document.getElementById('drawer-diagnoses-list');
+
+    const items = carePlanBuilder.currentPlan.carePlans || [];
+    const count = items.length;
+
+    if (countNum) countNum.textContent = count;
+    if (drawerCount) drawerCount.textContent = count;
+
+    if (dock) {
+        if (count > 0 && (currentStep === 2 || currentStep === 3)) {
+            dock.classList.add('active');
+        } else {
+            dock.classList.remove('active');
+        }
+    }
+
+    if (drawerList) {
+        if (items.length === 0) {
+            drawerList.innerHTML = `<p style="font-size: 0.88rem; color: var(--text-muted); padding: 10px 0;">Henüz tanı seçilmedi. Tanı kartlarından "+ Planıma Ekle" butonuna basabilirsiniz.</p>`;
+        } else {
+            drawerList.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 8px; max-height: 50vh; overflow-y: auto;">
+                    ${items.map(cp => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">${getDiagnosisTitle(cp)}</span>
+                            <div style="display: flex; gap: 6px; align-items: center;">
+                                <button type="button" class="btn btn-sm btn-outline" onclick="closeSelectedDiagnosesDrawer(); openAddDiagnosisModal('${cp.diagnosisId}')">✏️ Düzenle</button>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="removeDiagnosisItem('${cp.diagnosisId}'); updateMobileSelectedDockUI();" title="Kaldır">✕ Sil</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>`;
+        }
+    }
+}
+
 function renderSelectedDiagnosesSummary() {
     const summaryBox = document.getElementById('selected-diagnoses-summary');
+    updateMobileSelectedDockUI();
     if (!summaryBox) return;
 
     const items = carePlanBuilder.currentPlan.carePlans;
@@ -580,11 +645,11 @@ function renderSelectedDiagnosesSummary() {
     }
 
     summaryBox.innerHTML = `
-        <div style="margin-top: 14px; background: rgba(30,41,59,0.7); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-            <strong style="color: var(--primary-light);">Seçilen Hemşirelik Tanıları (${items.length}):</strong>
+        <div style="margin-top: 14px; background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <strong style="color: var(--primary);">Seçilen Hemşirelik Tanıları (${items.length}):</strong>
             <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
                 ${items.map(cp => `
-                    <span class="badge badge-primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;">
+                    <span class="badge badge-primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--secondary-light); color: var(--secondary-hover); border: 1px solid var(--secondary);">
                         ${getDiagnosisTitle(cp)}
                         <span style="cursor: pointer; font-weight: bold;" onclick="removeDiagnosisItem('${cp.diagnosisId}')">✕</span>
                     </span>
@@ -1571,7 +1636,7 @@ function initContactModal() {
             window.closeContactModal();
 
             if (window.showToast) {
-                window.showToast(`✉️ Teşekkürler ${name}! Mesajınız Burak ÇETİN'e iletildi.`, 'success');
+                window.showToast(`✉️ Teşekkürler ${name}! Mesajınız Hemşire Burak ÇETİN'e iletildi.`, 'success');
             }
         });
     }
