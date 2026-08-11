@@ -577,10 +577,10 @@ body.light-theme .plan-table th {
 }
 
 .category-pill.active {
-    background: var(--primary-glow);
-    color: var(--primary-light);
-    border-color: var(--primary);
-    box-shadow: 0 2px 8px var(--primary-glow);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
 }
 
 /* ==========================================================================
@@ -648,13 +648,13 @@ body.light-theme .plan-table th {
 
 .balance-positive {
     background-color: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
+    color: #0284c7;
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .balance-negative {
     background-color: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #d97706;
     border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
@@ -663,4 +663,119 @@ body.light-theme .plan-table th {
     color: var(--success);
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
+
+/* ==========================================================================
+   Mobile Floating Selected Diagnoses Dock & Bottom Sheet Drawer
+   ========================================================================== */
+.mobile-diagnoses-dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(140%);
+    width: 92%;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2px solid var(--secondary);
+    border-radius: var(--radius-full);
+    padding: 10px 18px;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.25), 0 4px 12px rgba(15, 23, 42, 0.1);
+    z-index: 990;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body.dark-theme .mobile-diagnoses-dock {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: var(--secondary);
+}
+
+.mobile-diagnoses-dock.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.mobile-dock-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.mobile-dock-badge {
+    background: var(--secondary-light);
+    color: var(--secondary-hover);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body.dark-theme .mobile-dock-badge {
+    background: rgba(14, 165, 233, 0.2);
+    color: #38bdf8;
+}
+
+.mobile-dock-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Bottom Sheet Drawer for Selected Diagnoses */
+.bottom-sheet-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-sheet-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bottom-sheet-content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    max-height: 80vh;
+    background-color: var(--bg-card);
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    border-top: 3px solid var(--primary);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+    padding: 20px 24px 30px 24px;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1060;
+}
+
+.bottom-sheet-backdrop.active .bottom-sheet-content {
+    transform: translateY(0);
+}
+
+.bottom-sheet-handle {
+    width: 44px;
+    height: 5px;
+    background-color: var(--border);
+    border-radius: 99px;
+    margin: 0 auto 16px auto;
+}
+
 

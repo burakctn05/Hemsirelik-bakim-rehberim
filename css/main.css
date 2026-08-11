@@ -5,38 +5,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 :root {
-    /* Main Color Palette - Medical Modern Teal & Navy */
-    --primary: #0d9488;          /* Teal 600 */
-    --primary-hover: #0f766e;    /* Teal 700 */
-    --primary-light: #ccfbf1;    /* Teal 100 */
-    --primary-glow: rgba(13, 148, 136, 0.25);
+    /* Main Color Palette - Medical Fresh White, Emerald & Ice Blue */
+    --primary: #059669;          /* Emerald / Medical Green 600 */
+    --primary-hover: #047857;    /* Emerald 700 */
+    --primary-light: #ecfdf5;    /* Emerald 50 - soft green light bg */
+    --primary-glow: rgba(5, 150, 105, 0.15);
 
-    --secondary: #3b82f6;        /* Blue 500 */
-    --secondary-hover: #2563eb;  /* Blue 600 */
-    --secondary-light: #dbeafe;  /* Blue 100 */
+    --secondary: #0ea5e9;        /* Sky / Ice Blue 500 */
+    --secondary-hover: #0284c7;  /* Sky / Ice Blue 600 */
+    --secondary-light: #e0f2fe;  /* Ice Blue 100 - soft ice blue light bg */
 
-    --accent: #6366f1;           /* Indigo 500 */
+    --accent: #38bdf8;           /* Ice Blue Accent */
+    --accent-ice: #e0f2fe;
 
-    --bg-dark: #0f172a;          /* Slate 900 */
-    --bg-card: #1e293b;          /* Slate 800 */
-    --bg-card-hover: #334155;    /* Slate 700 */
+    --bg-dark: #f8fafc;          /* Canvas Background - Soft Off-White */
+    --bg-card: #ffffff;          /* Card Background - Pure White */
+    --bg-card-hover: #f8fafc;    /* Card Hover Background */
 
-    --text-primary: #f8fafc;     /* Slate 50 */
-    --text-secondary: #94a3b8;   /* Slate 400 */
+    --text-primary: #0f172a;     /* Slate 900 - High Contrast Sharp Text */
+    --text-secondary: #334155;   /* Slate 700 */
     --text-muted: #64748b;       /* Slate 500 */
 
-    --border: #334155;
-    --border-light: rgba(255, 255, 255, 0.1);
+    --border: #e2e8f0;
+    --border-light: rgba(15, 23, 42, 0.08);
 
     /* Alert / Status Colors */
     --success: #10b981;
-    --success-bg: rgba(16, 185, 129, 0.15);
-    --warning: #f59e0b;
-    --warning-bg: rgba(245, 158, 11, 0.15);
+    --success-bg: rgba(16, 185, 129, 0.12);
+    --warning: #d97706;
+    --warning-bg: rgba(217, 119, 6, 0.12);
     --danger: #ef4444;
-    --danger-bg: rgba(239, 68, 68, 0.15);
-    --info: #06b6d4;
-    --info-bg: rgba(6, 182, 212, 0.15);
+    --danger-bg: rgba(239, 68, 68, 0.12);
+    --info: #0284c7;
+    --info-bg: rgba(2, 132, 199, 0.12);
 
     /* Radii & Shadows */
     --radius-sm: 8px;
@@ -44,27 +45,16 @@
     --radius-lg: 20px;
     --radius-full: 9999px;
 
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.3);
-    --shadow-lg: 0 20px 35px -10px rgba(0,0,0,0.5);
-    --shadow-glow: 0 0 20px var(--primary-glow);
+    --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.12);
+    --shadow-glow: 0 0 20px rgba(14, 165, 233, 0.18);
 
     --font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-body: 'Inter', -apple-system, sans-serif;
 }
 
-/* Light Theme Variables Override */
-body.light-theme {
-    --bg-dark: #f8fafc;
-    --bg-card: #ffffff;
-    --bg-card-hover: #f1f5f9;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
-    --border-light: rgba(0, 0, 0, 0.08);
-    --primary-light: #0d9488;
-}
+/* Primary Clean White Theme Variables */
 
 * {
     margin: 0;
@@ -92,7 +82,7 @@ body::before {
     right: -100px;
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, rgba(13, 148, 136, 0.15) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(0,0,0,0) 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -104,7 +94,7 @@ body::after {
     left: -100px;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, rgba(0,0,0,0) 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -220,18 +210,15 @@ a:hover {
 
 /* Header & Nav */
 .app-header {
-    background: rgba(30, 41, 59, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 2px solid var(--secondary-light);
     position: sticky;
     top: 0;
     z-index: 100;
     padding: 14px 0;
-}
-
-body.light-theme .app-header {
-    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
 }
 
 .header-content {
@@ -329,14 +316,10 @@ body.light-theme .app-header {
 .nav-tabs {
     display: flex;
     gap: 6px;
-    background-color: rgba(15, 23, 42, 0.6);
+    background-color: #f1f5f9;
     padding: 5px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
-}
-
-body.light-theme .nav-tabs {
-    background-color: #f1f5f9;
+    border: 1px solid var(--border);
 }
 
 .nav-tab {
@@ -357,7 +340,7 @@ body.light-theme .nav-tabs {
 
 .nav-tab:hover {
     color: var(--text-primary);
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: #e2e8f0;
 }
 
 .nav-tab.active {
@@ -383,7 +366,7 @@ body.light-theme .nav-tabs {
 
 /* Hero Section */
 .hero-card {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    background: linear-gradient(135deg, #ffffff, #f0f9ff);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 36px;
@@ -394,10 +377,6 @@ body.light-theme .nav-tabs {
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-md);
-}
-
-body.light-theme .hero-card {
-    background: linear-gradient(135deg, #ffffff, #f1f5f9);
 }
 
 .hero-card::before {
@@ -785,16 +764,12 @@ body.light-theme .hero-card {
    App Footer
    ========================================================================== */
 .app-footer {
-    background: rgba(15, 23, 42, 0.9);
+    background: #f1f5f9;
     border-top: 1px solid var(--border);
     padding: 40px 0 24px 0;
     margin-top: 60px;
     color: var(--text-secondary);
     font-size: 0.88rem;
-}
-
-body.light-theme .app-footer {
-    background: #f1f5f9;
 }
 
 .footer-content {
