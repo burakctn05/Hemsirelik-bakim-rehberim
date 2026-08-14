@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemşirelik Bakım Rehberim | NANDA-I Bakım Planı & Klinik Asistan</title>
+    <meta name="description" content="Hemşirelik öğrencileri ve intörnleri için NANDA-I uyumlu dijital Bakım Planı Oluşturucu, Klinik Hesaplayıcılar ve Hazır Şablonlar.">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="app-header">
+        <div class="app-container header-content">
+            <div class="logo-brand">
+                <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Logo" class="app-logo-img">
+                <div class="brand-text">
+                    <h1 style="font-size: 1.25rem;">Hemşirelik Bakım Rehberim</h1>
+                    <p>
+                        NANDA-I Bakım Planı & Klinik Asistan
+                        <span class="ecg-pulse-badge" title="NANDA-I Canlı Klinik Karar Destek Sistemi">
+                            <svg class="ecg-svg" viewBox="0 0 100 24" fill="none" stroke="currentColor">
+                                <path class="ecg-path" d="M0 12 L20 12 L25 5 L30 19 L35 0 L40 24 L45 12 L50 12 L100 12" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </p>
+
+
+                    <div style="font-size: 0.78rem; color: var(--primary); font-weight: 700; margin-top: 2px; letter-spacing: 0.03em;">
+                        👨‍⚕️ Geliştirici: <strong>Hemşire Burak ÇETİN</strong>
+                    </div>
+
+                </div>
+            </div>
+
+            
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="home">🏠 Ana Sayfa</button>
+                <button class="nav-tab" data-tab="builder">✍️ Bakım Planı Oluştur</button>
+                <button class="nav-tab" data-tab="templates">📚 Hazır Şablonlar</button>
+                <button class="nav-tab" data-tab="calculators">🧮 Klinik Ölçekler</button>
+                <button class="nav-tab" data-tab="dictionary">📖 NANDA Sözlüğü</button>
+                <button class="nav-tab" data-tab="saved">💾 Kaydedilenler</button>
+                <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">🔍 Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span></button>
+                <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">💬 İletişim</button>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Main Container -->
+    <main class="app-container">
+
+        <!-- ===================================================================
+             TAB 1: HOME / DASHBOARD
+             =================================================================== -->
+        <section id="tab-home" class="tab-content active">
+            <div class="hero-card">
+                <div class="hero-text">
+                    <div class="hero-badge">✨ NANDA-I / NIC / NOC Standartlarında</div>
+                    <h2>Hemşirelik Bakım Planlarınızı Dakikalar İçinde Hazırlayın</h2>
+                    <p>
+                        Klinik stajlarınızda ve derslerinizde hastanızın vital bulgularını girin, akıllı tanı önerileriyle doğru NANDA tanılarını seçin, NOC hedeflerini ve NIC girişimlerini akademik formata uygun olarak **PDF / Yazdır** çıktısı alın!
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-lg btn-primary" data-goto-tab="builder">
+                            ✍️ Yeni Bakım Planı Başlat
+                        </button>
+                        <button class="btn btn-lg btn-secondary" data-goto-tab="templates">
+                            📋 Hazır Vaka Şablonlarını İncele
+                        </button>
+                        <button class="btn btn-lg btn-outline trigger-cmd-palette">
+                            🔍 Hızlı Arama (Ctrl + K)
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-logo-wrapper no-print" style="display: flex; align-items: center; justify-content: center; padding: 10px;">
+                    <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Amblem" style="width: 140px; height: 140px; border-radius: 24px; box-shadow: 0 0 40px rgba(13,148,136,0.5); border: 3px solid rgba(204,251,241,0.4); transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08) rotate(2deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">📖</div>
+                    <div>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">NANDA-I Tanısı</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">📚</div>
+                    <div>
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Klinik Vaka Şablonu</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">🧮</div>
+                    <div>
+                        <div class="stat-number">8+</div>
+                        <div class="stat-label">Klinik Ölçek & Dozaj</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">🖨️</div>
+                    <div>
+                        <div class="stat-number">%100</div>
+                        <div class="stat-label">Akademik PDF / Yazdır</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card card-hover feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Akıllı Tanı Öneri Motoru</h3>
+                    <p>Ateş, tansiyon, SpO2 ve ağrı skorunu girin; sistem hastanız için en uygun NANDA hemşirelik tanılarını otomatik önersin.</p>
+                    <button class="btn btn-sm btn-outline" data-goto-tab="builder">Plan Oluştur →</button>
+                </div>
+
+                <div class="card card-hover feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>GKS, Braden & İtaki Ölçekleri</h3>
+                    <p>Glasgow Koma Skoru, Braden Bası Yarası Riski ve İtaki Düşme Riski puanlamalarını saniyeler içinde hesaplayın.</p>
+                    <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
+                </div>
+
+                <div class="card card-hover feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h3>Aldığı-Çıkardığı & Doz Hesabı</h3>
+                    <p>Net sıvı bilanço hesabı (+/- mL), IV damla/dakika hızı ve enjeksiyonluk doz hesaplamalarını yapın.</p>
+            </div>
+
+            <!-- PWA Offline Banner -->
+            <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, var(--secondary-light), #ffffff); border: 2px solid var(--secondary); border-radius: var(--radius-md);">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div style="font-size: 2.2rem; background: #ffffff; width: 54px; height: 54px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
+                            📱
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 1.05rem; color: var(--text-primary);">
+                                Sitemizi Telefona Yükleyin (Hastane Servislerinde İnternetsiz Çalışır)
+                            </h4>
+                            <p style="margin-top: 4px; font-size: 0.86rem; color: var(--text-secondary);">
+                                İnternet çekmeyen hastane katlarında ve nöbetlerde tüm NANDA tanıları ve ölçekleri çevrim dışı kullanabilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" onclick="openPWAHelpModal()" style="border-radius: var(--radius-full); font-weight: 700;">
+                        📲 Nasıl Yüklenir? Rehberi Gör
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ===================================================================
+             TAB 2: CARE PLAN BUILDER (WIZARD)
+             =================================================================== -->
+        <section id="tab-builder" class="tab-content">
+            <!-- Stepper Bar -->
+            <div class="stepper-container">
+                <div class="step-item active" onclick="goToWizardStep(1)">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Hasta & Vital Bulgular</div>
+                </div>
+                <div class="step-item" onclick="goToWizardStep(2)">
+                    <div class="step-number">2</div>
+                    <div class="step-title">NANDA Tanı Seçimi</div>
+                </div>
+                <div class="step-item" onclick="goToWizardStep(3)">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Özelleştirme (NIC/NOC)</div>
+                </div>
+                <div class="step-item" onclick="goToWizardStep(4)">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Önizleme & Çıktı</div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Patient Info & Vitals -->
+            <div id="wizard-step-1" class="wizard-step-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">👤</span>
+                            <h3>Adım 1: Hasta Bilgileri ve Yaşam Bulguları (Tanılama Formu)</h3>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-sm btn-outline" id="fill-sample-patient-btn" title="Rastgele örnek vaka bilgileri doldurur">
+                                🎲 Örnek Vaka Doldur
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-patient-form-btn" title="Formdaki tüm hasta bilgilerini ve vital bulguları temizler">
+                                🧹 Formu Temizle
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <form id="patient-info-form">
+                        <div class="grid-2">
+                            <div>
+                                <h4 style="margin-bottom: 12px; color: var(--primary-light);">Hasta Demografik Verileri</h4>
+                                <div class="form-group">
+                                    <label class="form-label" for="patient-name-input">Hasta Adı Soyadı (Rumuz)</label>
+                                    <input type="text" id="patient-name-input" name="patientName" class="form-control" placeholder="Örn. Ahmet Y." required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="patient-age-input">Yaş</label>
+                                        <input type="number" id="patient-age-input" name="patientAge" class="form-control" placeholder="Örn. 55">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="patient-gender-select">Cinsiyet</label>
+                                        <select id="patient-gender-select" name="patientGender" class="form-select">
+                                            <option value="Kadın">Kadın</option>
+                                            <option value="Erkek">Erkek</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="patient-diag-input">Tıbbi Tanı / Ameliyat Bilgisi</label>
+                                    <input type="text" id="patient-diag-input" name="patientDiagnosis" class="form-control" placeholder="Örn. Post-Op Apandektomi / KOAH">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="patient-room-input">Klinik / Oda No</label>
+                                    <input type="text" id="patient-room-input" name="patientRoom" class="form-control" placeholder="Örn. Genel Cerrahi 204">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="patient-weight-input">Kilo (kg)</label>
+                                        <input type="number" id="patient-weight-input" name="patientWeight" class="form-control" placeholder="Örn. 70">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="patient-height-input">Boy (cm)</label>
+                                        <input type="number" id="patient-height-input" name="patientHeight" class="form-control" placeholder="Örn. 175">
+                                    </div>
+                                </div>
+                                <div id="step1-bmi-badge" style="margin-bottom: 12px;"></div>
+                            </div>
+
+
+                            <div>
+                                <h4 style="margin-bottom: 12px; color: var(--secondary);">Mevcut Yaşam Bulguları (Vitals)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-ates-input">Vücut Sıcaklığı (°C)</label>
+                                        <input type="number" step="0.1" id="vital-ates-input" name="vitalAtes" class="form-control" placeholder="36.5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-spo2-input">SpO2 (%)</label>
+                                        <input type="number" id="vital-spo2-input" name="vitalSpo2" class="form-control" placeholder="98">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-tansys-input">Tansiyon (Sistolik - mmHg)</label>
+                                        <input type="number" id="vital-tansys-input" name="vitalTansiyonSys" class="form-control" placeholder="120">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-tandia-input">Tansiyon (Diastolik - mmHg)</label>
+                                        <input type="number" id="vital-tandia-input" name="vitalTansiyonDia" class="form-control" placeholder="80">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-nabiz-input">Nabız (/dk)</label>
+                                        <input type="number" id="vital-nabiz-input" name="vitalNabiz" class="form-control" placeholder="75">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="vital-solunum-input">Solunum Sayısı (/dk)</label>
+                                        <input type="number" id="vital-solunum-input" name="vitalSolunum" class="form-control" placeholder="16">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="vital-agri-input">Ağrı Skoru (0 - 10 NRS)</label>
+                                    <input type="range" min="0" max="10" id="vital-agri-input" name="vitalAgri" value="0" class="form-control" oninput="document.getElementById('agri-val-disp').textContent = this.value">
+                                    <span style="font-size: 0.85rem; color: var(--warning);">Seçilen Ağrı Düzeyi: <strong id="agri-val-disp">0</strong> / 10</span>
+
+                                    <!-- Wong-Baker Faces Visual Scale Component -->
+                                    <div class="wong-baker-container">
+                                        <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                                            🎭 Wong-Baker Yüz Ağrı Skalası (Görsel Seçim):
+                                        </div>
+                                        <div class="wong-baker-faces">
+                                            <button type="button" class="wong-face-btn active" data-score="0">
+                                                <span class="wong-face-emoji">😊</span>
+                                                <span class="wong-face-score">0</span>
+                                                <span class="wong-face-label">Ağrı Yok</span>
+                                            </button>
+                                            <button type="button" class="wong-face-btn" data-score="2">
+                                                <span class="wong-face-emoji">🙂</span>
+                                                <span class="wong-face-score">2</span>
+                                                <span class="wong-face-label">Az Ağrı</span>
+                                            </button>
+                                            <button type="button" class="wong-face-btn" data-score="4">
+                                                <span class="wong-face-emoji">😐</span>
+                                                <span class="wong-face-score">4</span>
+                                                <span class="wong-face-label">Biraz Ağrı</span>
+                                            </button>
+                                            <button type="button" class="wong-face-btn" data-score="6">
+                                                <span class="wong-face-emoji">😣</span>
+                                                <span class="wong-face-score">6</span>
+                                                <span class="wong-face-label">Çok Ağrı</span>
+                                            </button>
+                                            <button type="button" class="wong-face-btn" data-score="8">
+                                                <span class="wong-face-emoji">😭</span>
+                                                <span class="wong-face-score">8</span>
+                                                <span class="wong-face-label">Şiddetli</span>
+                                            </button>
+                                            <button type="button" class="wong-face-btn" data-score="10">
+                                                <span class="wong-face-emoji">😫</span>
+                                                <span class="wong-face-score">10</span>
+                                                <span class="wong-face-label">Dayanılmaz</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+                            <button type="button" class="btn btn-secondary" id="clear-patient-form-btn-bottom">
+                                🧹 Formu Temizle
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(2)">
+                                İleri: NANDA Tanı Seçimine Geç →
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- STEP 2: Smart Suggestions & Diagnosis Selection -->
+            <div id="wizard-step-2" class="wizard-step-panel" style="display: none;">
+                <!-- Container for Vital-Based Suggestions -->
+                <div id="smart-suggestions-container"></div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🧠</span>
+                            <h3>Adım 2: NANDA-I Hemşirelik Tanısı Seçimi</h3>
+                        </div>
+                        <button class="btn btn-sm btn-secondary" onclick="goToWizardStep(1)">← Geri</button>
+                    </div>
+
+                    <!-- Diagnosis Grid -->
+                    <div id="diagnosis-selection-grid"></div>
+
+                    <!-- Summary of selected items -->
+                    <div id="selected-diagnoses-summary"></div>
+
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="goToWizardStep(1)">← Geri</button>
+                        <button class="btn btn-primary btn-lg" onclick="goToWizardStep(3)">
+                            İleri: Seçilen Tanıları Özelleştir (Step 3) →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Customize Etiology & Interventions -->
+            <div id="wizard-step-3" class="wizard-step-panel" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">⚙️</span>
+                            <h3>Adım 3: Tanı Detaylarını Kontrol Et ve Özelleştir</h3>
+                        </div>
+                        <button class="btn btn-sm btn-secondary" onclick="goToWizardStep(2)">← Geri</button>
+                    </div>
+
+                    <p style="margin-bottom: 20px;">
+                        Eklemiş olduğunuz tanıların etiyolojisini, hedeflerini (NOC) ve hemşirelik girişimlerini (NIC) düzenlemek için aşağıdaki kartlara tıklayabilirsiniz.
+                    </p>
+
+                    <div id="step3-customization-list"></div>
+
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="goToWizardStep(2)">← Tanı Seçimine Dön</button>
+                        <button class="btn btn-primary btn-lg" onclick="goToWizardStep(4)">
+                            İleri: Akademik Tablo Önizlemesine Geç →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Preview & Export/Print -->
+            <div id="wizard-step-4" class="wizard-step-panel" style="display: none;">
+                <!-- Header Actions for Output -->
+                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;" class="no-print">
+                    <button class="btn btn-secondary" onclick="goToWizardStep(3)">← Düzenlemeye Dön</button>
+
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="save-plan-btn">💾 Uygulamaya Kaydet</button>
+                        <button class="btn btn-outline" id="print-plan-btn">🖨️ Yazdır / PDF İndir</button>
+                        <button class="btn btn-secondary" id="export-word-btn" title="MS Word (.doc) belgesi olarak indir">📝 Word (.doc)</button>
+                        <button class="btn btn-secondary" id="copy-plan-btn" title="Bakım planı metnini kopyala (WhatsApp/Word yapıştırmak için)">📋 Panoya Kopyala</button>
+                        <button class="btn btn-secondary" id="export-json-btn" title="Bakım planını JSON yedeği olarak indir">📤 JSON Yedekle</button>
+                        <button class="btn btn-secondary" id="import-json-btn" title="Yedeklenmiş JSON bakım planı dosyasını yükle">📥 JSON İçe Aktar</button>
+
+                        <input type="file" id="import-json-file-input" accept=".json" style="display:none;">
+                    </div>
+
+
+                </div>
+
+                <!-- Print Title Header (Visible in Print/PDF mode) -->
+                <div class="print-header" style="display: none;">
+                    <h1>HEMŞİRELİK BAKIM PLANI</h1>
+                    <p>Hemşirelik Bakım Rehberim Dijital Akademik Formadı</p>
+                </div>
+
+
+                <!-- Academic Rendered Table -->
+                <div id="care-plan-table-container"></div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 3: PRE-MADE CLINICAL TEMPLATES
+             =================================================================== -->
+        <section id="tab-templates" class="tab-content">
+            <div class="card" style="margin-bottom: 24px;">
+                <h2>📚 Hazır Klinik Vaka Bakım Planları</h2>
+                <p>Sık karşılaşılan klinik senaryolar için hazırlanmış standart bakım planları. Dilediğiniz planı tek tıkla yükleyip üzerinde değişiklik yapabilirsiniz.</p>
+            </div>
+
+            <div id="templates-list-container" class="grid-2"></div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 4: CLINICAL CALCULATORS
+             =================================================================== -->
+        <section id="tab-calculators" class="tab-content">
+            <div class="grid-2">
+                <!-- 1. Glasgow Coma Scale (GKS) -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🧠</span>
+                            <h3>Glasgow Koma Skoru (GKS)</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="gcs-eye">Göz Açma Yanıtı (E)</label>
+                        <select id="gcs-eye" class="form-select gcs-input">
+                            <option value="4">4 - Spontan açık</option>
+                            <option value="3">3 - Sözel uyarana yanıt var</option>
+                            <option value="2">2 - Ağrılı uyarana yanıt var</option>
+                            <option value="1">1 - Yanıt yok</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gcs-verbal">Sözel Yanıt (V)</label>
+                        <select id="gcs-verbal" class="form-select gcs-input">
+                            <option value="5">5 - Oryante ve koopere</option>
+                            <option value="4">4 - Konfüze (Uyumsuz konuşma)</option>
+                            <option value="3">3 - Uygunsuz kelimeler</option>
+                            <option value="2">2 - Anlamsız sesler</option>
+                            <option value="1">1 - Yanıt yok</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gcs-motor">Motor Yanıt (M)</label>
+                        <select id="gcs-motor" class="form-select gcs-input">
+                            <option value="6">6 - Emirlere uyar</option>
+                            <option value="5">5 - Ağrıyı lokalize eder</option>
+                            <option value="4">4 - Ağrıdan kaçınır (Normal fleksiyon)</option>
+                            <option value="3">3 - Anormal fleksiyon (Dekortike)</option>
+                            <option value="2">2 - Ekstansiyon (Deserebre)</option>
+                            <option value="1">1 - Yanıt yok</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: center;">
+                        <h4 style="color: var(--text-secondary); margin-bottom: 6px;">Toplam GKS Puanı</h4>
+                        <div id="gcs-score-display" style="font-size: 2.2rem; font-weight: 800; color: var(--primary-light);">15 / 15</div>
+                    </div>
+
+                    <div id="gcs-interpretation" class="alert alert-success" style="margin-top: 14px;">
+                        Normal Bilinç Düzeyi (Oryante ve Koopere)
+                    </div>
+                </div>
+
+                <!-- 2. Braden Pressure Ulcer Scale -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🩺</span>
+                            <h3>Braden Bası Yarası Risk Ölçeği</h3>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="braden-sensory">Duyusal Algılama</label>
+                            <select id="braden-sensory" class="form-select braden-input">
+                                <option value="4">4 - Kısıtlanma Yok</option>
+                                <option value="3">3 - Hafif Kısıtlı</option>
+                                <option value="2">2 - Çok Kısıtlı</option>
+                                <option value="1">1 - Tamamen Kısıtlı</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="braden-moisture">Nemlilik</label>
+                            <select id="braden-moisture" class="form-select braden-input">
+                                <option value="4">4 - Nadiren Nemli</option>
+                                <option value="3">3 - Bazen Nemli</option>
+                                <option value="2">2 - Sıkça Nemli</option>
+                                <option value="1">1 - Sürekli Nemli</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="braden-activity">Aktivite</label>
+                            <select id="braden-activity" class="form-select braden-input">
+                                <option value="4">4 - Sık Yürür</option>
+                                <option value="3">3 - Bazen Yürür</option>
+                                <option value="2">2 - Sandalyeye Bağımlı</option>
+                                <option value="1">1 - Yatağa Bağımlı</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="braden-mobility">Mobilite</label>
+                            <select id="braden-mobility" class="form-select braden-input">
+                                <option value="4">4 - Tam Hareketli</option>
+                                <option value="3">3 - Hafif Kısıtlı</option>
+                                <option value="2">2 - Çok Kısıtlı</option>
+                                <option value="1">1 - Tam Hareketsiz</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="braden-nutrition">Beslenme</label>
+                            <select id="braden-nutrition" class="form-select braden-input">
+                                <option value="4">4 - Mükemmel</option>
+                                <option value="3">3 - Yeterli</option>
+                                <option value="2">2 - Yetersiz</option>
+                                <option value="1">1 - Çok Kötü</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="braden-friction">Sürtünme & Yırtılma</label>
+                            <select id="braden-friction" class="form-select braden-input">
+                                <option value="3">3 - Sorun Yok</option>
+                                <option value="2">2 - Potansiyel Sorun</option>
+                                <option value="1">1 - Belirgin Sorun</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 14px; text-align: center;">
+                        <h4 style="color: var(--text-secondary); margin-bottom: 4px;">Braden Riski Puanı</h4>
+                        <div id="braden-score-display" style="font-size: 2rem; font-weight: 800; color: var(--primary-light);">23 / 23</div>
+                    </div>
+
+                    <div id="braden-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                        RİSK YOK / ÇOK DÜŞÜK RİSK
+                    </div>
+                    <ul id="braden-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary);"></ul>
+                    <div style="margin-top: 14px; text-align: center;">
+                        <button type="button" class="btn btn-sm btn-outline" id="transfer-braden-btn">
+                            ⚡ Braden Skorunu Bakım Planıma Aktar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Itaki Fall Risk Scale -->
+            <div class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">🚷</span>
+                        <h3>İtaki Düşme Riski Ölçeği (Öğrenci Rehberi)</h3>
+                    </div>
+                    <div id="itaki-score-display" style="font-size: 1.5rem; font-weight: 800; color: var(--primary-light);">0 Puan</div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h4 style="color: var(--danger); margin-bottom: 10px;">Majör Risk Faktörleri (Her biri 5 Puan)</h4>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> 65 Yaş ve Üzeri Olması</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Son 3 Ay İçinde Düşme Öyküsü</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Bilinç Durumunda Değişiklik / Konfüzyon</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Görme Kaybı / Görme Bozukluğu</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Ayakta Durmada veya Yürümede Denge Kaybı</label>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--warning); margin-bottom: 10px;">Minör Risk Faktörleri (Her biri 1 Puan)</h4>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Birden Fazla İlaç Kullanımı (Polifarmasi)</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Baş Dönmesi / Ortostatik Hipotansiyon</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Üriner veya Gaita İnkontinansı / Sık İdrara Çıkma</label>
+                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Fiziksel Engel / Yürüteç-Baston İhtiyacı</label>
+                    </div>
+                </div>
+
+                <div id="itaki-interpretation" class="alert alert-success" style="margin-top: 16px;">
+                    DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
+                </div>
+                <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary);"></ul>
+                <div style="margin-top: 14px; text-align: center;">
+                    <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
+                        ⚡ İtaki Skorunu Bakım Planıma Aktar
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Aldığı - Çıkardığı Sıvı Dengesi (Fluid Balance) & MAP Calculator -->
+            <div class="grid-2" style="margin-top: 24px;">
+                <!-- Fluid Balance -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🌊</span>
+                            <h3>Aldığı - Çıkardığı Sıvı Dengesi (24 Saatlik Bilanço)</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--primary); margin-bottom: 8px;">📥 Alınan Sıvılar (mL)</h4>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-in-oral">Oral / NG Sıvı (mL)</label>
+                                <input type="number" id="fluid-in-oral" class="form-control" placeholder="Örn. 1500">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-in-iv">IV Mayi / Serum (mL)</label>
+                                <input type="number" id="fluid-in-iv" class="form-control" placeholder="Örn. 1000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-in-blood">Kan / Plazma (mL)</label>
+                                <input type="number" id="fluid-in-blood" class="form-control" placeholder="Örn. 0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-in-other">Diğer Alım (TPN vs.)</label>
+                                <input type="number" id="fluid-in-other" class="form-control" placeholder="Örn. 0">
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 style="color: var(--warning); margin-bottom: 8px;">📤 Çıkarılan Sıvılar (mL)</h4>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-out-urine">İdrar Miktarı (mL)</label>
+                                <input type="number" id="fluid-out-urine" class="form-control" placeholder="Örn. 1200">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-out-drain">Dren / Nazogastrik (mL)</label>
+                                <input type="number" id="fluid-out-drain" class="form-control" placeholder="Örn. 150">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-out-vomit">Kusma / Diyare (mL)</label>
+                                <input type="number" id="fluid-out-vomit" class="form-control" placeholder="Örn. 0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fluid-out-stool">Dışkı / Diğer Çıkış (mL)</label>
+                                <input type="number" id="fluid-out-stool" class="form-control" placeholder="Örn. 100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <button class="btn btn-primary btn-sm" id="calc-fluid-btn">🧮 Bilanço Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-fluid-btn">🧹 Temizle</button>
+                    </div>
+                    <div id="fluid-result-output" style="margin-top: 12px;"></div>
+                </div>
+
+                <!-- MAP Calculator -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🫀</span>
+                            <h3>Ortalama Arter Basıncı (MAP Hesaplayıcı)</h3>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.86rem; margin-bottom: 14px;">Formül: MAP = Diastolik + (Sistolik - Diastolik) / 3. Hayati organ perfüzyonu için MAP ≥ 65 mmHg olmalıdır.</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="map-sys">Sistolik Tansiyon (Büyük Tansiyon - mmHg)</label>
+                        <input type="number" id="map-sys" class="form-control" placeholder="Örn. 120">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="map-dia">Diastolik Tansiyon (Küçük Tansiyon - mmHg)</label>
+                        <input type="number" id="map-dia" class="form-control" placeholder="Örn. 80">
+                    </div>
+
+                    <button class="btn btn-primary btn-sm" id="calc-map-btn">MAP Hesapla</button>
+
+                    <div id="map-result-output" style="margin-top: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- 5. Serum Drip & Med Dosage Calculators -->
+            <div class="grid-3" style="margin-top: 24px;">
+                <div class="card">
+                    <h3>💧 Serum Damla Hızı (gtt/dk)</h3>
+                    <p style="font-size: 0.84rem; margin-bottom: 14px;">IV Sıvı infüzyonunda dakika damla sayısını bulun.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="drip-volume">Sıvı Miktarı (mL)</label>
+                        <input type="number" id="drip-volume" class="form-control" placeholder="Örn. 500">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="drip-hours">İnfüzyon Süresi (Saat)</label>
+                        <input type="number" id="drip-hours" class="form-control" placeholder="Örn. 8">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="drip-factor">Damla Faktörü (1 mL = ? damla)</label>
+                        <select id="drip-factor" class="form-select">
+                            <option value="20">20 damla/mL (Standart Kaset/Set)</option>
+                            <option value="60">60 damla/mL (Mikro-damla / Pediatrik)</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary btn-sm" id="calc-drip-btn">Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-drip-btn">🧹 Temizle</button>
+                    </div>
+                    <div id="drip-result-output" style="margin-top: 12px;"></div>
+                </div>
+
+                <div class="card">
+                    <h3>💉 İlaç Dozaj Hesaplayıcı</h3>
+                    <p style="font-size: 0.84rem; margin-bottom: 14px;">(İstenen Doz / Eldeki Doz) × Hacim formülü.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="dose-desired">İstenen Doz (mg)</label>
+                        <input type="number" id="dose-desired" class="form-control" placeholder="Örn. 250">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="dose-onhand">Ampuldeki / Eldeki Doz (mg)</label>
+                        <input type="number" id="dose-onhand" class="form-control" placeholder="Örn. 500">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="dose-volhand">Ampul Hacmi (mL)</label>
+                        <input type="number" id="dose-volhand" class="form-control" placeholder="Örn. 2">
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary btn-sm" id="calc-dose-btn">Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-dose-btn">🧹 Temizle</button>
+                    </div>
+                    <div id="dose-result-output" style="margin-top: 12px;"></div>
+                </div>
+            </div>
+
+
+            <!-- 6. Klinik IV Sıvı & Sık Kullanılan İlaç Hızlı Rehberi -->
+            <div class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">💊</span>
+                        <h3>Klinik IV Sıvı ve İlaç Hızlı Rehberi (Stajyer & İntörn Notları)</h3>
+                    </div>
+                    <span class="badge badge-primary">Klinik Pratik</span>
+                </div>
+
+                <div class="grid-2">
+                    <!-- IV Fluids -->
+                    <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary-light); margin-bottom: 12px;">💧 Sık Kullanılan IV Serumlar & Özellikleri</h4>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: var(--primary);">%0.9 NaCl (İzotonik Serum Fizyolojik):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Vasküler volüm genişletme, kan transfüzyonu öncesi/sonrası, cerrahi sıvı desteği.<br>• <em>Hemşirelik Notu:</em> Sıvı yüklenmesi, akciğer sesleri (raller) ve ödem izlenmelidir.</p>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: var(--primary);">Ringer Laktat (RL):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Yanık, travma, ağır ameliyat ve elektrolit kayıpları.<br>• <em>Hemşirelik Notu:</em> Laktat içerdiği için ağır karaciğer yetmezliği olan hastalarda dikkatli olunmalı.</p>
+                        </div>
+
+                        <div>
+                            <strong style="color: var(--primary);">%5 Dextroz (Dekstroz):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Kalori sağlama, dehidratasyon, insülin ile birlikte hiperkalemi tedavisi.<br>• <em>Hemşirelik Notu:</em> Kan şekeri takibi yapılmalı, tek başına kan transfüzyon setiyle verilmez (hemoliz riski).</p>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Meds -->
+                    <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                        <h4 style="color: var(--secondary); margin-bottom: 12px;">💉 Klinik İlaç İnfüzyon & Hemşirelik Dikkat Noktaları</h4>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: var(--secondary);">Parasetamol IV (Perfalgan 1000 mg):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> 15 dakikalık IV infüzyon şeklinde verilir.<br>• <em>Hemşirelik Notu:</em> Maksimum günlük doz 4 gr (4000 mg) aşılmamalıdır.</p>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: var(--secondary);">Furosemid (Desal 20 mg Ampul):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Yavaş IV puşe (1-2 dakikada).<br>• <em>Hemşirelik Notu:</em> İdrar çıkışı saatlik izlenmeli, Hipokalemi (K+ düşüklüğü) ve tansiyon takibi yapılmalıdır.</p>
+                        </div>
+
+                        <div>
+                            <strong style="color: var(--secondary);">Enoksaparin (Clexane Subkutan Enjeksiyon):</strong>
+                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Abdominal bölgeden 90° açıyla SC uygulanır.<br>• <em>Hemşirelik Notu:</em> Enjeksiyon yerine masaj yapılmaz (ekimoz riski). Trombosit ve kanama takibi yapılır.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- ===================================================================
+             TAB 5: NANDA DICTIONARY
+             =================================================================== -->
+        <section id="tab-dictionary" class="tab-content">
+            <div class="card" style="margin-bottom: 20px;">
+                <h2>📖 NANDA-I Hemşirelik Tanıları Sözlüğü</h2>
+                <p>NANDA hemşirelik tanılarını arayın, etiyolojilerini ve tanısal belirtilerini inceleyin.</p>
+                
+                <div class="grid-3" style="margin-top: 16px;">
+                    <div class="form-group">
+                        <label class="form-label" for="nanda-search-input">Tanı veya Kod Ara</label>
+                        <input type="text" id="nanda-search-input" class="form-control" placeholder="Örn. Ağrı, Gaz Değişimi, 00030...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="nanda-category-select">Kategoriye Göre Filtrele</label>
+                        <select id="nanda-category-select" class="form-select"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="nanda-sort-select">Sıralama Düzeni</label>
+                        <select id="nanda-sort-select" class="form-select">
+                            <option value="code">NANDA Koda Göre (00001 →)</option>
+                            <option value="title">İsme Göre (A → Z)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nanda-dictionary-container"></div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 6: SAVED PLANS
+             =================================================================== -->
+        <section id="tab-saved" class="tab-content">
+            <div class="card" style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <h2>💾 Kaydedilen Bakım Planlarım & Veri Saklama</h2>
+                        <p>Tarayıcınızda saklanan bakım planlarınız. Dilediğiniz zaman tek tıkla **tüm sistem yedeğinizi** indirebilir veya geri yükleyebilirsiniz.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-primary" id="full-backup-export-btn">📦 Tüm Verileri Sakla / Yedekle (.json)</button>
+                        <button class="btn btn-sm btn-outline" id="full-backup-import-btn">📥 Yedekten Geri Yükle</button>
+                        <input type="file" id="full-backup-file-input" accept=".json" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="saved-plans-container"></div>
+        </section>
+
+    </main>
+
+
+    <!-- ===================================================================
+         MODAL: ADD / EDIT DIAGNOSIS TO PLAN
+         =================================================================== -->
+    <div id="add-diagnosis-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-diag-title" style="color: var(--primary-light);">Tanı Ekle</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="modal-etiology-input">Etiyoloji / İlişkili Faktörler (... bağlı olarak)</label>
+                <input type="text" id="modal-etiology-input" class="form-control" placeholder="Örn. Cerrahi insizyona bağlı olarak">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="modal-symptoms-input">Belirti ve Bulgular (... şeklinde gösterilen)</label>
+                <input type="text" id="modal-symptoms-input" class="form-control" placeholder="Örn. Ağrı skorunun 6/10 olması şeklinde gösterilen">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Beklenen Hasta Çıktıları (NOC - Hedefler)</label>
+                <div id="modal-noc-checkboxes"></div>
+                <input type="text" id="modal-custom-noc" class="form-control" placeholder="+ Özel NOC Hedefi Ekle" style="margin-top: 6px;">
+            </div>
+
+            <!-- Academic Likert Scale (1-5 Scores) -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="modal-score-before">Girişim Öncesi NOC Puanı (1-5)</label>
+                    <select id="modal-score-before" class="form-select">
+                        <option value="1">1 - Şiddetli Derecede Bozulmuş / Kötü</option>
+                        <option value="2" selected>2 - Belirgin Derecede Bozulmuş</option>
+                        <option value="3">3 - Orta Derecede Bozulmuş</option>
+                        <option value="4">4 - Hafif Derecede Bozulmuş</option>
+                        <option value="5">5 - Bozulmamış / Mükemmel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="modal-score-target">Hedeflenen NOC Puanı (1-5)</label>
+                    <select id="modal-score-target" class="form-select">
+                        <option value="1">1 - Şiddetli Derecede Bozulmuş</option>
+                        <option value="2">2 - Belirgin Derecede Bozulmuş</option>
+                        <option value="3">3 - Orta Derecede Bozulmuş</option>
+                        <option value="4" selected>4 - Hafif Derecede Bozulmuş</option>
+                        <option value="5">5 - Bozulmamış / Mükemmel</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Hemşirelik Girişimleri (NIC - Uygulamalar)</label>
+                <div id="modal-nic-checkboxes"></div>
+                <input type="text" id="modal-custom-nic" class="form-control" placeholder="+ Özel NIC Girişimi Ekle" style="margin-top: 6px;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="modal-nic-frequency">Girişim Uygulama Sıklığı / Zamanı</label>
+                <input type="text" id="modal-nic-frequency" class="form-control" placeholder="Örn. 2 saatte bir / Vardiya başlangıcında / İstem halinde">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="modal-eval-status">Değerlendirme Durumu</label>
+
+                <select id="modal-eval-status" class="form-select">
+                    <option value="Hedefe Ulaşıldı">Hedefe Ulaşıldı</option>
+                    <option value="Kısmen Ulaşıldı">Kısmen Ulaşıldı</option>
+                    <option value="Hedefe Ulaşılmadı">Hedefe Ulaşılmadı</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 24px; text-align: right;">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">İptal</button>
+                <button type="button" class="btn btn-primary" id="save-diag-to-plan-btn">✓ Bakım Planına Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         MODAL: COMMAND PALETTE / GLOBAL SEARCH (Ctrl + K)
+         =================================================================== -->
+    <div id="command-palette-modal" class="cmd-palette-backdrop">
+        <div class="cmd-palette-card">
+            <div class="cmd-search-box">
+                <span class="cmd-search-icon">🔍</span>
+                <input type="text" id="cmd-search-input" class="cmd-search-input" placeholder="NANDA Tanısı, Ölçek veya Vaka Şablonu Arayın... (Örn. Ağrı, KOAH, Braden, GKS)">
+                <span class="cmd-kbd-badge">ESC</span>
+            </div>
+            <div id="cmd-results-list" class="cmd-results-list"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- App Footer -->
+    <footer class="app-footer no-print">
+        <div class="app-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>🏥 Hemşirelik Bakım Rehberim</h3>
+                    <p>Hemşirelik öğrencileri, intörnleri ve klinik hemşireler için geliştirilmiş NANDA-I, NIC & NOC uyumlu dijital karar destek ve bakım planı oluşturma platformu.</p>
+                    <p style="color: var(--primary); font-weight: 700;">👨‍⚕️ Geliştirici & Tasarım: <strong>Hemşire Burak ÇETİN</strong></p>
+                </div>
+                <div class="footer-col">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-goto-tab="builder"> Bakım Planı Sihirbazı</a></li>
+                        <li><a href="#" data-goto-tab="templates">📚 Hazır Vaka Şablonları</a></li>
+                        <li><a href="#" data-goto-tab="calculators">🧮 Klinik Ölçekler</a></li>
+                        <li><a href="#" data-goto-tab="dictionary">📖 NANDA-I Sözlüğü</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hesaplayıcılar</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-goto-tab="calculators"> Glasgow Koma Skoru</a></li>
+                        <li><a href="#" data-goto-tab="calculators">🩺 Braden Riski</a></li>
+                        <li><a href="#" data-goto-tab="calculators">🚷 İtaki Düşme Skalası</a></li>
+                        <li><a href="#" data-goto-tab="calculators">🌊 Sıvı Dengesi (Bilanço)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bilgilendirme & Yasal</h4>
+                    <p style="font-size: 0.8rem; line-height: 1.5; margin-bottom: 8px;">
+                        Hemşirelik Bakım Rehberim akademik ve klinik eğitim asistanıdır. Yapılan planlar hekim/hemşire onayına tabidir.
+                    </p>
+                    <button class="btn btn-sm btn-outline" id="open-legal-modal-btn" style="font-size: 0.78rem;">
+                        📜 Yasal Bildirim & NANDA-I Telif Atıfı
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 <strong>Hemşirelik Bakım Rehberim</strong> | Kâr Amacı Gütmeyen Akademik Eğitim Platformu.</div>
+                <div>Sürüm <strong>v2.5 (Web Akademik Sürüm)</strong></div>
+            </div>
+
+
+        </div>
+    </footer>
+
+    <!-- Floating Mobile Contact Button -->
+    <button class="floating-contact-btn trigger-contact-modal no-print" title="Geri Bildirim & İletişim Formunu Aç">
+        💬 İletişim
+    </button>
+
+    <!-- ===================================================================
+         MODAL: CONTACT & FEEDBACK
+         =================================================================== -->
+    <div id="contact-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="card-title">
+                    <span class="card-icon">💬</span>
+                    <h3>İletişim & Geri Bildirim Formu</h3>
+                </div>
+                <button class="modal-close" id="close-contact-modal-btn">✕</button>
+            </div>
+
+            <p style="font-size: 0.88rem; margin-bottom: 16px; color: var(--text-secondary);">
+                Görüşleriniz, önerileriniz veya bildirmek istediğiniz klinik konular için aşağıdaki formu doldurabilirsiniz.
+            </p>
+
+            <form id="contact-form">
+                <div class="form-group">
+                    <label class="form-label" for="contact-name-input">Adınız Soyadınız</label>
+                    <input type="text" id="contact-name-input" class="form-control" placeholder="Örn. Zeynep Yılmaz" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="contact-email-input">E-posta Adresiniz</label>
+                        <input type="email" id="contact-email-input" class="form-control" placeholder="Örn. zeynep@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-subject-select">Konu</label>
+                        <select id="contact-subject-select" class="form-select">
+                            <option value="Geri Bildirim">💡 Geri Bildirim & Öneri</option>
+                            <option value="Hata Bildirimi">⚠️ Hata / Sorun Bildirimi</option>
+                            <option value="Akademik İşbirliği">🎓 Akademik İşbirliği</option>
+                            <option value="Diğer">📩 Diğer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="contact-message-input">Mesajınız</label>
+                    <textarea id="contact-message-input" class="form-control" rows="4" placeholder="Mesajınızı veya önerinizi buraya yazabilirsiniz..." required style="resize: vertical;"></textarea>
+                </div>
+
+                <div style="background: var(--primary-light); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary); margin-bottom: 18px; font-size: 0.84rem; color: var(--text-primary);">
+                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN | Hemşirelik Bakım Rehberim Destek Ekibi
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                    <button type="button" class="btn btn-secondary" id="cancel-contact-btn">Kapat</button>
+                    <button type="submit" class="btn btn-primary btn-lg">✉️ Mesajı Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         MODAL: LEGAL NOTICE & COPYRIGHT ATTRIBUTION (NANDA-I)
+         =================================================================== -->
+    <div id="legal-notice-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 680px;">
+            <div class="modal-header">
+                <div class="card-title">
+                    <span class="card-icon">📜</span>
+                    <h3>Yasal Bildirim & NANDA-I Telif Hakkı Atıfı</h3>
+                </div>
+                <button class="modal-close" id="close-legal-modal-btn">✕</button>
+            </div>
+
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-height: 65vh; overflow-y: auto; padding-right: 6px;">
+                <div style="background: rgba(13,148,136,0.15); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary-light); margin-bottom: 16px;">
+                    <strong style="color: var(--primary-light);">🎓 Açık Erişim & Eğitim Amaçlı Kullanım Beyanı</strong><br>
+                    Bu web uygulaması; hiçbir ticari kazanç, kâr veya reklam amacı gütmeyen, T.C. Üniversiteleri Hemşirelik Fakülteleri öğrencileri, intörnleri ve akademisyenleri için geliştirilmiş <strong>%100 ücretsiz eğitim ve karar destek asistanıdır</strong>.
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 6px;">1. Fikri Mülkiyet ve NANDA-I Marka Atıfı</h4>
+                <p style="margin-bottom: 14px;">
+                    Bu platformda kullanılan hemşirelik tanı başlıkları, kodları ve sınıflandırma sistemi <strong>NANDA International (NANDA-I)</strong> tarafından belirlenen uluslararası taksonomiye dayanmaktadır. NANDA-I ismi, logosu ve resmi tanı tanımları NANDA International Inc.'in tescilli markası ve telif hakkı altındadır.
+                </p>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 6px;">2. Adil Kullanım (Fair Use / Akademik Alıntı)</h4>
+                <p style="margin-bottom: 14px;">
+                    Sitede yer alan veriler; ulusal ve uluslararası fikri mülkiyet kanunlarının akademik araştırma, öğrenim, atıf yapma ve eğitim araçları (Fair Use / Adil Kullanım) prensiplerine tam uyum çerçevesinde sunulmaktadır. Sitede sunulan içerikler hiçbir şekilde satılamaz, ticari ürüne dönüştürülemez.
+                </p>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 6px;">3. Tıbbi & Klinik Sorumluluk Feragatnamesi</h4>
+                <p style="margin-bottom: 14px;">
+                    Hemşirelik Bakım Rehberim bir akademik karar destek ve eğitim aracıdır. Üretilen bakım planları, öneriler ve hesaplamalar eğitim amaçlıdır; klinik ortamda uygulanacak nihai tedavi ve girişimler ilgili sağlık kuruluşunun protokollerine ve sorumlu hekim/hemşire onayına tabidir.
+                </p>
+
+                <div style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px;">
+                    👨‍⚕️ <strong>Geliştirici & Yazar:</strong> Hemşire Burak ÇETİN | Hemşirelik Bakım Rehberim Platformu
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button type="button" class="btn btn-primary" id="confirm-legal-modal-btn">Anladım & Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         MODAL: PWA INSTALLATION GUIDE
+         =================================================================== -->
+    <div id="pwa-help-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 580px;">
+            <div class="modal-header">
+                <div class="card-title">
+                    <span class="card-icon">📱</span>
+                    <h3>Telefona Yükleme & İnternetsiz Kullanım Rehberi</h3>
+                </div>
+                <button class="modal-close" onclick="closePWAHelpModal()">✕</button>
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                <p style="margin-bottom: 16px;">
+                    Hemşirelik Bakım Rehberim platformunu App Store veya Play Store'a gerek kalmadan saniyeler içinde telefonunuza uygulama olarak ekleyebilirsiniz:
+                </p>
+
+                <div style="background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 14px;">
+                    <strong style="color: var(--primary); font-size: 0.95rem;">🤖 Android (Google Chrome):</strong>
+                    <ol style="margin-top: 6px; padding-left: 20px;">
+                        <li>Chrome tarayıcısında sağ üstteki <strong>üç noktaya (⋮)</strong> dokunun.</li>
+                        <li><strong>"Ana Ekrana Ekle"</strong> veya <strong>"Uygulamayı Yükle"</strong> seçeneğini seçin.</li>
+                        <li>Telefon ekranınızda amblemimiz belirecektir.</li>
+                    </ol>
+                </div>
+
+                <div style="background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 16px;">
+                    <strong style="color: var(--secondary-hover); font-size: 0.95rem;">🍏 iPhone / iPad (Safari):</strong>
+                    <ol style="margin-top: 6px; padding-left: 20px;">
+                        <li>Safari tarayıcısında alt ortadaki <strong>Paylaş (⬆️)</strong> butonuna dokunun.</li>
+                        <li>Aşağı kaydırıp <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokunun.</li>
+                        <li>Sağ üstteki <strong>"Ekle"</strong> butonuna basarak tamamlayın.</li>
+                    </ol>
+                </div>
+
+                <div style="background: var(--success-bg); color: var(--success); padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem;">
+                    ✅ Artık nöbetlerde ve serviste internetiniz kapalı olsa dahi uygulama ikona dokunarak milisaniyeler içinde açılacaktır!
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button type="button" class="btn btn-primary" onclick="closePWAHelpModal()">Anladım & Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         MOBILE STICKY FLOATING DOCK & BOTTOM SHEET (SELECTED DIAGNOSES)
+         =================================================================== -->
+    <div id="mobile-selected-diagnoses-dock" class="mobile-diagnoses-dock">
+        <div class="mobile-dock-info" onclick="openSelectedDiagnosesDrawer()">
+            <span class="mobile-dock-badge" id="mobile-dock-count-badge">
+                📋 <span id="mobile-dock-count-num">0</span> Tanı Seçildi
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Seçilenleri Gör ↑</span>
+        </div>
+        <div class="mobile-dock-actions">
+            <button type="button" class="btn btn-sm btn-primary" onclick="goToWizardStep(3)" style="border-radius: var(--radius-full); padding: 6px 14px;">
+                İleri: Özelleştir →
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet Drawer Backdrop & Content -->
+    <div id="selected-diagnoses-drawer-backdrop" class="bottom-sheet-backdrop" onclick="closeSelectedDiagnosesDrawer()">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">
+                    📋 Seçilen Hemşirelik Tanıları (<span id="drawer-diagnoses-count">0</span>)
+                </h4>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="closeSelectedDiagnosesDrawer()">✕ Kapat</button>
+            </div>
+            <div id="drawer-diagnoses-list" style="margin-bottom: 20px;">
+                <!-- Dynamically filled by JS -->
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary" onclick="closeSelectedDiagnosesDrawer()">Tanı Eklemeye Devam Et</button>
+                <button type="button" class="btn btn-primary" onclick="closeSelectedDiagnosesDrawer(); goToWizardStep(3);">İleri: Detayları Özelleştir →</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Script Sequence for 100% Cross-Platform / File:// compatibility -->
+    <script src="js/nandaData.js"></script>
+    <script src="js/templatesData.js"></script>
+    <script src="js/calculators.js"></script>
+    <script src="js/carePlanBuilder.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
