@@ -517,9 +517,18 @@ a:hover {
     filter: drop-shadow(0 4px 14px rgba(13, 148, 136, 0.3));
 }
 
-.floating-contact-drawer.expanded,
-.floating-contact-drawer:hover {
+.floating-contact-drawer.expanded {
     transform: translateX(0);
+}
+
+/* Enable hover expansion only on desktop devices with mouse pointer */
+@media (hover: hover) and (pointer: fine) {
+    .floating-contact-drawer:hover {
+        transform: translateX(0);
+    }
+    .floating-contact-drawer:hover .drawer-arrow {
+        transform: rotate(180deg);
+    }
 }
 
 .drawer-toggle-btn {
@@ -556,8 +565,7 @@ a:hover {
     display: inline-block;
 }
 
-.floating-contact-drawer.expanded .drawer-arrow,
-.floating-contact-drawer:hover .drawer-arrow {
+.floating-contact-drawer.expanded .drawer-arrow {
     transform: rotate(180deg);
 }
 

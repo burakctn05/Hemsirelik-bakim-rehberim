@@ -1081,12 +1081,17 @@
                 </div>
 
                 <div style="background: var(--primary-light); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary); margin-bottom: 18px; font-size: 0.84rem; color: var(--text-primary);">
-                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN (burakctn05@gmail.com) | Hemşirelik Bakım Rehberim Destek Ekibi
+                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN (<a href="mailto:burakctn05@gmail.com" style="color: var(--primary); font-weight: 700;">burakctn05@gmail.com</a>)
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <button type="button" class="btn btn-secondary" id="cancel-contact-btn">Kapat</button>
-                    <button type="submit" id="submit-contact-btn" class="btn btn-primary btn-lg">✉️ Mesajı Gönder</button>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-outline" id="direct-mailto-btn" title="Kendi E-posta Uygulamanızla Doğrudan Gönderin">
+                            📲 E-posta Uygulamasıyla Gönder
+                        </button>
+                        <button type="submit" id="submit-contact-btn" class="btn btn-primary btn-lg">✉️ Mesajı Gönder</button>
+                    </div>
                 </div>
             </form>
         </div>

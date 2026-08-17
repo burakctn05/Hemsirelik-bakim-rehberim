@@ -1620,16 +1620,24 @@ function initContactModal() {
     const drawerToggle = document.getElementById('contact-drawer-toggle');
 
     if (drawer && drawerToggle) {
-        drawerToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
+        const toggleDrawer = (e) => {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             drawer.classList.toggle('expanded');
-        });
+        };
 
-        document.addEventListener('click', (e) => {
+        drawerToggle.addEventListener('click', toggleDrawer);
+
+        const handleOutsideClick = (e) => {
             if (drawer.classList.contains('expanded') && !drawer.contains(e.target)) {
                 drawer.classList.remove('expanded');
             }
-        });
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+        document.addEventListener('touchstart', handleOutsideClick, { passive: true });
     }
 
     if (!modal) return;
@@ -1648,6 +1656,26 @@ function initContactModal() {
         window.openContactModal();
     }));
 
+    const directMailtoBtn = document.getElementById('direct-mailto-btn');
+    if (directMailtoBtn) {
+        directMailtoBtn.addEventListener('click', () => {
+            const name = document.getElementById('contact-name-input')?.value.trim() || 'Kullanıcı';
+            const email = document.getElementById('contact-email-input')?.value.trim() || '';
+            const subject = document.getElementById('contact-subject-select')?.value || 'Geri Bildirim';
+            const message = document.getElementById('contact-message-input')?.value.trim() || '';
+
+            const targetEmail = 'burakctn05@gmail.com';
+            const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent('[Hemşirelik Bakım Rehberim] ' + subject + ' - ' + name)}&body=${encodeURIComponent('Gönderen: ' + name + ' (' + email + ')\n\n' + message)}`;
+            window.location.href = mailtoUrl;
+
+            if (form) form.reset();
+            window.closeContactModal();
+            if (window.showToast) {
+                window.showToast('📲 E-posta uygulamanız açıldı, mesajınız taslak olarak hazırlandı.', 'info');
+            }
+        });
+    }
+
     if (closeBtn) closeBtn.addEventListener('click', window.closeContactModal);
     if (cancelBtn) cancelBtn.addEventListener('click', window.closeContactModal);
 
@@ -1656,7 +1684,7 @@ function initContactModal() {
     });
 
     if (form) {
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('submit-contact-btn');
             const nameInput = document.getElementById('contact-name-input');
@@ -1674,65 +1702,27 @@ function initContactModal() {
                 return;
             }
 
-            const originalBtnText = submitBtn ? submitBtn.innerHTML : '✉️ Mesajı Gönder';
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '⏳ Gönderiliyor...';
-            }
-
             const targetEmail = 'burakctn05@gmail.com';
 
+            // Direct Mail Client launcher (100% direct to burakctn05@gmail.com without any third party activation requirement)
+            const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent('[Hemşirelik Bakım Rehberim] ' + subject + ' - ' + name)}&body=${encodeURIComponent('Gönderen: ' + name + ' (' + email + ')\n\n' + message)}`;
+            
+            // Also attempt background ping to FormSubmit so FormSubmit re-sends activation email to burakctn05@gmail.com
             try {
-                const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+                fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        _subject: `[Hemşirelik Bakım Rehberim] ${subject} - ${name}`,
-                        message: message,
-                        _template: 'table'
-                    })
-                });
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ name: name, email: email, _subject: `[Hemşirelik Bakım Rehberim] ${subject} - ${name}`, message: message })
+                }).catch(() => {});
+            } catch (err) {}
 
-                const result = await response.json();
+            // Launch native mail app
+            window.location.href = mailtoUrl;
 
-                if (response.ok || result.success === 'true' || result.success === true) {
-                    form.reset();
-                    window.closeContactModal();
-                    if (window.showToast) {
-                        window.showToast(`✉️ Teşekkürler ${name}! Mesajınız Hemşire Burak ÇETİN'e (burakctn05@gmail.com) başarıyla iletildi.`, 'success');
-                    }
-                } else if (result.message && result.message.includes('Activation')) {
-                    form.reset();
-                    window.closeContactModal();
-                    if (window.showToast) {
-                        window.showToast(`📧 FormSubmit doğrulama maili burakctn05@gmail.com adresinize gönderildi! Lütfen Gmail "Spam / Önemsiz" veya "Tanıtımlar" kutunuzu kontrol edip 'Activate Form' butonuna tıklayın.`, 'info');
-                    }
-                } else {
-                    throw new Error(result.message || 'Gönderim başarısız.');
-                }
-            } catch (err) {
-                console.warn('FormSubmit AJAX isteği başarısız oldu, mailto alternatifi tetikleniyor:', err);
-                
-                if (window.showToast) {
-                    window.showToast('⚠️ E-posta servisine doğrudan ulaşılamadı. E-posta uygulamanız açılıyor...', 'warning');
-                }
-
-                // Fallback: Mailto linki ile istemci e-posta uygulamasını açma
-                const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent('[Bakım Rehberim] ' + subject + ' - ' + name)}&body=${encodeURIComponent('Gönderen: ' + name + ' (' + email + ')\n\n' + message)}`;
-                window.location.href = mailtoUrl;
-
-                form.reset();
-                window.closeContactModal();
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                }
+            form.reset();
+            window.closeContactModal();
+            if (window.showToast) {
+                window.showToast(`📩 E-posta uygulamanız açıldı! Mesajınız burakctn05@gmail.com adresine hazırlandı.`, 'success');
             }
         });
     }
