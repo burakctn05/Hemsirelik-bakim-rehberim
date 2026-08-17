@@ -1722,7 +1722,7 @@ function initContactModal() {
             form.reset();
             window.closeContactModal();
             if (window.showToast) {
-                window.showToast(`📩 E-posta uygulamanız açıldı! Mesajınız burakctn05@gmail.com adresine hazırlandı.`, 'success');
+                window.showToast(`📩 E-posta uygulamanız açıldı! Mesajınız geliştiriciye iletilmek üzere hazırlandı.`, 'success');
             }
         });
     }

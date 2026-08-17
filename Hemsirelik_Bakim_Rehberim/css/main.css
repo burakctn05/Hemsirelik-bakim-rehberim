@@ -537,7 +537,7 @@ a:hover {
     top: 50%;
     transform: translateY(-50%);
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: #ffffff;
+    color: #ffffff !important;
     border: none;
     padding: 10px 10px 10px 8px;
     border-radius: 0 18px 18px 0;
@@ -555,7 +555,8 @@ a:hover {
 }
 
 .drawer-toggle-btn:hover {
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+    background: linear-gradient(135deg, var(--primary-hover), var(--secondary-hover));
+    color: #ffffff !important;
 }
 
 .drawer-arrow {
@@ -575,7 +576,7 @@ a:hover {
 
 .drawer-content-btn {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: #ffffff;
+    color: #ffffff !important;
     border: none;
     padding: 11px 18px;
     font-family: var(--font-heading);
@@ -593,7 +594,8 @@ a:hover {
 }
 
 .drawer-content-btn:hover {
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+    background: linear-gradient(135deg, var(--primary-hover), var(--secondary-hover));
+    color: #ffffff !important;
 }
 
 
