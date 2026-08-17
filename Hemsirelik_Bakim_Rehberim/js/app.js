@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSamplePatientLoader();
     initContactModal();
     initLegalModal();
+    initVisitorCounter();
+    initDevAdminModal();
     restoreDraftIfAvailable();
 });
 
@@ -103,6 +105,14 @@ function initTabNavigation() {
             const targetContent = document.getElementById(`tab-${targetTab}`);
             if (targetContent) {
                 targetContent.classList.add('active');
+            }
+
+            // Scroll to top instantly to prevent layout jump jitter on mobile height changes
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Ensure active tab button is smoothly aligned into view in horizontal scrollbar on mobile
+            if (tab.scrollIntoView && window.innerWidth <= 900) {
+                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
 
             if (targetTab === 'saved') {
@@ -1605,9 +1615,27 @@ function initContactModal() {
     const cancelBtn = document.getElementById('cancel-contact-btn');
     const form = document.getElementById('contact-form');
 
+    // Floating Contact Drawer toggle handlers
+    const drawer = document.getElementById('contact-drawer');
+    const drawerToggle = document.getElementById('contact-drawer-toggle');
+
+    if (drawer && drawerToggle) {
+        drawerToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drawer.classList.toggle('expanded');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (drawer.classList.contains('expanded') && !drawer.contains(e.target)) {
+                drawer.classList.remove('expanded');
+            }
+        });
+    }
+
     if (!modal) return;
 
     window.openContactModal = function() {
+        if (drawer) drawer.classList.remove('expanded');
         modal.classList.add('active');
     };
 
@@ -1628,15 +1656,83 @@ function initContactModal() {
     });
 
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('contact-name-input')?.value || 'Kullanıcı';
-            
-            form.reset();
-            window.closeContactModal();
+            const submitBtn = document.getElementById('submit-contact-btn');
+            const nameInput = document.getElementById('contact-name-input');
+            const emailInput = document.getElementById('contact-email-input');
+            const subjectSelect = document.getElementById('contact-subject-select');
+            const messageInput = document.getElementById('contact-message-input');
 
-            if (window.showToast) {
-                window.showToast(`✉️ Teşekkürler ${name}! Mesajınız Hemşire Burak ÇETİN'e iletildi.`, 'success');
+            const name = nameInput?.value.trim() || 'Kullanıcı';
+            const email = emailInput?.value.trim() || '';
+            const subject = subjectSelect?.value || 'Geri Bildirim';
+            const message = messageInput?.value.trim() || '';
+
+            if (!email || !message) {
+                if (window.showToast) window.showToast('⚠️ Lütfen tüm zorunlu alanları doldurun.', 'warning');
+                return;
+            }
+
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : '✉️ Mesajı Gönder';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '⏳ Gönderiliyor...';
+            }
+
+            const targetEmail = 'burakctn05@gmail.com';
+
+            try {
+                const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        _subject: `[Hemşirelik Bakım Rehberim] ${subject} - ${name}`,
+                        message: message,
+                        _template: 'table'
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok || result.success === 'true' || result.success === true) {
+                    form.reset();
+                    window.closeContactModal();
+                    if (window.showToast) {
+                        window.showToast(`✉️ Teşekkürler ${name}! Mesajınız Hemşire Burak ÇETİN'e (burakctn05@gmail.com) başarıyla iletildi.`, 'success');
+                    }
+                } else if (result.message && result.message.includes('Activation')) {
+                    form.reset();
+                    window.closeContactModal();
+                    if (window.showToast) {
+                        window.showToast(`📧 FormSubmit doğrulama maili burakctn05@gmail.com adresinize gönderildi! Lütfen Gmail "Spam / Önemsiz" veya "Tanıtımlar" kutunuzu kontrol edip 'Activate Form' butonuna tıklayın.`, 'info');
+                    }
+                } else {
+                    throw new Error(result.message || 'Gönderim başarısız.');
+                }
+            } catch (err) {
+                console.warn('FormSubmit AJAX isteği başarısız oldu, mailto alternatifi tetikleniyor:', err);
+                
+                if (window.showToast) {
+                    window.showToast('⚠️ E-posta servisine doğrudan ulaşılamadı. E-posta uygulamanız açılıyor...', 'warning');
+                }
+
+                // Fallback: Mailto linki ile istemci e-posta uygulamasını açma
+                const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent('[Bakım Rehberim] ' + subject + ' - ' + name)}&body=${encodeURIComponent('Gönderen: ' + name + ' (' + email + ')\n\n' + message)}`;
+                window.location.href = mailtoUrl;
+
+                form.reset();
+                window.closeContactModal();
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
             }
         });
     }
@@ -1671,6 +1767,119 @@ function initLegalModal() {
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) window.closeLegalModal();
+    });
+}
+
+/* ==========================================================================
+   13. Secret Developer Admin Panel & Silent Visitor Counter
+   ========================================================================== */
+function initVisitorCounter() {
+    try {
+        // Daily visit tracking
+        const today = new Date().toISOString().split('T')[0];
+        const lastDate = localStorage.getItem('dev_last_visit_date');
+        let todayVisits = parseInt(localStorage.getItem('dev_today_visits') || '0', 10);
+
+        if (lastDate !== today) {
+            todayVisits = 1;
+            localStorage.setItem('dev_last_visit_date', today);
+        } else {
+            todayVisits += 1;
+        }
+        localStorage.setItem('dev_today_visits', todayVisits.toString());
+
+        // Fetch & Increment overall count on CounterAPI silently
+        fetch('https://api.counterapi.dev/v1/hemsirelik-bakim-rehberim-burakcetin/visits/up')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.count) {
+                    localStorage.setItem('dev_total_visits', data.count.toString());
+                }
+            })
+            .catch(err => {
+                console.log('Silent counter API offline:', err);
+                let totalVisits = parseInt(localStorage.getItem('dev_total_visits') || '1', 10) + 1;
+                localStorage.setItem('dev_total_visits', totalVisits.toString());
+            });
+    } catch (e) {
+        console.warn('Visitor counter init error:', e);
+    }
+}
+
+function initDevAdminModal() {
+    const modal = document.getElementById('dev-admin-modal');
+    const triggerBtn = document.getElementById('dev-brand-trigger');
+    const closeBtn = document.getElementById('close-dev-admin-modal-btn');
+    const confirmBtn = document.getElementById('confirm-dev-admin-modal-btn');
+
+    if (!modal) return;
+
+    window.openDevAdminModal = function() {
+        // Fetch fresh stats before opening
+        const totalVisitsEl = document.getElementById('dev-stat-total-visits');
+        const todayVisitsEl = document.getElementById('dev-stat-today-visits');
+        const plansCountEl = document.getElementById('dev-stat-plans-count');
+        const deviceTypeEl = document.getElementById('dev-stat-device-type');
+
+        const totalVisits = localStorage.getItem('dev_total_visits') || '1';
+        const todayVisits = localStorage.getItem('dev_today_visits') || '1';
+        
+        let savedPlansCount = 0;
+        try {
+            const plans = JSON.parse(localStorage.getItem('nursing_care_plans') || '[]');
+            savedPlansCount = Array.isArray(plans) ? plans.length : 0;
+        } catch (e) {}
+
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const deviceText = isMobile ? '📱 Mobil (Telefon/Tablet)' : '💻 Masaüstü Bilgisayar';
+
+        if (totalVisitsEl) totalVisitsEl.textContent = totalVisits;
+        if (todayVisitsEl) todayVisitsEl.textContent = todayVisits;
+        if (plansCountEl) plansCountEl.textContent = savedPlansCount.toString();
+        if (deviceTypeEl) deviceTypeEl.textContent = deviceText;
+
+        modal.classList.add('active');
+    };
+
+    window.closeDevAdminModal = function() {
+        modal.classList.remove('active');
+    };
+
+    // 3 Fast Clicks Secret Gesture Listener
+    if (triggerBtn) {
+        let clickCount = 0;
+        let clickTimer = null;
+
+        triggerBtn.addEventListener('click', (e) => {
+            if (e) e.preventDefault();
+            if (window.getSelection) window.getSelection().removeAllRanges();
+
+            clickCount++;
+            clearTimeout(clickTimer);
+
+            if (clickCount >= 3) {
+                clickCount = 0;
+                window.openDevAdminModal();
+                if (window.showToast) window.showToast('👨‍⚕️ Geliştirici Yönetim Paneli Açıldı', 'info');
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
+            }
+        });
+    }
+
+    // Keyboard Shortcut (Ctrl + Shift + A)
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+            e.preventDefault();
+            window.openDevAdminModal();
+        }
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', window.closeDevAdminModal);
+    if (confirmBtn) confirmBtn.addEventListener('click', window.closeDevAdminModal);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closeDevAdminModal();
     });
 }
 

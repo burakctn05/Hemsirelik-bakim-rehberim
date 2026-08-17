@@ -33,7 +33,7 @@
                     </p>
 
 
-                    <div style="font-size: 0.78rem; color: var(--primary); font-weight: 700; margin-top: 2px; letter-spacing: 0.03em;">
+                    <div id="dev-brand-trigger" onmousedown="event.preventDefault();" style="font-size: 0.78rem; color: var(--primary); font-weight: 700; margin-top: 2px; letter-spacing: 0.03em; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;" title="Geliştirici Paneli (3 Kez Tıklayın)">
                         👨‍⚕️ Geliştirici: <strong>Hemşire Burak ÇETİN</strong>
                     </div>
 
@@ -1025,10 +1025,16 @@
         </div>
     </footer>
 
-    <!-- Floating Mobile Contact Button -->
-    <button class="floating-contact-btn trigger-contact-modal no-print" title="Geri Bildirim & İletişim Formunu Aç">
-        💬 İletişim
-    </button>
+    <!-- Floating Side Contact Drawer / Arrow Widget -->
+    <div class="floating-contact-drawer no-print" id="contact-drawer" aria-label="İletişim Paneli">
+        <button type="button" class="drawer-toggle-btn" id="contact-drawer-toggle" title="İletişim Panelini Aç / Kapat">
+            <span class="drawer-arrow">❯</span>
+            <span class="drawer-icon">💬</span>
+        </button>
+        <button type="button" class="drawer-content-btn trigger-contact-modal" title="Geri Bildirim & İletişim Formunu Aç">
+            💬 İletişim & Geri Bildirim
+        </button>
+    </div>
 
     <!-- ===================================================================
          MODAL: CONTACT & FEEDBACK
@@ -1050,17 +1056,17 @@
             <form id="contact-form">
                 <div class="form-group">
                     <label class="form-label" for="contact-name-input">Adınız Soyadınız</label>
-                    <input type="text" id="contact-name-input" class="form-control" placeholder="Örn. Zeynep Yılmaz" required>
+                    <input type="text" id="contact-name-input" name="name" class="form-control" placeholder="Örn. Zeynep Yılmaz" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="contact-email-input">E-posta Adresiniz</label>
-                        <input type="email" id="contact-email-input" class="form-control" placeholder="Örn. zeynep@email.com" required>
+                        <input type="email" id="contact-email-input" name="email" class="form-control" placeholder="Örn. zeynep@email.com" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="contact-subject-select">Konu</label>
-                        <select id="contact-subject-select" class="form-select">
+                        <select id="contact-subject-select" name="_subject" class="form-select">
                             <option value="Geri Bildirim">💡 Geri Bildirim & Öneri</option>
                             <option value="Hata Bildirimi">⚠️ Hata / Sorun Bildirimi</option>
                             <option value="Akademik İşbirliği">🎓 Akademik İşbirliği</option>
@@ -1071,16 +1077,16 @@
 
                 <div class="form-group">
                     <label class="form-label" for="contact-message-input">Mesajınız</label>
-                    <textarea id="contact-message-input" class="form-control" rows="4" placeholder="Mesajınızı veya önerinizi buraya yazabilirsiniz..." required style="resize: vertical;"></textarea>
+                    <textarea id="contact-message-input" name="message" class="form-control" rows="4" placeholder="Mesajınızı veya önerinizi buraya yazabilirsiniz..." required style="resize: vertical;"></textarea>
                 </div>
 
                 <div style="background: var(--primary-light); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary); margin-bottom: 18px; font-size: 0.84rem; color: var(--text-primary);">
-                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN | Hemşirelik Bakım Rehberim Destek Ekibi
+                    👨‍⚕️ <strong>Geliştirici İletişim:</strong> Hemşire Burak ÇETİN (burakctn05@gmail.com) | Hemşirelik Bakım Rehberim Destek Ekibi
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
                     <button type="button" class="btn btn-secondary" id="cancel-contact-btn">Kapat</button>
-                    <button type="submit" class="btn btn-primary btn-lg">✉️ Mesajı Gönder</button>
+                    <button type="submit" id="submit-contact-btn" class="btn btn-primary btn-lg">✉️ Mesajı Gönder</button>
                 </div>
             </form>
         </div>
@@ -1215,6 +1221,53 @@
         </div>
     </div>
 
+
+    <!-- ===================================================================
+         MODAL: SECRET DEVELOPER ADMIN PANEL (Owner / Dev Only)
+         =================================================================== -->
+    <div id="dev-admin-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 620px; border-top: 4px solid var(--primary);">
+            <div class="modal-header">
+                <div class="card-title" style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.5rem;">👨‍⚕️</span>
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.15rem;">Geliştirici İstatistik Paneli</h3>
+                        <p style="margin: 0; font-size: 0.78rem; color: var(--text-secondary);">Yalnızca Hemşire Burak ÇETİN İçin Özel Yönetim Paneli</p>
+                    </div>
+                </div>
+                <button type="button" class="modal-close" id="close-dev-admin-modal-btn">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="padding: 16px 0;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
+                    <div style="background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px;">👥 Toplam Site Ziyareti</div>
+                        <div id="dev-stat-total-visits" style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">...</div>
+                    </div>
+                    <div style="background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px;">📅 Bugünkü Ziyaret</div>
+                        <div id="dev-stat-today-visits" style="font-size: 1.8rem; font-weight: 800; color: #10b981;">...</div>
+                    </div>
+                    <div style="background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px;">✍️ Kaydedilen Bakım Planları</div>
+                        <div id="dev-stat-plans-count" style="font-size: 1.8rem; font-weight: 800; color: #8b5cf6;">...</div>
+                    </div>
+                    <div style="background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px;">📱 Cihaz Tipi</div>
+                        <div id="dev-stat-device-type" style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-top: 6px;">...</div>
+                    </div>
+                </div>
+
+                <div style="background: var(--primary-light); padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--primary); font-size: 0.82rem; color: var(--text-primary); margin-bottom: 16px;">
+                    ℹ️ <strong>Erişim Kısayolları:</strong> Bu panele sol üstteki geliştirici ismine 5 kez tıklayarak veya klavyeden <kbd style="background:#fff; padding:2px 6px; border-radius:4px; border:1px solid #ccc;">Ctrl + Shift + A</kbd> tuşlarına basarak erişebilirsiniz.
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button type="button" class="btn btn-primary" id="confirm-dev-admin-modal-btn">Tamam</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Script Sequence for 100% Cross-Platform / File:// compatibility -->
     <script src="js/nandaData.js"></script>
