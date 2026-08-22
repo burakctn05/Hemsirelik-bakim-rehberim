@@ -7,14 +7,21 @@ const carePlanBuilder = new window.CarePlanBuilder();
 let currentStep = 1;
 let selectedDiagnosisForModal = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Force light white theme, clear old dark theme localStorage keys
-    try {
-        localStorage.removeItem('bakimrehberim_theme');
-        localStorage.removeItem('nursiplan_theme');
-    } catch (e) {}
-    document.body.classList.remove('dark-theme', 'light-theme');
+// Lightweight Debounce Helper for High Performance Input & Search
+function debounce(func, wait = 150) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
+document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
     initServiceWorker();
     initTabNavigation();
     initCarePlanWizard();
@@ -163,12 +170,10 @@ function initCarePlanWizard() {
         }
 
         updateMobileSelectedDockUI();
-    };
-
-    // Patient info form input change listeners
+       // Patient info form input change listeners (Debounced for zero-lag typing)
     const patientForm = document.getElementById('patient-info-form');
     if (patientForm) {
-        patientForm.addEventListener('input', () => {
+        patientForm.addEventListener('input', debounce(() => {
             const formData = new FormData(patientForm);
             carePlanBuilder.setPatientInfo({
                 name: formData.get('patientName'),
@@ -179,14 +184,13 @@ function initCarePlanWizard() {
             });
             carePlanBuilder.setVitals({
                 ates: formData.get('vitalAtes'),
-                tansiyonSystolic: formData.get('vitalTansiyonSys'),
-                tansiyonDiastolic: formData.get('vitalTansiyonDia'),
+                tansiyonSystolic: formData.get('vitalTansiyonSystolic'),
+                tansiyonDiastolic: formData.get('vitalTansiyonDiastolic'),
                 nabiz: formData.get('vitalNabiz'),
                 solunum: formData.get('vitalSolunum'),
                 spo2: formData.get('vitalSpo2'),
                 agri: formData.get('vitalAgri')
-            });
-        });
+        }, 250));
     }
 
     // Wong-Baker Pain Scale Interactive Face Buttons
@@ -682,7 +686,7 @@ function renderStep3CustomizationList() {
         <div class="card" style="margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
                 <div>
-                    <h3 style="color: var(--primary-light);">${getDiagnosisTitle(cp)}</h3>
+                    <h3 style="color: var(--primary-dark); font-weight: 700;">${getDiagnosisTitle(cp)}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
                         <strong>İlişkili Faktörler:</strong> ${cp.etiology || 'Belirtilmedi'}
                     </p>
@@ -691,13 +695,13 @@ function renderStep3CustomizationList() {
             </div>
             
             <div class="grid-2" style="font-size: 0.86rem; margin-top: 10px;">
-                <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 8px;">
+                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                     <strong style="color: var(--success);">NOC Hedefleri (${(cp.noc || []).length}):</strong>
                     <ul style="padding-left: 16px; margin-top: 4px;">
                         ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
                     </ul>
                 </div>
-                <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 8px;">
+                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                     <strong style="color: var(--info);">NIC Girişimleri (${(cp.nic || []).length}):</strong>
                     <ul style="padding-left: 16px; margin-top: 4px;">
                         ${(cp.nic || []).map(n => `<li>${n}</li>`).join('')}
@@ -752,7 +756,7 @@ function renderCarePlanPreviewTable() {
             html += `
                 <tr>
                     <td>
-                        <strong style="color: var(--primary-light);">${getDiagnosisTitle(cp)}</strong>
+                        <strong style="color: var(--primary-dark);">${getDiagnosisTitle(cp)}</strong>
                     </td>
                     <td>
                         <div><strong>İlişkili Faktörler:</strong> ${cp.etiology || '-'}</div>
@@ -762,7 +766,7 @@ function renderCarePlanPreviewTable() {
                         <ul class="table-bullet-list">
                             ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
                         </ul>
-                        ${cp.scoreBefore && cp.scoreTarget ? `<div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--primary-light); background: rgba(13,148,136,0.15); padding: 4px 8px; border-radius: 6px;">📊 Likert Skalası: Önce <strong>${cp.scoreBefore}/5</strong> ➔ Hedef <strong>${cp.scoreTarget}/5</strong></div>` : ''}
+                        ${cp.scoreBefore && cp.scoreTarget ? `<div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--primary-dark); background: rgba(5,150,105,0.1); padding: 4px 8px; border-radius: 6px;">📊 Likert Skalası: Önce <strong>${cp.scoreBefore}/5</strong> ➔ Hedef <strong>${cp.scoreTarget}/5</strong></div>` : ''}
                     </td>
                     <td>
                         <ul class="table-bullet-list">
@@ -1146,29 +1150,29 @@ function initNandaDictionary() {
             const isFav = favorites.includes(d.id);
 
             return `
-                <div class="card" style="margin-bottom: 16px;">
+                <div class="card nanda-dict-card" style="margin-bottom: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <div>
-                            <span class="badge badge-primary">${d.code}</span>
-                            <span class="badge badge-secondary" style="color: ${catObj?.color || '#fff'};">${catObj?.name || d.category}</span>
+                            <span class="badge badge-primary" style="background: #065f46; color: #ffffff; font-weight: 700;">${d.code}</span>
+                            <span class="badge badge-secondary" style="color: ${catObj?.color || '#0f172a'}; font-weight: 600;">${catObj?.name || d.category}</span>
                         </div>
                         <button class="favorite-star-btn ${isFav ? 'active' : ''}" onclick="toggleFavoriteDiagnosis('${d.id}')" title="Favorilere Ekle/Çıkar">
                             ${isFav ? '⭐' : '☆'}
                         </button>
                     </div>
-                    <h3 style="margin-bottom: 6px; color: var(--primary-light);">${d.title}</h3>
-                    <p style="font-size: 0.9rem; margin-bottom: 12px;"><strong>Tanım:</strong> ${d.definition}</p>
+                    <h3 class="nanda-dict-title" style="margin-bottom: 6px; color: #065f46; font-weight: 700; font-size: 1.15rem;">${d.title}</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-primary);"><strong>Tanım:</strong> ${d.definition}</p>
 
                     <div class="grid-2" style="font-size: 0.86rem;">
-                        <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 8px;">
+                        <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                             <strong style="color: var(--warning);">Etiyoloji (Nedenler):</strong>
-                            <ul style="padding-left: 16px; margin-top: 4px;">
+                            <ul style="padding-left: 16px; margin-top: 4px; color: var(--text-secondary);">
                                 ${(d.etiology || []).map(e => `<li>${e}</li>`).join('')}
                             </ul>
                         </div>
-                        <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 8px;">
+                        <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                             <strong style="color: var(--info);">Belirti ve Bulgular:</strong>
-                            <ul style="padding-left: 16px; margin-top: 4px;">
+                            <ul style="padding-left: 16px; margin-top: 4px; color: var(--text-secondary);">
                                 ${(d.symptoms || []).map(s => `<li>${s}</li>`).join('')}
                             </ul>
                         </div>
@@ -1177,7 +1181,7 @@ function initNandaDictionary() {
         }).join('');
     };
 
-    searchInput.addEventListener('input', renderDictionary);
+    searchInput.addEventListener('input', debounce(renderDictionary, 150));
     catSelect.addEventListener('change', renderDictionary);
     if (sortSelect) sortSelect.addEventListener('change', renderDictionary);
     renderDictionary();
@@ -1207,7 +1211,7 @@ function renderSavedPlansList() {
         <div class="card card-hover" style="margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <h3 style="margin-bottom: 4px; color: var(--primary-light);">${p.patientInfo?.name || 'İsimsiz Hasta'}</h3>
+                    <h3 style="margin-bottom: 4px; color: var(--primary-dark); font-weight: 700;">${p.patientInfo?.name || 'İsimsiz Hasta'}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">
                         Oluşturulma: ${p.createdAt || '-'} | Tanı: ${p.patientInfo?.diagnosis || '-'}
                     </p>
@@ -1340,9 +1344,9 @@ function initCommandPalette() {
         if (e.target === backdrop) window.closeCommandPalette();
     });
 
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener('input', debounce((e) => {
         renderCmdResults(e.target.value.trim());
-    });
+    }, 120));
 
     function renderCmdResults(query) {
         const q = query.toLowerCase();
@@ -1521,7 +1525,7 @@ function initMAPCalculator() {
         outputContainer.innerHTML = `
             <div style="text-align: center; margin-top: 12px;">
                 <div style="font-size: 0.85rem; color: var(--text-secondary);">Hesaplanan MAP Değeri</div>
-                <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-light);">${res.map} <span style="font-size: 1.1rem;">mmHg</span></div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-dark);">${res.map} <span style="font-size: 1.1rem;">mmHg</span></div>
             </div>
             <div class="alert ${res.alertClass}" style="margin-top: 10px; font-size: 0.86rem;">
                 ${res.status}
@@ -1872,6 +1876,37 @@ function initDevAdminModal() {
         if (e.target === modal) window.closeDevAdminModal();
     });
 }
+
+/* ==========================================================================
+   Theme Toggle System (Hastane Gece Nöbeti / Gece Modu)
+   ========================================================================== */
+function initThemeToggle() {
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (!themeBtn) return;
+
+    const currentTheme = localStorage.getItem('bakimrehberim_theme');
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeBtn.innerHTML = '☀️ Gündüz Modu';
+    } else {
+        document.body.classList.remove('dark-theme');
+        themeBtn.innerHTML = '🌙 Gece Modu';
+    }
+
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-theme');
+        if (isDark) {
+            localStorage.setItem('bakimrehberim_theme', 'dark');
+            themeBtn.innerHTML = '☀️ Gündüz Modu';
+            if (window.showToast) window.showToast('🌙 Gece Modu (Karanlık Tema) Aktifleştirildi', 'info');
+        } else {
+            localStorage.setItem('bakimrehberim_theme', 'light');
+            themeBtn.innerHTML = '🌙 Gece Modu';
+            if (window.showToast) window.showToast('☀️ Gündüz Modu Aktifleştirildi', 'info');
+        }
+    });
+}
+
 
 
 

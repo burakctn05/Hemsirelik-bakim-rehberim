@@ -6,13 +6,18 @@
     <title>Hemşirelik Bakım Rehberim | NANDA-I Bakım Planı & Klinik Asistan</title>
     <meta name="description" content="Hemşirelik öğrencileri ve intörnleri için NANDA-I uyumlu dijital Bakım Planı Oluşturucu, Klinik Hesaplayıcılar ve Hazır Şablonlar.">
     
+    <!-- Google Fonts Preconnect & Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
     
     <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=2.8">
-    <link rel="stylesheet" href="css/components.css?v=2.8">
-    <link rel="stylesheet" href="css/print.css?v=2.8">
+    <link rel="stylesheet" href="css/main.css?v=3.0">
+    <link rel="stylesheet" href="css/components.css?v=3.0">
+    <link rel="stylesheet" href="css/print.css?v=3.0">
 </head>
 <body>
 
@@ -50,6 +55,7 @@
                 <button class="nav-tab" data-tab="saved">💾 Kaydedilenler</button>
                 <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">🔍 Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span></button>
                 <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">💬 İletişim</button>
+                <button class="nav-tab theme-toggle-btn" id="theme-toggle-btn" title="Karanlık/Aydınlık Tema (Hastane Gece Nöbeti Modu)">🌙 Gece Modu</button>
             </nav>
         </div>
     </header>
@@ -210,7 +216,7 @@
                     <form id="patient-info-form">
                         <div class="grid-2">
                             <div>
-                                <h4 style="margin-bottom: 12px; color: var(--primary-light);">Hasta Demografik Verileri</h4>
+                                <h4 style="margin-bottom: 12px; color: var(--primary-dark);">Hasta Demografik Verileri</h4>
                                 <div class="form-group">
                                     <label class="form-label" for="patient-name-input">Hasta Adı Soyadı (Rumuz)</label>
                                     <input type="text" id="patient-name-input" name="patientName" class="form-control" placeholder="Örn. Ahmet Y." required>
@@ -495,7 +501,7 @@
 
                     <div style="margin-top: 20px; text-align: center;">
                         <h4 style="color: var(--text-secondary); margin-bottom: 6px;">Toplam GKS Puanı</h4>
-                        <div id="gcs-score-display" style="font-size: 2.2rem; font-weight: 800; color: var(--primary-light);">15 / 15</div>
+                        <div id="gcs-score-display" style="font-size: 2.2rem; font-weight: 800; color: var(--primary-dark);">15 / 15</div>
                     </div>
 
                     <div id="gcs-interpretation" class="alert alert-success" style="margin-top: 14px;">
@@ -576,7 +582,7 @@
 
                     <div style="margin-top: 14px; text-align: center;">
                         <h4 style="color: var(--text-secondary); margin-bottom: 4px;">Braden Riski Puanı</h4>
-                        <div id="braden-score-display" style="font-size: 2rem; font-weight: 800; color: var(--primary-light);">23 / 23</div>
+                        <div id="braden-score-display" style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);">23 / 23</div>
                     </div>
 
                     <div id="braden-interpretation" class="alert alert-success" style="margin-top: 10px;">
@@ -598,7 +604,7 @@
                         <span class="card-icon">🚷</span>
                         <h3>İtaki Düşme Riski Ölçeği (Öğrenci Rehberi)</h3>
                     </div>
-                    <div id="itaki-score-display" style="font-size: 1.5rem; font-weight: 800; color: var(--primary-light);">0 Puan</div>
+                    <div id="itaki-score-display" style="font-size: 1.5rem; font-weight: 800; color: var(--primary-dark);">0 Puan</div>
                 </div>
 
                 <div class="grid-2">
@@ -784,7 +790,7 @@
                 <div class="grid-2">
                     <!-- IV Fluids -->
                     <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                        <h4 style="color: var(--primary-light); margin-bottom: 12px;">💧 Sık Kullanılan IV Serumlar & Özellikleri</h4>
+                        <h4 style="color: var(--primary-dark); margin-bottom: 12px;">💧 Sık Kullanılan IV Serumlar & Özellikleri</h4>
                         
                         <div style="margin-bottom: 12px;">
                             <strong style="color: var(--primary);">%0.9 NaCl (İzotonik Serum Fizyolojik):</strong>
@@ -889,7 +895,7 @@
     <div id="add-diagnosis-modal" class="modal-backdrop">
         <div class="modal-card">
             <div class="modal-header">
-                <h3 id="modal-diag-title" style="color: var(--primary-light);">Tanı Ekle</h3>
+                <h3 id="modal-diag-title" style="color: var(--primary-dark);">Tanı Ekle</h3>
                 <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
 
@@ -1112,7 +1118,7 @@
 
             <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-height: 65vh; overflow-y: auto; padding-right: 6px;">
                 <div style="background: rgba(13,148,136,0.15); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--primary-light); margin-bottom: 16px;">
-                    <strong style="color: var(--primary-light);">🎓 Açık Erişim & Eğitim Amaçlı Kullanım Beyanı</strong><br>
+                    <strong style="color: var(--primary-dark);">🎓 Açık Erişim & Eğitim Amaçlı Kullanım Beyanı</strong><br>
                     Bu web uygulaması; hiçbir ticari kazanç, kâr veya reklam amacı gütmeyen, T.C. Üniversiteleri Hemşirelik Fakülteleri öğrencileri, intörnleri ve akademisyenleri için geliştirilmiş <strong>%100 ücretsiz eğitim ve karar destek asistanıdır</strong>.
                 </div>
 

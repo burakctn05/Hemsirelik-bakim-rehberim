@@ -7,7 +7,7 @@ $desktops = @(
 
 $urlContent = @"
 [InternetShortcut]
-URL=https://burakctn05.github.io/Hemsirelik-bakim-rehberim/
+URL=https://hemsirelikrehberi.com.tr/
 IconIndex=0
 IconFile=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
 "@

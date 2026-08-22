@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bakimrehberim-v2.8';
+const CACHE_NAME = 'bakimrehberim-v3.0';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -15,7 +15,7 @@ const ASSETS_TO_CACHE = [
     './manifest.json'
 ];
 
-// Install Event - Cache assets and skip waiting
+// Install Event - Cache assets and skip waiting immediately
 self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
@@ -32,6 +32,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(
                 cacheNames.map((cache) => {
                     if (cache !== CACHE_NAME) {
+                        console.log('Purging old cache:', cache);
                         return caches.delete(cache);
                     }
                 })
@@ -40,8 +41,13 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch Event (Network First Strategy with Cache Fallback for instant updates)
+// Fetch Event - Network First strategy to guarantee fresh code on online updates
 self.addEventListener('fetch', (event) => {
+    if (event.request.method !== 'GET') return;
+
+    // Do not intercept chrome-extension or external cross-origin requests
+    if (!event.request.url.startsWith(self.location.origin)) return;
+
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
@@ -54,14 +60,8 @@ self.addEventListener('fetch', (event) => {
                 return networkResponse;
             })
             .catch(() => {
-                return caches.match(event.request).then((cachedResponse) => {
-                    if (cachedResponse) {
-                        return cachedResponse;
-                    }
-                    if (event.request.headers && event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-                        return caches.match('./index.html');
-                    }
-                });
+                // If offline or network fails, fall back to cached response
+                return caches.match(event.request);
             })
     );
 });

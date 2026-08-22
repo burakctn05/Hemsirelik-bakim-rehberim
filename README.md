@@ -25,7 +25,7 @@
 
 Bu uygulama tarayıcı üzerinde çalışan saf bir Web / PWA uygulamasıdır. Herhangi bir kurulum gerektirmeden internet tarayıcınızda açabilirsiniz.
 
-1. **İnternet Sitesi:** Projeyi canlı sitenizden doğrudan kullanabilirsiniz.
+1. **Canlı İnternet Sitesi:** Projeyi [https://hemsirelikrehberi.com.tr/](https://hemsirelikrehberi.com.tr/) adresinden doğrudan kullanabilirsiniz.
 2. **Yerel Kullanım:** `index.html` dosyasına çift tıklayarak tarayıcınızda çalıştırabilirsiniz.
 
 ---

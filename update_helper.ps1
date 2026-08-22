@@ -3,17 +3,28 @@ $desktops = @(
     "$env:USERPROFILE\Desktop",
     "$env:USERPROFILE\OneDrive\Masaüstü",
     "$env:USERPROFILE\OneDrive\Desktop"
-) | Select-Object -Unique | Where-Object { Test-Path $_ }
+) | Select-Object -Unique | Where-Object { $_ -and (Test-Path $_) }
 
 $sourceDir = $PSScriptRoot
+$itemsToCopy = Get-ChildItem -Path $sourceDir | Where-Object { $_.Name -ne "scratch" -and $_.Name -ne ".git" }
 
 foreach ($desktop in $desktops) {
-    $possibleNames = @("Hemsirelik Bakım Reberim", "Hemsirelik_Bakim_Rehberim", "Hemsirelik Bakım Rehberim", "Hemsirelik Bakım Reberim\Hemsirelik_Bakim_Rehberim")
-    foreach ($name in $possibleNames) {
-        $targetFolder = Join-Path $desktop $name
-        if (Test-Path $targetFolder) {
-            Copy-Item -Path "$sourceDir\*" -Destination $targetFolder -Recurse -Force
-            Write-Host "Güncellendi: $targetFolder"
+    $targetFolders = Get-ChildItem -Path $desktop -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*Hemsirelik*" -or $_.Name -like "*Bakim*" -or $_.Name -like "*Rehber*" }
+    
+    foreach ($targetDir in $targetFolders) {
+        foreach ($item in $itemsToCopy) {
+            Copy-Item -Path $item.FullName -Destination $targetDir.FullName -Recurse -Force
+        }
+        Write-Host "Masaüstü Klasörü Güncellendi: $($targetDir.FullName)"
+        
+        $subDirs = Get-ChildItem -Path $targetDir.FullName -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*Hemsirelik*" -or $_.Name -like "*Bakim*" -or $_.Name -like "*Rehber*" }
+        foreach ($sub in $subDirs) {
+            foreach ($item in $itemsToCopy) {
+                Copy-Item -Path $item.FullName -Destination $sub.FullName -Recurse -Force
+            }
+            Write-Host "Alt Klasör Güncellendi: $($sub.FullName)"
         }
     }
 }
+
+

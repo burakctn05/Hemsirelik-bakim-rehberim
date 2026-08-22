@@ -37,6 +37,20 @@
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
 }
 
+/* NANDA Sözlük Başlıkları Koyu Yeşil & Yüksek Performans Sınıfı */
+.nanda-dict-card {
+    border-left: 4px solid #059669;
+    content-visibility: auto;
+    contain-intrinsic-size: 160px;
+}
+
+.nanda-dict-title {
+    color: #065f46 !important; /* Koyu Yeşil (Emerald 800 / Deep Medical Green) */
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+}
+
 .card-hover {
     position: relative;
     overflow: hidden;
