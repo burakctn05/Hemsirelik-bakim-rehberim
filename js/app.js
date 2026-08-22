@@ -97,47 +97,62 @@ function restoreDraftIfAvailable() {
 /* ==========================================================================
    1. Tab Navigation
    ========================================================================== */
-function initTabNavigation() {
-    const tabs = document.querySelectorAll('.nav-tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+window.switchTab = function(targetTab) {
+    if (!targetTab) return;
+    
+    // 1. Navbar sekme butonlarını güncelle
+    const navButtons = document.querySelectorAll('.nav-tab[data-tab]');
+    navButtons.forEach(btn => {
+        if (btn.getAttribute('data-tab') === targetTab) {
+            btn.classList.add('active');
+            // Mobilde aktif sekmenin görünür alana kayması
+            if (btn.scrollIntoView && window.innerWidth <= 900) {
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 
+    // 2. Sekme içeriklerini güncelle (Doğrudan stil ve sınıf müdahalesi ile kesin görünürlük)
+    const allTabContents = document.querySelectorAll('.tab-content');
+    allTabContents.forEach(section => {
+        if (section.id === `tab-${targetTab}`) {
+            section.classList.add('active');
+            section.style.display = 'block';
+            section.style.opacity = '1';
+        } else {
+            section.classList.remove('active');
+            section.style.display = 'none';
+            section.style.opacity = '0';
+        }
+    });
+
+    // 3. Sayfayı yukarı kaydır
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // 4. Özel sayfa yenilemeleri
+    if (targetTab === 'saved' && typeof renderSavedPlansList === 'function') {
+        renderSavedPlansList();
+    }
+};
+
+function initTabNavigation() {
+    const tabs = document.querySelectorAll('.nav-tab[data-tab]');
     tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
+            e.preventDefault();
             const targetTab = tab.getAttribute('data-tab');
-            if (!targetTab) return; // Ignore header buttons without data-tab (like theme toggle, contact, search)
-
-            tabs.forEach(t => {
-                if (t.hasAttribute('data-tab')) t.classList.remove('active');
-            });
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            tab.classList.add('active');
-            const targetContent = document.getElementById(`tab-${targetTab}`);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-
-            // Scroll to top instantly to prevent layout jump jitter on mobile height changes
-            window.scrollTo({ top: 0, behavior: 'instant' });
-
-            // Ensure active tab button is smoothly aligned into view in horizontal scrollbar on mobile
-            if (tab.scrollIntoView && window.innerWidth <= 900) {
-                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-
-            if (targetTab === 'saved') {
-                renderSavedPlansList();
-            }
+            window.switchTab(targetTab);
         });
     });
 
-    // Quick Action buttons on Home view
+    // Quick Action buttons on Home view (Hızlı Başlat Butonları)
     document.querySelectorAll('[data-goto-tab]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const tabName = btn.getAttribute('data-goto-tab');
-            const tabBtn = document.querySelector(`.nav-tab[data-tab="${tabName}"]`);
-            if (tabBtn) tabBtn.click();
+            window.switchTab(tabName);
         });
     });
 }

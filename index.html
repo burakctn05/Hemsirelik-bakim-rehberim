@@ -15,9 +15,9 @@
     <link rel="manifest" href="manifest.json">
     
     <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=3.0">
-    <link rel="stylesheet" href="css/components.css?v=3.0">
-    <link rel="stylesheet" href="css/print.css?v=3.0">
+    <link rel="stylesheet" href="css/main.css?v=3.1">
+    <link rel="stylesheet" href="css/components.css?v=3.1">
+    <link rel="stylesheet" href="css/print.css?v=3.1">
 </head>
 <body>
 
@@ -47,12 +47,12 @@
 
             
             <nav class="nav-tabs">
-                <button class="nav-tab active" data-tab="home">🏠 Ana Sayfa</button>
-                <button class="nav-tab" data-tab="builder">✍️ Bakım Planı Oluştur</button>
-                <button class="nav-tab" data-tab="templates">📚 Hazır Şablonlar</button>
-                <button class="nav-tab" data-tab="calculators">🧮 Klinik Ölçekler</button>
-                <button class="nav-tab" data-tab="dictionary">📖 NANDA Sözlüğü</button>
-                <button class="nav-tab" data-tab="saved">💾 Kaydedilenler</button>
+                <button class="nav-tab active" data-tab="home" onclick="switchTab('home')">🏠 Ana Sayfa</button>
+                <button class="nav-tab" data-tab="builder" onclick="switchTab('builder')">✍️ Bakım Planı Oluştur</button>
+                <button class="nav-tab" data-tab="templates" onclick="switchTab('templates')">📚 Hazır Şablonlar</button>
+                <button class="nav-tab" data-tab="calculators" onclick="switchTab('calculators')">🧮 Klinik Ölçekler</button>
+                <button class="nav-tab" data-tab="dictionary" onclick="switchTab('dictionary')">📖 NANDA Sözlüğü</button>
+                <button class="nav-tab" data-tab="saved" onclick="switchTab('saved')">💾 Kaydedilenler</button>
                 <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">🔍 Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span></button>
                 <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">💬 İletişim</button>
                 <button class="nav-tab theme-toggle-btn" id="theme-toggle-btn" title="Karanlık/Aydınlık Tema (Hastane Gece Nöbeti Modu)">🌙 Gece Modu</button>

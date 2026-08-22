@@ -356,7 +356,8 @@ a:hover {
 }
 
 .tab-content.active {
-    display: block;
+    display: block !important;
+    opacity: 1 !important;
     animation: fadeIn 0.2s ease-out forwards;
 }
 
