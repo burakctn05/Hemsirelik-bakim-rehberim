@@ -20,25 +20,76 @@ function debounce(func, wait = 150) {
     };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initThemeToggle();
-    initServiceWorker();
-    initTabNavigation();
-    initCarePlanWizard();
-    initCalculators();
-    initFluidBalanceCalculator();
-    initMAPCalculator();
-    initTemplateLibrary();
-    initNandaDictionary();
-    initSavedPlansView();
-    initCommandPalette();
-    initSamplePatientLoader();
-    initContactModal();
-    initLegalModal();
-    initVisitorCounter();
-    initDevAdminModal();
-    restoreDraftIfAvailable();
-});
+// Global Tab Switcher Function - Available IMMEDIATELY on script load
+window.switchTab = function(targetTab) {
+    if (!targetTab) return;
+    
+    // 1. Update Navigation Buttons
+    const navButtons = document.querySelectorAll('.nav-tab[data-tab]');
+    navButtons.forEach(btn => {
+        if (btn.getAttribute('data-tab') === targetTab) {
+            btn.classList.add('active');
+            if (btn.scrollIntoView && window.innerWidth <= 900) {
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // 2. Update Tab Contents with inline style enforcement
+    const allTabContents = document.querySelectorAll('.tab-content');
+    allTabContents.forEach(section => {
+        if (section.id === `tab-${targetTab}`) {
+            section.classList.add('active');
+            section.style.setProperty('display', 'block', 'important');
+            section.style.setProperty('opacity', '1', 'important');
+        } else {
+            section.classList.remove('active');
+            section.style.setProperty('display', 'none', 'important');
+            section.style.setProperty('opacity', '0', 'important');
+        }
+    });
+
+    // 3. Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // 4. Special Page Renders
+    if (targetTab === 'saved' && typeof window.renderSavedPlansList === 'function') {
+        window.renderSavedPlansList();
+    }
+};
+
+function runAppInitialization() {
+    const safeExec = (fn, name) => {
+        try { if (typeof fn === 'function') fn(); }
+        catch (err) { console.warn(`Error initializing ${name}:`, err); }
+    };
+
+    safeExec(initThemeToggle, 'initThemeToggle');
+    safeExec(initServiceWorker, 'initServiceWorker');
+    safeExec(initTabNavigation, 'initTabNavigation');
+    safeExec(initCarePlanWizard, 'initCarePlanWizard');
+    safeExec(initCalculators, 'initCalculators');
+    safeExec(initFluidBalanceCalculator, 'initFluidBalanceCalculator');
+    safeExec(initMAPCalculator, 'initMAPCalculator');
+    safeExec(initTemplateLibrary, 'initTemplateLibrary');
+    safeExec(initNandaDictionary, 'initNandaDictionary');
+    safeExec(initSavedPlansView, 'initSavedPlansView');
+    safeExec(initCommandPalette, 'initCommandPalette');
+    safeExec(initSamplePatientLoader, 'initSamplePatientLoader');
+    safeExec(initContactModal, 'initContactModal');
+    safeExec(initLegalModal, 'initLegalModal');
+    safeExec(initVisitorCounter, 'initVisitorCounter');
+    safeExec(initDevAdminModal, 'initDevAdminModal');
+    safeExec(restoreDraftIfAvailable, 'restoreDraftIfAvailable');
+}
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    runAppInitialization();
+} else {
+    document.addEventListener('DOMContentLoaded', runAppInitialization);
+}
 
 function initServiceWorker() {
     if ('serviceWorker' in navigator) {
