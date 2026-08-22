@@ -27,7 +27,7 @@ foreach ($desktop in $desktops) {
     $shortcut.Arguments = "--app=`"$indexPath`""
     $shortcut.WorkingDirectory = "c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app"
     $shortcut.Description = "Hemşirelik Bakım Rehberim Uygulaması"
-    $shortcut.IconLocation = "$edgePath,0"
+    $shortcut.IconLocation = "c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app\assets\logo.ico"
     $shortcut.Save()
 
     Write-Host "Doğrudan Uygulama Kısayolu Oluşturuldu: $lnkPath"

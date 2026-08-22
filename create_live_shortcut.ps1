@@ -9,7 +9,7 @@ $urlContent = @"
 [InternetShortcut]
 URL=https://hemsirelikrehberi.com.tr/
 IconIndex=0
-IconFile=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+IconFile=c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app\assets\logo.ico
 "@
 
 foreach ($desktop in $desktops) {

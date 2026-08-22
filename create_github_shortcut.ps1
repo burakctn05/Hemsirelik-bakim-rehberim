@@ -9,7 +9,7 @@ $urlContent = @"
 [InternetShortcut]
 URL=https://github.com/burakctn05/Hemsirelik-bakim-rehberim
 IconIndex=0
-IconFile=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+IconFile=c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app\assets\logo.ico
 "@
 
 foreach ($desktop in $desktops) {

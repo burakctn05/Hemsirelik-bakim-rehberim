@@ -19,7 +19,7 @@ foreach ($desktop in $desktops) {
     $shortcut.Arguments = "`"$targetVbs`""
     $shortcut.WorkingDirectory = $workDir
     $shortcut.Description = "Hemşirelik Bakım Rehberim NANDA-I Bakım Planı Asistanı"
-    $shortcut.IconLocation = "shell32.dll,13"
+    $shortcut.IconLocation = "c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app\assets\logo.ico"
     $shortcut.Save()
 
     # 2. Direct BAT Shortcut
@@ -28,7 +28,7 @@ foreach ($desktop in $desktops) {
     $batShortcut.TargetPath = $targetBat
     $batShortcut.WorkingDirectory = $workDir
     $batShortcut.Description = "Hemşirelik Bakım Rehberim (Toplu İş Dosyası)"
-    $batShortcut.IconLocation = "shell32.dll,220"
+    $batShortcut.IconLocation = "c:\Users\Bilgisayarım\.gemini\antigravity-ide\scratch\nursing-care-app\assets\logo.ico"
     $batShortcut.Save()
 
     Write-Host "Kısayollar oluşturuldu ($desktop):"
