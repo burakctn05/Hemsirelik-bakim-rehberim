@@ -102,10 +102,13 @@ function initTabNavigation() {
     const tabContents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', (e) => {
             const targetTab = tab.getAttribute('data-tab');
+            if (!targetTab) return; // Ignore header buttons without data-tab (like theme toggle, contact, search)
 
-            tabs.forEach(t => t.classList.remove('active'));
+            tabs.forEach(t => {
+                if (t.hasAttribute('data-tab')) t.classList.remove('active');
+            });
             tabContents.forEach(c => c.classList.remove('active'));
 
             tab.classList.add('active');
@@ -1893,7 +1896,11 @@ function initThemeToggle() {
         themeBtn.innerHTML = '🌙 Gece Modu';
     }
 
-    themeBtn.addEventListener('click', () => {
+    themeBtn.addEventListener('click', (e) => {
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
         const isDark = document.body.classList.toggle('dark-theme');
         if (isDark) {
             localStorage.setItem('bakimrehberim_theme', 'dark');
