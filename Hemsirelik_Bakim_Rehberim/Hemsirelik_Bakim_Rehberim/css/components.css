@@ -1,0 +1,795 @@
+/* ==========================================================================
+   Hemşirelik Bakım Rehberim - Components, Cards, Forms, Care Plan Table, Modals & Wong-Baker
+   ========================================================================== */
+
+/* Grid Layouts */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Cards & Panel Container */
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+/* NANDA Sözlük Başlıkları Koyu Yeşil & Yüksek Performans Sınıfı */
+.nanda-dict-card {
+    border-left: 4px solid #059669;
+    content-visibility: auto;
+    contain-intrinsic-size: 160px;
+}
+
+.nanda-dict-title {
+    color: #065f46 !important; /* Koyu Yeşil (Emerald 800 / Deep Medical Green) */
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+}
+
+.card-hover {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary-light));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-hover:hover::after {
+    opacity: 1;
+}
+
+.card-hover:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(13, 148, 136, 0.15);
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+}
+
+.card-icon {
+    font-size: 1.3rem;
+}
+
+/* Feature Cards (Home View) */
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-glow);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.feature-card h3 {
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.form-control, .form-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    background-color: var(--bg-card-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-row {
+    display: flex;
+    gap: 14px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Stepper (Wizard) */
+.stepper-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.stepper-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    right: 40px;
+    height: 3px;
+    background-color: var(--border);
+    z-index: 0;
+    transform: translateY(-50%);
+}
+
+.step-item {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--bg-dark);
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.step-number {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-card-hover);
+    border: 2px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.step-item.active .step-number {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 16px var(--primary-glow);
+}
+
+.step-item.completed .step-number {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: #fff;
+}
+
+.step-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.step-item.active .step-title {
+    color: var(--text-primary);
+}
+
+/* Alerts / Notifications */
+.alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.alert-success {
+    background-color: var(--success-bg);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+}
+
+.alert-warning {
+    background-color: var(--warning-bg);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+}
+
+.alert-danger {
+    background-color: var(--danger-bg);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+.alert-info {
+    background-color: var(--info-bg);
+    border-color: rgba(6, 182, 212, 0.4);
+    color: #38bdf8;
+}
+
+/* Smart Diagnosis Suggestion Box */
+.suggestion-box {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(13, 148, 136, 0.15));
+    border: 1px solid rgba(13, 148, 136, 0.3);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 24px;
+}
+
+.suggestion-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-light);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.suggestion-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+}
+
+/* Care Plan Table (Web & Print Preview) */
+.plan-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    background-color: var(--bg-card);
+    text-align: left;
+}
+
+.plan-table th {
+    background-color: rgba(15, 23, 42, 0.8);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    padding: 14px 16px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+body.light-theme .plan-table th {
+    background-color: #f1f5f9;
+}
+
+.plan-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.plan-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.table-bullet-list {
+    padding-left: 18px;
+}
+
+.table-bullet-list li {
+    margin-bottom: 6px;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.badge-primary { background: var(--primary-glow); color: var(--primary-light); }
+.badge-secondary { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.badge-success { background: var(--success-bg); color: #34d399; }
+.badge-warning { background: var(--warning-bg); color: #fbbf24; }
+.badge-danger { background: var(--danger-bg); color: #f87171; }
+
+/* Wong-Baker Faces Pain Scale Component */
+.wong-baker-container {
+    background-color: var(--bg-card-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-top: 8px;
+}
+
+.wong-baker-faces {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.wong-face-btn {
+    background-color: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.wong-face-btn:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.wong-face-btn.active {
+    border-color: var(--warning);
+    background-color: var(--warning-bg);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+    transform: scale(1.06);
+}
+
+.wong-face-btn[data-score="0"].active, .wong-face-btn[data-score="2"].active {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.15);
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
+}
+.wong-face-btn[data-score="4"].active {
+    border-color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.15);
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+}
+.wong-face-btn[data-score="6"].active {
+    border-color: #f97316;
+    background-color: rgba(249, 115, 22, 0.15);
+    box-shadow: 0 0 16px rgba(249, 115, 22, 0.45);
+}
+.wong-face-btn[data-score="8"].active, .wong-face-btn[data-score="10"].active {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.45);
+}
+
+
+.wong-face-emoji {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.wong-face-score {
+    font-weight: 800;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+}
+
+.wong-face-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* Favorite Star Button */
+.favorite-star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding: 2px;
+}
+
+.favorite-star-btn:hover {
+    transform: scale(1.2);
+    color: var(--warning);
+}
+
+.favorite-star-btn.active {
+    color: #f59e0b;
+}
+
+/* Academic Signature Block for Print */
+.academic-signature-block {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    border-top: 1px dashed var(--border);
+    padding-top: 20px;
+}
+
+.signature-box {
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-card-hover);
+}
+
+.signature-box h5 {
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+    color: var(--primary-light);
+}
+
+.signature-line {
+    margin-top: 30px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Modal Window */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px;
+    box-shadow: var(--shadow-lg);
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.modal-backdrop.active .modal-card {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-close:hover { color: #fff; }
+
+/* ==========================================================================
+   Category Filter Pills (Diagnosis & Dictionary)
+   ========================================================================== */
+.category-pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.category-pill {
+    background-color: var(--bg-card-hover);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.category-pill:hover {
+    color: var(--text-primary);
+    border-color: var(--primary-glow);
+}
+
+.category-pill.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+/* ==========================================================================
+   Vital Sign Status Badges (Step 1 Assessment)
+   ========================================================================== */
+.vital-status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    margin-top: 4px;
+}
+
+.vital-status-normal {
+    background-color: var(--success-bg);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.vital-status-abnormal {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.vital-status-warning {
+    background-color: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* ==========================================================================
+   Fluid Balance Tracker Calculator Styles
+   ========================================================================== */
+.fluid-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+}
+
+.fluid-table th, .fluid-table td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+}
+
+.fluid-table th {
+    background-color: var(--bg-card-hover);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: left;
+}
+
+.fluid-balance-badge {
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-top: 14px;
+}
+
+.balance-positive {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #0284c7;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.balance-negative {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.balance-neutral {
+    background-color: var(--success-bg);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================================================
+   Mobile Floating Selected Diagnoses Dock & Bottom Sheet Drawer
+   ========================================================================== */
+.mobile-diagnoses-dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(140%);
+    width: 92%;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2px solid var(--secondary);
+    border-radius: var(--radius-full);
+    padding: 10px 18px;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.25), 0 4px 12px rgba(15, 23, 42, 0.1);
+    z-index: 990;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body.dark-theme .mobile-diagnoses-dock {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: var(--secondary);
+}
+
+.mobile-diagnoses-dock.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.mobile-dock-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.mobile-dock-badge {
+    background: var(--secondary-light);
+    color: var(--secondary-hover);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body.dark-theme .mobile-dock-badge {
+    background: rgba(14, 165, 233, 0.2);
+    color: #38bdf8;
+}
+
+.mobile-dock-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Bottom Sheet Drawer for Selected Diagnoses */
+.bottom-sheet-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-sheet-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bottom-sheet-content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    max-height: 80vh;
+    background-color: var(--bg-card);
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    border-top: 3px solid var(--primary);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+    padding: 20px 24px 30px 24px;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1060;
+}
+
+.bottom-sheet-backdrop.active .bottom-sheet-content {
+    transform: translateY(0);
+}
+
+.bottom-sheet-handle {
+    width: 44px;
+    height: 5px;
+    background-color: var(--border);
+    border-radius: 99px;
+    margin: 0 auto 16px auto;
+}
+
+
