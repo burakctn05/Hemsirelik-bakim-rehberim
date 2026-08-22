@@ -239,7 +239,9 @@ function initCarePlanWizard() {
         }
 
         updateMobileSelectedDockUI();
-       // Patient info form input change listeners (Debounced for zero-lag typing)
+    };
+
+    // Patient info form input change listeners (Debounced for zero-lag typing)
     const patientForm = document.getElementById('patient-info-form');
     if (patientForm) {
         patientForm.addEventListener('input', debounce(() => {
@@ -259,6 +261,7 @@ function initCarePlanWizard() {
                 solunum: formData.get('vitalSolunum'),
                 spo2: formData.get('vitalSpo2'),
                 agri: formData.get('vitalAgri')
+            });
         }, 250));
     }
 
