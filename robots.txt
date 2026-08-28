@@ -1,0 +1,9 @@
+# Hemşirelik Bakım Rehberim - Search Engine Optimization (SEO) Robots File
+User-agent: *
+Allow: /
+Disallow: /scratch/
+Disallow: /.git/
+
+# Sitemaps for Google, Bing, Yandex, Yahoo
+Sitemap: https://hemsirelikrehberi.com.tr/sitemap.xml
+Sitemap: https://burakctn05.github.io/Hemsirelik-bakim-rehberim/sitemap.xml
