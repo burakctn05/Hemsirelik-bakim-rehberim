@@ -607,6 +607,7 @@
              TAB 4: CLINICAL CALCULATORS
              =================================================================== -->
         <section id="tab-calculators" class="tab-content">
+            <!-- Row 1: GKS & Braden -->
             <div class="grid-2">
                 <!-- 1. Glasgow Coma Scale (GKS) -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(14,165,233,0.06), #ffffff); border: 2px solid #0ea5e9; border-radius: var(--radius-md);">
@@ -758,104 +759,136 @@
                 </div>
             </div>
 
-            <!-- 3. Itaki Fall Risk Scale -->
-            <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(239,68,68,0.06), #ffffff); border: 2px solid #ef4444; border-radius: var(--radius-md);">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon" style="background: #fee2e2; color: #dc2626;">🚷</span>
-                        <h3>İtaki Düşme Riski Ölçeği (Öğrenci Rehberi)</h3>
+            <!-- Row 2: İtaki & MAP -->
+            <div class="grid-2" style="margin-top: 24px;">
+                <!-- 3. Itaki Fall Risk Scale -->
+                <div class="card" style="background: linear-gradient(135deg, rgba(239,68,68,0.06), #ffffff); border: 2px solid #ef4444; border-radius: var(--radius-md);">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon" style="background: #fee2e2; color: #dc2626;">🚷</span>
+                            <h3>İtaki Düşme Riski Ölçeği</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="badge" style="background: #ef4444; color: #ffffff; font-weight: 700;">Hasta Güvenliği</span>
+                            <div id="itaki-score-display" style="font-size: 1.4rem; font-weight: 800; color: #dc2626;">0 Puan</div>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span class="badge" style="background: #ef4444; color: #ffffff; font-weight: 700;">Hasta Güvenliği Standardı</span>
-                        <div id="itaki-score-display" style="font-size: 1.5rem; font-weight: 800; color: #dc2626;">0 Puan</div>
+                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yatarak tedavi gören yetişkin hastalarda düşme riskini değerlendirir (≥5 Puan Yüksek Risk).</p>
+
+                    <div class="grid-2">
+                        <div style="background: rgba(239,68,68,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fca5a5;">
+                            <h5 style="color: #dc2626; margin-bottom: 8px; font-weight: 700;">Majör Riskler (Her Biri 5 Puan)</h5>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> 65 Yaş ve Üzeri Olması</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Son 3 Ay İçinde Düşme Öyküsü</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Bilinç Değişikliği / Konfüzyon</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Görme Kaybı / Bozukluğu</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Yürümede Denge Kaybı</label>
+                        </div>
+
+                        <div style="background: rgba(245,158,11,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
+                            <h5 style="color: #d97706; margin-bottom: 8px; font-weight: 700;">Minör Riskler (Her Biri 1 Puan)</h5>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Polifarmasi (&gt;4 İlaç)</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baş Dönmesi / Hipotansiyon</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> İnkontinans / Sık İdrar</label>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baston / Yürüteç İhtiyacı</label>
+                        </div>
+                    </div>
+
+                    <div id="itaki-interpretation" class="alert alert-success" style="margin-top: 12px;">
+                        DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
+                    </div>
+                    <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
+                    <div style="margin-top: 12px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
+                            ⚡ İtaki Skorunu Bakım Planıma Aktar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-itaki-btn">
+                            🧹 Formu Temizle
+                        </button>
                     </div>
                 </div>
-                <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yatarak tedavi gören yetişkin hastalarda düşme riskini değerlendirir. 5 puan ve üzeri Yüksek Risk kabul edilir.</p>
 
-                <div class="grid-2">
-                    <div style="background: rgba(239,68,68,0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid #fca5a5;">
-                        <h4 style="color: #dc2626; margin-bottom: 10px; font-weight: 700;">Majör Risk Faktörleri (Her biri 5 Puan)</h4>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> 65 Yaş ve Üzeri Olması</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Son 3 Ay İçinde Düşme Öyküsü</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Bilinç Durumunda Değişiklik / Konfüzyon</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Görme Kaybı / Görme Bozukluğu</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-major-cb"> Ayakta Durmada veya Yürümede Denge Kaybı</label>
+                <!-- 4. MAP Calculator -->
+                <div class="card" style="background: linear-gradient(135deg, rgba(139,92,246,0.06), #ffffff); border: 2px solid #8b5cf6; border-radius: var(--radius-md);">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon" style="background: #ede9fe; color: #7c3aed;">🫀</span>
+                            <h3>Ortalama Arter Basıncı (MAP)</h3>
+                        </div>
+                        <span class="badge" style="background: #8b5cf6; color: #ffffff; font-weight: 700;">Organ Perfüzyonu</span>
+                    </div>
+                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Formül: MAP = Diastolik + (Sistolik - Diastolik) / 3. Hayati organ perfüzyonu için MAP ≥ 65 mmHg olmalıdır.</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="map-sys">Sistolik Tansiyon (Büyük Tansiyon - mmHg)</label>
+                        <input type="number" id="map-sys" class="form-control" placeholder="Örn. 120">
                     </div>
 
-                    <div style="background: rgba(245,158,11,0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
-                        <h4 style="color: #d97706; margin-bottom: 10px; font-weight: 700;">Minör Risk Faktörleri (Her biri 1 Puan)</h4>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Birden Fazla İlaç Kullanımı (Polifarmasi)</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Baş Dönmesi / Ortostatik Hipotansiyon</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Üriner veya Gaita İnkontinansı / Sık İdrara Çıkma</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="checkbox" class="itaki-minor-cb"> Fiziksel Engel / Yürüteç-Baston İhtiyacı</label>
+                    <div class="form-group">
+                        <label class="form-label" for="map-dia">Diastolik Tansiyon (Küçük Tansiyon - mmHg)</label>
+                        <input type="number" id="map-dia" class="form-control" placeholder="Örn. 80">
                     </div>
-                </div>
 
-                <div id="itaki-interpretation" class="alert alert-success" style="margin-top: 16px;">
-                    DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
-                </div>
-                <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px;"></ul>
-                <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                    <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
-                        ⚡ İtaki Skorunu Bakım Planıma Aktar
-                    </button>
-                    <button type="button" class="btn btn-sm btn-secondary" id="clear-itaki-btn">
-                        🧹 Formu Temizle
-                    </button>
+                    <div style="display: flex; gap: 8px; margin-top: 16px;">
+                        <button class="btn btn-primary btn-sm" id="calc-map-btn">🧮 MAP Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-map-btn">🧹 Formu Temizle</button>
+                    </div>
+
+                    <div id="map-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
-            <!-- 4. Aldığı - Çıkardığı Sıvı Dengesi (Fluid Balance) & MAP Calculator -->
+            <!-- Row 3: Fluid Balance & Urine Output -->
             <div class="grid-2" style="margin-top: 24px;">
-                <!-- Fluid Balance -->
+                <!-- 5. Fluid Balance -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(6,182,212,0.06), #ffffff); border: 2px solid #06b6d4; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon" style="background: #cff4fc; color: #0891b2;">🌊</span>
-                            <h3>Aldığı - Çıkardığı Sıvı Dengesi (24 Saatlik Bilanço)</h3>
+                            <h3>Aldığı - Çıkardığı Sıvı Dengesi (24s)</h3>
                         </div>
-                        <span class="badge" style="background: #06b6d4; color: #ffffff; font-weight: 700;">24 Saatlik Bilanço Takibi</span>
+                        <span class="badge" style="background: #06b6d4; color: #ffffff; font-weight: 700;">24s Bilanço</span>
                     </div>
                     <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Hastanın 24 saatlik süre içerisinde aldığı ve çıkardığı toplam sıvı farkını (+/- mL) hesaplar.</p>
                     
                     <div class="grid-2">
                         <div style="background: rgba(6,182,212,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #a5f3fc;">
-                            <h4 style="color: #0891b2; margin-bottom: 8px; font-weight: 700;">📥 Alınan Sıvılar (mL)</h4>
+                            <h5 style="color: #0891b2; margin-bottom: 6px; font-weight: 700;">📥 Alınan Sıvılar (mL)</h5>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-in-oral">Oral / NG Sıvı (mL)</label>
-                                <input type="number" id="fluid-in-oral" class="form-control" placeholder="Örn. 1500">
+                                <label class="form-label" for="fluid-in-oral">Oral / NG (mL)</label>
+                                <input type="number" id="fluid-in-oral" class="form-control" placeholder="1500">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-in-iv">IV Mayi / Serum (mL)</label>
-                                <input type="number" id="fluid-in-iv" class="form-control" placeholder="Örn. 1000">
+                                <label class="form-label" for="fluid-in-iv">IV Mayi (mL)</label>
+                                <input type="number" id="fluid-in-iv" class="form-control" placeholder="1000">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="fluid-in-blood">Kan / Plazma (mL)</label>
-                                <input type="number" id="fluid-in-blood" class="form-control" placeholder="Örn. 0">
+                                <input type="number" id="fluid-in-blood" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-in-other">Diğer Alım (TPN vs.)</label>
-                                <input type="number" id="fluid-in-other" class="form-control" placeholder="Örn. 0">
+                                <label class="form-label" for="fluid-in-other">Diğer Alım (mL)</label>
+                                <input type="number" id="fluid-in-other" class="form-control" placeholder="0">
                             </div>
                         </div>
 
                         <div style="background: rgba(245,158,11,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
-                            <h4 style="color: #d97706; margin-bottom: 8px; font-weight: 700;">📤 Çıkarılan Sıvılar (mL)</h4>
+                            <h5 style="color: #d97706; margin-bottom: 6px; font-weight: 700;">📤 Çıkarılan Sıvılar (mL)</h5>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-out-urine">İdrar Miktarı (mL)</label>
-                                <input type="number" id="fluid-out-urine" class="form-control" placeholder="Örn. 1200">
+                                <label class="form-label" for="fluid-out-urine">İdrar (mL)</label>
+                                <input type="number" id="fluid-out-urine" class="form-control" placeholder="1200">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-out-drain">Dren / Nazogastrik (mL)</label>
-                                <input type="number" id="fluid-out-drain" class="form-control" placeholder="Örn. 150">
+                                <label class="form-label" for="fluid-out-drain">Dren / NG (mL)</label>
+                                <input type="number" id="fluid-out-drain" class="form-control" placeholder="150">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-out-vomit">Kusma / Diyare (mL)</label>
-                                <input type="number" id="fluid-out-vomit" class="form-control" placeholder="Örn. 0">
+                                <label class="form-label" for="fluid-out-vomit">Kusma (mL)</label>
+                                <input type="number" id="fluid-out-vomit" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="fluid-out-stool">Dışkı / Diğer Çıkış (mL)</label>
-                                <input type="number" id="fluid-out-stool" class="form-control" placeholder="Örn. 100">
+                                <label class="form-label" for="fluid-out-stool">Dışkı / Diğer (mL)</label>
+                                <input type="number" id="fluid-out-stool" class="form-control" placeholder="100">
                             </div>
                         </div>
                     </div>
@@ -867,19 +900,40 @@
                     <div id="fluid-result-output" style="margin-top: 12px;"></div>
                 </div>
 
-                <!-- MAP Calculator -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(139,92,246,0.06), #ffffff); border: 2px solid #8b5cf6; border-radius: var(--radius-md);">
+                <!-- 6. Urine Output / Oliguria -->
+                <div class="card" style="background: linear-gradient(135deg, rgba(234,179,8,0.06), #ffffff); border: 2px solid #eab308; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
-                            <span class="card-icon" style="background: #ede9fe; color: #7c3aed;">🫀</span>
-                            <h3>Ortalama Arter Basıncı (MAP)</h3>
+                            <span class="card-icon" style="background: #fef9c3; color: #ca8a04;">🧪</span>
+                            <h3>Saatlik İdrar Çıkışı & Oligüri Kontrolü</h3>
                         </div>
-                        <span class="badge" style="background: #8b5cf6; color: #ffffff; font-weight: 700;">Organ Perfüzyonu</span>
+                        <span class="badge" style="background: #eab308; color: #ffffff; font-weight: 700;">Renal Takip</span>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Formül: MAP = Diastolik + (Sistolik - Diastolik) / 3. Hayati organ perfüzyonu için MAP ≥ 65 mmHg olmalıdır.</p>
+                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Böbrek perfüzyonu takibi. İdrar çıkışının &lt; 0.5 mL/kg/saat olması oligüri ve böbrek hasarı uyarısı verir.</p>
 
-                        <!-- 5. Serum Drip & Med Dosage Calculators -->
+                    <div class="form-group">
+                        <label class="form-label" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
+                        <input type="number" id="urine-ml" class="form-control" placeholder="Örn. 350">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
+                        <input type="number" id="urine-weight" class="form-control" placeholder="Örn. 70">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="urine-hours">Takip Süresi (Saat)</label>
+                        <input type="number" id="urine-hours" class="form-control" value="24" placeholder="Örn. 8 veya 24">
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 16px;">
+                        <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-urine-btn">🧹 Formu Temizle</button>
+                    </div>
+                    <div id="urine-result-output" style="margin-top: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- Row 4: Serum Drip & Med Dosage -->
             <div class="grid-2" style="margin-top: 24px;">
+                <!-- 7. Serum Drip Rate -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(16,185,129,0.06), #ffffff); border: 2px solid #10b981; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
@@ -912,6 +966,7 @@
                     <div id="drip-result-output" style="margin-top: 12px;"></div>
                 </div>
 
+                <!-- 8. Med Dosage -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(99,102,241,0.06), #ffffff); border: 2px solid #6366f1; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
@@ -942,39 +997,9 @@
                 </div>
             </div>
 
-            <!-- 6. Saatlik İdrar Çıkışı (Oligüri Hesabı) & Norton Bası Yarası Skalası -->
+            <!-- Row 5: Norton & FLACC -->
             <div class="grid-2" style="margin-top: 24px;">
-                <!-- Urine Output / Oliguria -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(234,179,8,0.06), #ffffff); border: 2px solid #eab308; border-radius: var(--radius-md);">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <span class="card-icon" style="background: #fef9c3; color: #ca8a04;">🧪</span>
-                            <h3>Saatlik İdrar Çıkışı & Oligüri Kontrolü</h3>
-                        </div>
-                        <span class="badge" style="background: #eab308; color: #ffffff; font-weight: 700;">Renal Takip (mL/kg/h)</span>
-                    </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Böbrek perfüzyonu takibi. İdrar çıkışının &lt; 0.5 mL/kg/saat olması oligüri ve böbrek hasarı uyarısı verir.</p>
-
-                    <div class="form-group">
-                        <label class="form-label" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
-                        <input type="number" id="urine-ml" class="form-control" placeholder="Örn. 350">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
-                        <input type="number" id="urine-weight" class="form-control" placeholder="Örn. 70">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="urine-hours">Takip Süresi (Saat)</label>
-                        <input type="number" id="urine-hours" class="form-control" value="24" placeholder="Örn. 8 veya 24">
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-urine-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="urine-result-output" style="margin-top: 12px;"></div>
-                </div>
-
-                <!-- Norton Scale -->
+                <!-- 9. Norton Scale -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(236,72,153,0.06), #ffffff); border: 2px solid #ec4899; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
@@ -1048,16 +1073,13 @@
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- 7. FLACC Pediatrik Ağrı Skalası & Parkland Yanık Formülü -->
-            <div class="grid-2" style="margin-top: 24px;">
-                <!-- FLACC Scale -->
+                <!-- 10. FLACC Pediatric Pain Scale -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(168,85,247,0.06), #ffffff); border: 2px solid #a855f7; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon" style="background: #f3e8ff; color: #9333ea;">👶</span>
-                            <h3>FLACC Pediatrik & Sözel Olmayan Ağrı Skalası</h3>
+                            <h3>FLACC Pediatrik & Ağrı Skalası</h3>
                         </div>
                         <span class="badge" style="background: #a855f7; color: #ffffff; font-weight: 700;">Pediatri & Yoğun Bakım</span>
                     </div>
@@ -1115,17 +1137,20 @@
                         <button type="button" class="btn btn-sm btn-secondary" id="clear-flacc-btn">🧹 Formu Temizle</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Parkland Burn Calculator -->
+            <!-- Row 6: Parkland Burn & Pediatric Percentile -->
+            <div class="grid-2" style="margin-top: 24px;">
+                <!-- 11. Parkland Burn Calculator -->
                 <div class="card" style="background: linear-gradient(135deg, rgba(249,115,22,0.06), #ffffff); border: 2px solid #f97316; border-radius: var(--radius-md);">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon" style="background: #ffedd5; color: #ea580c;">🔥</span>
-                            <h3>Yanık Yüzdesi & Parkland IV Sıvı Formülü</h3>
+                            <h3>Yanık Yüzdesi & Parkland IV Sıvı</h3>
                         </div>
                         <span class="badge" style="background: #f97316; color: #ffffff; font-weight: 700;">Acil Resüsitasyon</span>
                     </div>
-                    <p style="font-size: 0.84rem; margin-bottom: 14px; color: var(--text-secondary);">Formül: 4 mL × Kilo (kg) × % Yanık Yüzdesi (% TBSA). Sıvının %50'si ilk 8 saatte, %50'si kalan 16 saatte verilir.</p>
+                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Formül: 4 mL × Kilo (kg) × % Yanık Yüzdesi (% TBSA). Sıvının %50'si ilk 8 saatte, %50'si kalan 16 saatte verilir.</p>
 
                     <div class="form-group">
                         <label class="form-label" for="parkland-weight">Hasta Vücut Ağırlığı (kg)</label>
@@ -1141,66 +1166,54 @@
                     </div>
                     <div id="parkland-result-output" style="margin-top: 14px;"></div>
                 </div>
-            </div>
 
-            <!-- 8. Pediatrik Boy & Kilo Persentil Hesaplayıcısı (Çocuk Sağlığı ve Gelişimi) -->
-            <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(13,148,136,0.06), #ffffff); border: 2px solid var(--primary);">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon">👶</span>
-                        <h3>Pediatrik Boy & Kilo Persentil Hesaplayıcısı (0 - 18 Yaş)</h3>
+                <!-- 12. Pediatrik Boy & Kilo Persentil Hesaplayıcısı -->
+                <div class="card" style="background: linear-gradient(135deg, rgba(13,148,136,0.06), #ffffff); border: 2px solid var(--primary); border-radius: var(--radius-md);">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon" style="background: #ccfbf1; color: #0d9488;">👶</span>
+                            <h3>Pediatrik Boy & Kilo Persentili (0 - 18 Yaş)</h3>
+                        </div>
+                        <span class="badge badge-primary">WHO & Olcay Neyzi</span>
                     </div>
-                    <span class="badge badge-primary">WHO & Prof. Dr. Olcay Neyzi Standartları</span>
-                </div>
-                <p style="font-size: 0.86rem; margin-bottom: 16px; color: var(--text-secondary);">
-                    Çocuk gelişimi ve büyüme eğrileri. Bebeğin/çocuğun yaş, cinsiyet, boy ve kilosuna göre %3, %15, %50, %85 ve %97 persentil seviyelerini ve klinik gelişim analizini hesaplar.
-                </p>
+                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yaş, cinsiyet, boy ve kiloya göre %3, %15, %50, %85, %97 persentil seviyelerini hesaplar.</p>
 
-                <div class="grid-2">
-                    <div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label" for="percentile-gender">Cinsiyet</label>
-                                <select id="percentile-gender" class="form-select">
-                                    <option value="Erkek">Erkek Çocuk 👦</option>
-                                    <option value="Kadın">Kız Çocuk 👧</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="percentile-age-years">Yaş (Yıl)</label>
-                                <input type="number" id="percentile-age-years" class="form-control" min="0" max="18" placeholder="Örn. 3">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label" for="percentile-age-months">İlave Ay (0-11)</label>
-                                <input type="number" id="percentile-age-months" class="form-control" min="0" max="11" placeholder="Örn. 6">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="percentile-weight">Vücut Ağırlığı (kg)</label>
-                                <input type="number" step="0.1" id="percentile-weight" class="form-control" placeholder="Örn. 15.5">
-                            </div>
-                        </div>
-
+                    <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label" for="percentile-height">Boy Uzunluğu (cm)</label>
-                            <input type="number" step="0.5" id="percentile-height" class="form-control" placeholder="Örn. 98">
+                            <label class="form-label" for="percentile-gender">Cinsiyet</label>
+                            <select id="percentile-gender" class="form-select">
+                                <option value="Erkek">Erkek 👦</option>
+                                <option value="Kadın">Kız 👧</option>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label" for="percentile-age-years">Yaş (Yıl)</label>
+                            <input type="number" id="percentile-age-years" class="form-control" min="0" max="18" placeholder="Örn. 3">
+                        </div>
+                    </div>
 
-                        <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-primary" id="calc-percentile-btn">🧮 Persentil Değerlerini Hesapla</button>
-                            <button type="button" class="btn btn-secondary" id="clear-percentile-btn">🧹 Formu Temizle</button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="percentile-age-months">Ay (0-11)</label>
+                            <input type="number" id="percentile-age-months" class="form-control" min="0" max="11" placeholder="Örn. 6">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="percentile-weight">Kilo (kg)</label>
+                            <input type="number" step="0.1" id="percentile-weight" class="form-control" placeholder="15.5">
                         </div>
                     </div>
 
-                    <div>
-                        <div id="percentile-result-output" style="min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
-                            <div style="text-align: center; color: var(--text-muted); font-size: 0.88rem;">
-                                📊 Lütfen sol taraftaki yaş, cinsiyet, boy ve kilo bilgilerini girip <strong>"Persentil Değerlerini Hesapla"</strong> butonuna basınız.
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label" for="percentile-height">Boy (cm)</label>
+                        <input type="number" step="0.5" id="percentile-height" class="form-control" placeholder="98">
                     </div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-primary btn-sm" id="calc-percentile-btn">🧮 Hesapla</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="clear-percentile-btn">🧹 Formu Temizle</button>
+                    </div>
+
+                    <div id="percentile-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
