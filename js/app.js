@@ -1983,6 +1983,54 @@ function initThemeToggle() {
     });
 }
 
+/* ==========================================================================
+   SEO Hash Routing & Deep-Linking System
+   ========================================================================== */
+function handleHashRoute() {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    if (hash.startsWith('#tani-')) {
+        const diagId = hash.replace('#tani-', '');
+        if (typeof window.switchTab === 'function') window.switchTab('guide');
+        if (typeof window.openDiagnosisModal === 'function') {
+            setTimeout(() => window.openDiagnosisModal(diagId), 150);
+        }
+    } else if (hash.startsWith('#kategori-')) {
+        const catId = hash.replace('#kategori-', '');
+        if (typeof window.switchTab === 'function') window.switchTab('guide');
+        if (typeof window.filterCategory === 'function') {
+            setTimeout(() => window.filterCategory(catId), 150);
+        }
+    } else if (hash.startsWith('#hesaplayici-')) {
+        if (typeof window.switchTab === 'function') window.switchTab('calculators');
+    } else if (hash.startsWith('#sablon-')) {
+        const templateId = hash.replace('#sablon-', '');
+        if (typeof window.switchTab === 'function') window.switchTab('templates');
+        if (typeof window.useTemplate === 'function') {
+            setTimeout(() => window.useTemplate(templateId), 150);
+        }
+    } else if (hash === '#tani-rehberi') {
+        if (typeof window.switchTab === 'function') window.switchTab('guide');
+    } else if (hash === '#bakim-plani-olusturucu') {
+        if (typeof window.switchTab === 'function') window.switchTab('builder');
+    } else if (hash === '#klinik-hesaplayicilar') {
+        if (typeof window.switchTab === 'function') window.switchTab('calculators');
+    } else if (hash === '#hazir-sablonlar') {
+        if (typeof window.switchTab === 'function') window.switchTab('templates');
+    } else if (hash === '#kayitli-planlar') {
+        if (typeof window.switchTab === 'function') window.switchTab('saved');
+    } else if (hash === '#sss') {
+        if (typeof window.switchTab === 'function') window.switchTab('faq');
+    }
+}
+
+window.addEventListener('hashchange', handleHashRoute);
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(handleHashRoute, 200);
+});
+
+
 
 
 
