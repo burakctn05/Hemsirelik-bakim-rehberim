@@ -15,6 +15,22 @@ window.NANDA_CATEGORIES = [
     { id: 'cilt', name: '🩺 Cilt ve Doku Bütünlüğü', color: '#14b8a6' }
 ];
 
+window.NANDA_DOMAINS = [
+    { id: 'domain1', name: 'Domain 1: Sağlığı Geliştirme' },
+    { id: 'domain2', name: 'Domain 2: Beslenme' },
+    { id: 'domain3', name: 'Domain 3: Boşaltım ve Değişim' },
+    { id: 'domain4', name: 'Domain 4: Aktivite / Dinlenme' },
+    { id: 'domain5', name: 'Domain 5: Algılama / Biliş' },
+    { id: 'domain6', name: 'Domain 6: Kendini Algılama' },
+    { id: 'domain7', name: 'Domain 7: Rol İlişkileri' },
+    { id: 'domain8', name: 'Domain 8: Cinsellik' },
+    { id: 'domain9', name: 'Domain 9: Başa Çıkma / Stres Toleransı' },
+    { id: 'domain10', name: 'Domain 10: Yaşam İlkeleri' },
+    { id: 'domain11', name: 'Domain 11: Güvenlik / Koruma' },
+    { id: 'domain12', name: 'Domain 12: Rahatlık / Konfor' },
+    { id: 'domain13', name: 'Domain 13: Büyüme / Gelişme' }
+];
+
 window.NANDA_DIAGNOSES = [
     // =========================================================================
     // 1. SOLUNUM VE OKSİJENASYON

@@ -26,12 +26,27 @@ window.CarePlanBuilder = class CarePlanBuilder {
                     agri: '0'
                 }
             },
+            academicInfo: {
+                university: '',
+                faculty: '',
+                course: '',
+                instructor: '',
+                hospital: '',
+                date: '',
+                student: ''
+            },
             carePlans: []
         };
     }
 
     setPatientInfo(info) {
         this.currentPlan.patientInfo = { ...this.currentPlan.patientInfo, ...info };
+        this.saveDraft();
+    }
+
+    setAcademicInfo(info) {
+        if (!this.currentPlan.academicInfo) this.currentPlan.academicInfo = {};
+        this.currentPlan.academicInfo = { ...this.currentPlan.academicInfo, ...info };
         this.saveDraft();
     }
 

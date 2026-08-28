@@ -82,6 +82,7 @@ function runAppInitialization() {
     safeExec(initLegalModal, 'initLegalModal');
     safeExec(initVisitorCounter, 'initVisitorCounter');
     safeExec(initDevAdminModal, 'initDevAdminModal');
+    safeExec(initAcademicAndChipsHandlers, 'initAcademicAndChipsHandlers');
     safeExec(restoreDraftIfAvailable, 'restoreDraftIfAvailable');
 }
 
@@ -118,9 +119,51 @@ function getDiagnosisTitle(cp) {
     return found ? `${found.code} - ${found.title}` : (cp.diagnosisId || 'Hemşirelik Tanısı');
 }
 
+function initAcademicAndChipsHandlers() {
+    const academicInputs = ['academic-university', 'academic-faculty', 'academic-course', 'academic-instructor', 'academic-hospital', 'academic-student', 'academic-date'];
+    
+    const updateAcademicState = () => {
+        const info = {
+            university: document.getElementById('academic-university')?.value || '',
+            faculty: document.getElementById('academic-faculty')?.value || '',
+            course: document.getElementById('academic-course')?.value || '',
+            instructor: document.getElementById('academic-instructor')?.value || '',
+            hospital: document.getElementById('academic-hospital')?.value || '',
+            student: document.getElementById('academic-student')?.value || '',
+            date: document.getElementById('academic-date')?.value || ''
+        };
+        carePlanBuilder.setAcademicInfo(info);
+    };
+
+    academicInputs.forEach(id => {
+        document.getElementById(id)?.addEventListener('input', updateAcademicState);
+    });
+
+    // Chips button handler
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (btn) {
+            const targetId = btn.getAttribute('data-target');
+            const textToAppend = btn.getAttribute('data-text');
+            if (targetId && textToAppend) {
+                const input = document.getElementById(targetId);
+                if (input) {
+                    const val = input.value.trim();
+                    if (!val) {
+                        input.value = textToAppend;
+                    } else if (!val.includes(textToAppend)) {
+                        input.value = `${val}, ${textToAppend}`;
+                    }
+                }
+            }
+        }
+    });
+}
+
 function restoreDraftIfAvailable() {
     if (carePlanBuilder.loadDraft()) {
         const info = carePlanBuilder.currentPlan.patientInfo || {};
+        const academic = carePlanBuilder.currentPlan.academicInfo || {};
         const v = info.vitals || {};
 
         if (document.getElementById('patient-name-input')) document.getElementById('patient-name-input').value = info.name || '';
@@ -128,6 +171,14 @@ function restoreDraftIfAvailable() {
         if (document.getElementById('patient-gender-select')) document.getElementById('patient-gender-select').value = info.gender || 'Erkek';
         if (document.getElementById('patient-diag-input')) document.getElementById('patient-diag-input').value = info.diagnosis || '';
         if (document.getElementById('patient-room-input')) document.getElementById('patient-room-input').value = info.room || '';
+
+        if (document.getElementById('academic-university')) document.getElementById('academic-university').value = academic.university || '';
+        if (document.getElementById('academic-faculty')) document.getElementById('academic-faculty').value = academic.faculty || '';
+        if (document.getElementById('academic-course')) document.getElementById('academic-course').value = academic.course || '';
+        if (document.getElementById('academic-instructor')) document.getElementById('academic-instructor').value = academic.instructor || '';
+        if (document.getElementById('academic-hospital')) document.getElementById('academic-hospital').value = academic.hospital || '';
+        if (document.getElementById('academic-student')) document.getElementById('academic-student').value = academic.student || '';
+        if (document.getElementById('academic-date')) document.getElementById('academic-date').value = academic.date || '';
 
         if (document.getElementById('vital-ates-input')) document.getElementById('vital-ates-input').value = v.ates || '';
         if (document.getElementById('vital-tansys-input')) document.getElementById('vital-tansys-input').value = v.tansiyonSystolic || '';
@@ -795,9 +846,27 @@ function renderCarePlanPreviewTable() {
 
     const plan = carePlanBuilder.currentPlan;
     const info = plan.patientInfo || {};
+    const academic = plan.academicInfo || {};
     const v = info.vitals || {};
 
-    let html = `
+    let html = '';
+
+    if (academic.university || academic.faculty || academic.course || academic.instructor || academic.hospital || academic.student || academic.date) {
+        html += `
+        <div style="background: linear-gradient(135deg, rgba(13,148,136,0.12), rgba(59,130,246,0.12)); border: 2px solid var(--primary); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 18px; text-align: center;">
+            ${academic.university ? `<h3 style="margin: 0; font-size: 1.15rem; color: var(--primary-dark); font-weight: 800; text-transform: uppercase;">${academic.university}</h3>` : ''}
+            ${academic.faculty ? `<h4 style="margin: 4px 0 0 0; font-size: 0.95rem; color: var(--text-primary); font-weight: 700;">${academic.faculty}</h4>` : ''}
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: 0.85rem; border-top: 1px dashed var(--border); padding-top: 10px;">
+                ${academic.course ? `<div><strong>Ders:</strong> ${academic.course}</div>` : ''}
+                ${academic.instructor ? `<div><strong>Öğretim Elemanı:</strong> ${academic.instructor}</div>` : ''}
+                ${academic.hospital ? `<div><strong>Staj Yeri / Servis:</strong> ${academic.hospital}</div>` : ''}
+                ${academic.student ? `<div><strong>Öğrenci:</strong> ${academic.student}</div>` : ''}
+                ${academic.date ? `<div><strong>Staj Tarihi:</strong> ${academic.date}</div>` : ''}
+            </div>
+        </div>`;
+    }
+
+    html += `
         <div class="patient-print-summary">
             <div><strong>Hasta Adı Soyadı:</strong> ${info.name || 'Girilmedi'}</div>
             <div><strong>Yaş / Cinsiyet:</strong> ${info.age || '-'} / ${info.gender || '-'}</div>
@@ -892,6 +961,13 @@ function initCalculators() {
     };
     gcsInputs.forEach(input => input.addEventListener('change', calculateGCSHandler));
 
+    document.getElementById('clear-gcs-btn')?.addEventListener('click', () => {
+        document.getElementById('gcs-eye').value = '4';
+        document.getElementById('gcs-verbal').value = '5';
+        document.getElementById('gcs-motor').value = '6';
+        calculateGCSHandler();
+    });
+
     const bradenInputs = document.querySelectorAll('.braden-input');
     const calculateBradenHandler = () => {
         const sensory = document.getElementById('braden-sensory').value;
@@ -914,6 +990,16 @@ function initCalculators() {
         }
     };
     bradenInputs.forEach(input => input.addEventListener('change', calculateBradenHandler));
+
+    document.getElementById('clear-braden-btn')?.addEventListener('click', () => {
+        document.getElementById('braden-sensory').value = '4';
+        document.getElementById('braden-moisture').value = '4';
+        document.getElementById('braden-activity').value = '4';
+        document.getElementById('braden-mobility').value = '4';
+        document.getElementById('braden-nutrition').value = '4';
+        document.getElementById('braden-friction').value = '3';
+        calculateBradenHandler();
+    });
 
     const itakiMajorCbs = document.querySelectorAll('.itaki-major-cb');
     const itakiMinorCbs = document.querySelectorAll('.itaki-minor-cb');
@@ -938,6 +1024,12 @@ function initCalculators() {
     };
     itakiMajorCbs.forEach(cb => cb.addEventListener('change', updateItakiHandler));
     itakiMinorCbs.forEach(cb => cb.addEventListener('change', updateItakiHandler));
+
+    document.getElementById('clear-itaki-btn')?.addEventListener('click', () => {
+        document.querySelectorAll('.itaki-major-cb').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.itaki-minor-cb').forEach(cb => cb.checked = false);
+        updateItakiHandler();
+    });
 
     // Transfer Braden score to Care Plan
     document.getElementById('transfer-braden-btn')?.addEventListener('click', () => {
@@ -1059,6 +1151,32 @@ function initCalculators() {
         document.getElementById('dose-result-output').innerHTML = '';
     });
 
+    // MAP Calculator
+    document.getElementById('calc-map-btn')?.addEventListener('click', () => {
+        const sys = document.getElementById('map-sys')?.value;
+        const dia = document.getElementById('map-dia')?.value;
+        const res = window.calculateMAP(sys, dia);
+        const output = document.getElementById('map-result-output');
+        if (output) {
+            if (res) {
+                output.innerHTML = `
+                    <div class="alert ${res.alertClass}">
+                        <strong>🫀 Ortalama Arter Basıncı (MAP):</strong> ${res.map} mmHg<br>
+                        <strong>Durum:</strong> ${res.status}
+                    </div>`;
+            } else {
+                output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli sistolik ve diastolik tansiyon değerleri giriniz.</div>`;
+            }
+        }
+    });
+
+    document.getElementById('clear-map-btn')?.addEventListener('click', () => {
+        if (document.getElementById('map-sys')) document.getElementById('map-sys').value = '';
+        if (document.getElementById('map-dia')) document.getElementById('map-dia').value = '';
+        const output = document.getElementById('map-result-output');
+        if (output) output.innerHTML = '';
+    });
+
     document.getElementById('calc-bmi-btn')?.addEventListener('click', () => {
         const weight = parseFloat(document.getElementById('bmi-weight').value);
         const height = parseFloat(document.getElementById('bmi-height').value);
@@ -1080,6 +1198,220 @@ function initCalculators() {
         document.getElementById('bmi-weight').value = '';
         document.getElementById('bmi-height').value = '';
         document.getElementById('bmi-result-output').innerHTML = '';
+    });
+
+    // 1. Urine Output / Oliguria Calculator
+    document.getElementById('calc-urine-btn')?.addEventListener('click', () => {
+        const ml = document.getElementById('urine-ml').value;
+        const weight = document.getElementById('urine-weight').value;
+        const hours = document.getElementById('urine-hours').value || 24;
+        const res = window.calculateUrineOutput(ml, weight, hours);
+        const output = document.getElementById('urine-result-output');
+        if (res) {
+            output.innerHTML = `
+                <div class="alert ${res.alertClass}">
+                    <strong>🧪 İdrar Çıkış Hızı:</strong> ${res.rate} mL / kg / saat<br>
+                    <strong>Durum:</strong> ${res.status}
+                </div>
+                <ul style="padding-left: 18px; font-size: 0.84rem; margin-top: 6px;">
+                    ${res.recommendations.map(r => `<li>${r}</li>`).join('')}
+                </ul>`;
+        } else {
+            output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli idrar miktarı (mL) ve kilo (kg) giriniz.</div>`;
+        }
+    });
+
+    document.getElementById('clear-urine-btn')?.addEventListener('click', () => {
+        document.getElementById('urine-ml').value = '';
+        document.getElementById('urine-weight').value = '';
+        document.getElementById('urine-hours').value = '24';
+        document.getElementById('urine-result-output').innerHTML = '';
+    });
+
+    // 2. Norton Pressure Ulcer Scale
+    const nortonInputs = document.querySelectorAll('.norton-input');
+    const calculateNortonHandler = () => {
+        const phys = document.getElementById('norton-physical').value;
+        const ment = document.getElementById('norton-mental').value;
+        const act = document.getElementById('norton-activity').value;
+        const mob = document.getElementById('norton-mobility').value;
+        const inc = document.getElementById('norton-incontinence').value;
+
+        const res = window.calculateNorton(phys, ment, act, mob, inc);
+        document.getElementById('norton-score-display').textContent = `${res.total} / 20`;
+        const interpEl = document.getElementById('norton-interpretation');
+        interpEl.textContent = res.riskLevel;
+        interpEl.className = `alert ${res.alertClass}`;
+
+        const recList = document.getElementById('norton-recommendations');
+        if (recList) recList.innerHTML = res.recommendations.map(r => `<li>${r}</li>`).join('');
+    };
+    nortonInputs.forEach(input => input.addEventListener('change', calculateNortonHandler));
+
+    document.getElementById('transfer-norton-btn')?.addEventListener('click', () => {
+        const phys = document.getElementById('norton-physical').value;
+        const ment = document.getElementById('norton-mental').value;
+        const act = document.getElementById('norton-activity').value;
+        const mob = document.getElementById('norton-mobility').value;
+        const inc = document.getElementById('norton-incontinence').value;
+
+        const res = window.calculateNorton(phys, ment, act, mob, inc);
+        const nandaList = window.NANDA_DIAGNOSES || [];
+        const diag = nandaList.find(d => d.id === 'cilt_butunlugu_bozulma') || nandaList.find(d => d.id === 'dusme_riski');
+
+        if (diag) {
+            carePlanBuilder.addCarePlanItem({
+                diagnosisId: diag.id,
+                diagnosisTitle: `${diag.code} - ${diag.title}`,
+                category: diag.category,
+                etiology: 'Hareketsizlik, zihinsel ve fiziksel kısıtlanmaya bağlı olarak',
+                symptoms: `Norton Skoru: ${res.total}/20 (${res.riskLevel})`,
+                noc: res.recommendations || ['Doku bütünlüğü korunacak.'],
+                nic: [
+                    '2 saatte bir sık pozisyon değişimi yapılacak.',
+                    'Havalı yatak kullanılacak.',
+                    'Cilt bariyer kremleri sürülecek.'
+                ],
+                evaluationStatus: 'Kısmen Ulaşıldı'
+            });
+
+            alert(`✓ Norton Risk Skoru (${res.total} Puan - ${res.riskLevel}) Bakım Planına aktarıldı! Bakım Planı sekmesinden inceleyebilirsiniz.`);
+            const builderTabBtn = document.querySelector('.nav-tab[data-tab="builder"]');
+            if (builderTabBtn) builderTabBtn.click();
+            window.goToWizardStep(3);
+        }
+    });
+
+    // 3. FLACC Pediatric Pain Scale
+    const flaccInputs = document.querySelectorAll('.flacc-input');
+    const calculateFLACCHandler = () => {
+        const face = document.getElementById('flacc-face').value;
+        const legs = document.getElementById('flacc-legs').value;
+        const act = document.getElementById('flacc-activity').value;
+        const cry = document.getElementById('flacc-cry').value;
+        const cons = document.getElementById('flacc-consolability').value;
+
+        const res = window.calculateFLACC(face, legs, act, cry, cons);
+        document.getElementById('flacc-score-display').textContent = `${res.total} / 10`;
+        const interpEl = document.getElementById('flacc-interpretation');
+        interpEl.textContent = res.interpretation;
+        interpEl.className = `alert ${res.alertClass}`;
+    };
+    flaccInputs.forEach(input => input.addEventListener('change', calculateFLACCHandler));
+
+    // 4. Parkland Burn Fluid Calculator
+    document.getElementById('calc-parkland-btn')?.addEventListener('click', () => {
+        const weight = document.getElementById('parkland-weight').value;
+        const burn = document.getElementById('parkland-burn').value;
+
+        const res = window.calculateParkland(weight, burn);
+        const output = document.getElementById('parkland-result-output');
+        if (res) {
+            output.innerHTML = `
+                <div class="alert alert-warning">
+                    <strong>🔥 Toplam 24 Saatlik IV Sıvı (RL):</strong> ${res.total24hMl} mL<br>
+                    <strong>⏱️ İlk 8 Saatlik İnfüzyon:</strong> ${res.first8hMl} mL (${res.first8hDripRate} mL/saat)<br>
+                    <strong>⏱️ Sonraki 16 Saatlik İnfüzyon:</strong> ${res.next16hMl} mL (${res.next16hDripRate} mL/saat)
+                </div>
+                <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 4px;">• ${res.advice}</p>`;
+        } else {
+            output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli kilo (kg) ve yanık yüzdesi (% TBSA) giriniz.</div>`;
+        }
+    });
+
+    document.getElementById('clear-parkland-btn')?.addEventListener('click', () => {
+        document.getElementById('parkland-weight').value = '';
+        document.getElementById('parkland-burn').value = '';
+        document.getElementById('parkland-result-output').innerHTML = '';
+    });
+
+    // 5. Pediatric Height & Weight Percentile Calculator
+    document.getElementById('calc-percentile-btn')?.addEventListener('click', () => {
+        const gender = document.getElementById('percentile-gender').value;
+        const yrs = document.getElementById('percentile-age-years').value;
+        const mths = document.getElementById('percentile-age-months').value;
+        const w = document.getElementById('percentile-weight').value;
+        const h = document.getElementById('percentile-height').value;
+
+        const res = window.calculatePediatricPercentile(yrs, mths, gender, w, h);
+        const output = document.getElementById('percentile-result-output');
+        if (res) {
+            output.style.display = 'block';
+            output.innerHTML = `
+                <div style="width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <strong style="color: var(--primary-dark); font-size: 1.05rem;">👦/👧 ${res.genderLabel} (${res.totalMonths} Aylık)</strong>
+                        <span class="badge badge-primary">WHO & Neyzi Standartı</span>
+                    </div>
+
+                    <!-- Kilo Persentil Kartı -->
+                    <div style="background: var(--bg-card); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                            <div>
+                                <strong>⚖️ Kilo Persentili:</strong> <span style="font-weight: 800; font-size: 1.05rem; color: var(--primary-dark);">${res.weightPercentile.pLabel}</span>
+                            </div>
+                            <span class="badge ${res.weightPercentile.alertClass}">${res.weightPercentile.status}</span>
+                        </div>
+                        <div style="margin-top: 8px; font-size: 0.82rem; color: var(--text-secondary);">
+                            Vücut Ağırlığı: <strong>${res.weight} kg</strong> (Z-Skoru: ${res.weightPercentile.zScore})
+                        </div>
+                        <div style="margin-top: 8px; height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; position: relative;">
+                            <div style="width: ${res.weightPercentile.percentage}%; height: 100%; background: linear-gradient(90deg, #10b981, #06b6d4); border-radius: 99px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Boy Persentil Kartı -->
+                    <div style="background: var(--bg-card); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                            <div>
+                                <strong>📏 Boy Persentili:</strong> <span style="font-weight: 800; font-size: 1.05rem; color: var(--secondary-hover);">${res.heightPercentile.pLabel}</span>
+                            </div>
+                            <span class="badge ${res.heightPercentile.alertClass}">${res.heightPercentile.status}</span>
+                        </div>
+                        <div style="margin-top: 8px; font-size: 0.82rem; color: var(--text-secondary);">
+                            Boy Uzunluğu: <strong>${res.height} cm</strong> (Z-Skoru: ${res.heightPercentile.zScore})
+                        </div>
+                        <div style="margin-top: 8px; height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; position: relative;">
+                            <div style="width: ${res.heightPercentile.percentage}%; height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-radius: 99px;"></div>
+                        </div>
+                    </div>
+                </div>`;
+        } else {
+            output.style.display = 'block';
+            output.innerHTML = `<div class="alert alert-danger" style="width: 100%;">Lütfen geçerli yaş (yıl/ay), vücut ağırlığı (kg) ve boy (cm) değerleri giriniz.</div>`;
+        }
+    });
+
+    document.getElementById('clear-percentile-btn')?.addEventListener('click', () => {
+        document.getElementById('percentile-age-years').value = '';
+        document.getElementById('percentile-age-months').value = '';
+        document.getElementById('percentile-weight').value = '';
+        document.getElementById('percentile-height').value = '';
+        const output = document.getElementById('percentile-result-output');
+        if (output) {
+            output.innerHTML = `
+                <div style="text-align: center; color: var(--text-muted); font-size: 0.88rem;">
+                    📊 Lütfen sol taraftaki yaş, cinsiyet, boy ve kilo bilgilerini girip <strong>"Persentil Değerlerini Hesapla"</strong> butonuna basınız.
+                </div>`;
+        }
+    });
+
+    document.getElementById('clear-norton-btn')?.addEventListener('click', () => {
+        document.getElementById('norton-physical').value = '4';
+        document.getElementById('norton-mental').value = '4';
+        document.getElementById('norton-activity').value = '4';
+        document.getElementById('norton-mobility').value = '4';
+        document.getElementById('norton-incontinence').value = '4';
+        calculateNortonHandler();
+    });
+
+    document.getElementById('clear-flacc-btn')?.addEventListener('click', () => {
+        document.getElementById('flacc-face').value = '0';
+        document.getElementById('flacc-legs').value = '0';
+        document.getElementById('flacc-activity').value = '0';
+        document.getElementById('flacc-cry').value = '0';
+        document.getElementById('flacc-consolability').value = '0';
+        calculateFLACCHandler();
     });
 }
 
@@ -1170,21 +1502,29 @@ function initNandaDictionary() {
     const container = document.getElementById('nanda-dictionary-container');
     const searchInput = document.getElementById('nanda-search-input');
     const catSelect = document.getElementById('nanda-category-select');
+    const domainSelect = document.getElementById('nanda-domain-select');
 
     if (!container) return;
 
     const categories = window.NANDA_CATEGORIES || [];
+    const domains = window.NANDA_DOMAINS || [];
     const diagnoses = window.NANDA_DIAGNOSES || [];
 
     catSelect.innerHTML = `<option value="all">Tüm Kategoriler</option>` +
         `<option value="favorites">⭐ Favori Tanılarım</option>` +
         categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
 
+    if (domainSelect) {
+        domainSelect.innerHTML = `<option value="all">Tüm Etki Alanları (Domains)</option>` +
+            domains.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+    }
+
     const sortSelect = document.getElementById('nanda-sort-select');
 
     const renderDictionary = () => {
         const query = searchInput.value.toLowerCase().trim();
         const catFilter = catSelect.value;
+        const domainFilter = domainSelect ? domainSelect.value : 'all';
         const sortMode = sortSelect ? sortSelect.value : 'code';
         const favorites = window.getFavoriteDiagnoses();
 
@@ -1200,7 +1540,12 @@ function initNandaDictionary() {
                 matchesCat = d.category === catFilter;
             }
 
-            return matchesQuery && matchesCat;
+            let matchesDomain = true;
+            if (domainFilter !== 'all') {
+                matchesDomain = (d.domain === domainFilter);
+            }
+
+            return matchesQuery && matchesCat && matchesDomain;
         });
 
         // Apply Sorting
@@ -1255,6 +1600,7 @@ function initNandaDictionary() {
 
     searchInput.addEventListener('input', debounce(renderDictionary, 150));
     catSelect.addEventListener('change', renderDictionary);
+    if (domainSelect) domainSelect.addEventListener('change', renderDictionary);
     if (sortSelect) sortSelect.addEventListener('change', renderDictionary);
     renderDictionary();
 }

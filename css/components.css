@@ -792,4 +792,45 @@ body.dark-theme .mobile-dock-badge {
     margin: 0 auto 16px auto;
 }
 
+/* Etiology & Symptom Chips */
+.suggestion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.chip-btn {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-full);
+    padding: 4px 11px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.chip-btn:hover {
+    background-color: var(--primary);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.hero-logo-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(13,148,136,0.5);
+    border: 3px solid rgba(204,251,241,0.4);
+    transition: transform 0.4s ease;
+}
+
+.hero-logo-img:hover {
+    transform: scale(1.08) rotate(2deg);
+}
+
+
+
 

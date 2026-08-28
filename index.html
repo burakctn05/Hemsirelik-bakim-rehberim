@@ -7,8 +7,8 @@
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="Hemşirelik Bakım Rehberim | NANDA-I Bakım Planı Oluşturucu & Klinik Asistan">
-    <meta name="description" content="NANDA-I 2024-2026 taksonomisine uygun ücretsiz dijital Hemşirelik Bakım Planı Oluşturucu. Hazır klinik şablonlar, otomatik NOC/NIC eşleşmeleri, GKS & Norton hesaplayıcılar ve PDF indirme.">
-    <meta name="keywords" content="hemşirelik bakım planı, nanda bakım planları, hemşirelik tanıları listesi, nanda-i 2024, hemşirelik tanıları, hemşirelik bakım planı örneği, klinik hesaplayıcılar, gks hesaplama, norton bası yarası skoru, ortopedi bakım planı, cerrahi bakım planı, hemşirelik öğrencisi rehberi, hemşirelik asistanı, burak çetin">
+    <meta name="description" content="NANDA-I 2024-2026 taksonomisine uygun ücretsiz dijital Hemşirelik Bakım Planı Oluşturucu. Hazır klinik şablonlar, otomatik NOC/NIC eşleşmeleri, GKS, Braden, Norton & FLACC hesaplayıcılar ve PDF indirme.">
+    <meta name="keywords" content="hemşirelik bakım planı, nanda bakım planları, hemşirelik tanıları listesi, nanda-i 2024, hemşirelik tanıları, hemşirelik bakım planı örneği, klinik hesaplayıcılar, gks hesaplama, braden ve norton bası yarası skoru, flacc ağrı skalası, oligüri hesabı, parkland yanık formülü, ortopedi bakım planı, cerrahi bakım planı, hemşirelik öğrencisi rehberi, hemşirelik asistanı, burak çetin">
     <meta name="author" content="Hemşire Burak ÇETİN">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta http-equiv="content-language" content="tr">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div class="hero-logo-wrapper no-print" style="display: flex; align-items: center; justify-content: center; padding: 10px;">
-                    <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Amblem" style="width: 140px; height: 140px; border-radius: 24px; box-shadow: 0 0 40px rgba(13,148,136,0.5); border: 3px solid rgba(204,251,241,0.4); transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08) rotate(2deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                    <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Amblem" class="hero-logo-img">
                 </div>
             </div>
 
@@ -221,8 +221,8 @@
                 <div class="stat-card">
                     <div class="stat-icon-wrapper">🧮</div>
                     <div>
-                        <div class="stat-number">8+</div>
-                        <div class="stat-label">Klinik Ölçek & Dozaj</div>
+                        <div class="stat-number">12+</div>
+                        <div class="stat-label">Klinik Ölçek & Persentil</div>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -244,15 +244,17 @@
 
                 <div class="card card-hover feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>GKS, Braden & İtaki Ölçekleri</h3>
-                    <p>Glasgow Koma Skoru, Braden Bası Yarası Riski ve İtaki Düşme Riski puanlamalarını saniyeler içinde hesaplayın.</p>
+                    <h3>GKS, Braden, Norton, FLACC & Persentil</h3>
+                    <p>Glasgow Koma, Braden & Norton Bası Yarası, FLACC Ağrı ve Pediatrik Boy-Kilo Persentil eğrilerini hesaplayın.</p>
                     <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
                 </div>
 
                 <div class="card card-hover feature-card">
                     <div class="feature-icon">💧</div>
-                    <h3>Aldığı-Çıkardığı & Doz Hesabı</h3>
-                    <p>Net sıvı bilanço hesabı (+/- mL), IV damla/dakika hızı ve enjeksiyonluk doz hesaplamalarını yapın.</p>
+                    <h3>Sıvı Dengesi, Doz & Yanık Hesabı</h3>
+                    <p>Net sıvı bilanço hesabı (+/- mL), Oligüri takibi, Parkland Yanık Formülü, IV damla hızı ve ilaç doz hesaplamaları.</p>
+                    <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
+                </div>
             </div>
 
             <!-- PWA Offline Banner -->
@@ -363,6 +365,45 @@
                                     </div>
                                 </div>
                                 <div id="step1-bmi-badge" style="margin-bottom: 12px;"></div>
+
+                                <!-- Academic Internship / Report Header Fields (Optional) -->
+                                <div style="margin-top: 16px; padding: 14px; background: var(--bg-card-hover); border-radius: var(--radius-sm); border: 1px dashed var(--primary);">
+                                    <h4 style="margin-bottom: 10px; color: var(--primary-dark); font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+                                        🎓 Akademik Staj & Üst Bilgi (PDF / Yazdır Çıktısı İçin Opsiyonel)
+                                    </h4>
+                                    <div class="form-group">
+                                        <label class="form-label" for="academic-university">Üniversite Adı</label>
+                                        <input type="text" id="academic-university" class="form-control" placeholder="Örn. İstanbul Üniversitesi-Cerrahpaşa">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="academic-faculty">Fakülte / Yüksekokul / Bölüm</label>
+                                        <input type="text" id="academic-faculty" class="form-control" placeholder="Örn. Sağlık Bilimleri Fakültesi Hemşirelik Bölümü">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label" for="academic-course">Dersin Adı</label>
+                                            <input type="text" id="academic-course" class="form-control" placeholder="Örn. Cerrahi Hastalıkları Hemşireliği">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="academic-instructor">Sorumlu Öğretim Elemanı (Hoca)</label>
+                                            <input type="text" id="academic-instructor" class="form-control" placeholder="Örn. Prof. Dr. Zeynep Kaya">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label" for="academic-hospital">Staj Yapılan Hastane / Servis</label>
+                                            <input type="text" id="academic-hospital" class="form-control" placeholder="Örn. Tıp Fakültesi Hastanesi 4. Kat Cerrahi Servisi">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="academic-student">Öğrenci Adı Soyadı & No</label>
+                                            <input type="text" id="academic-student" class="form-control" placeholder="Örn. Burak ÇETİN - 210405001">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="academic-date">Staj / Bakım Planı Tarihi</label>
+                                        <input type="date" id="academic-date" class="form-control">
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -617,6 +658,9 @@
                     <div id="gcs-interpretation" class="alert alert-success" style="margin-top: 14px;">
                         Normal Bilinç Düzeyi (Oryante ve Koopere)
                     </div>
+                    <div style="margin-top: 14px; text-align: center;">
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-gcs-btn">🧹 Temizle</button>
+                    </div>
                 </div>
 
                 <!-- 2. Braden Pressure Ulcer Scale -->
@@ -699,9 +743,12 @@
                         RİSK YOK / ÇOK DÜŞÜK RİSK
                     </div>
                     <ul id="braden-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary);"></ul>
-                    <div style="margin-top: 14px; text-align: center;">
+                    <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                         <button type="button" class="btn btn-sm btn-outline" id="transfer-braden-btn">
                             ⚡ Braden Skorunu Bakım Planıma Aktar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-braden-btn">
+                            🧹 Temizle
                         </button>
                     </div>
                 </div>
@@ -740,9 +787,12 @@
                     DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
                 </div>
                 <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary);"></ul>
-                <div style="margin-top: 14px; text-align: center;">
+                <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
                         ⚡ İtaki Skorunu Bakım Planıma Aktar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary" id="clear-itaki-btn">
+                        🧹 Temizle
                     </button>
                 </div>
             </div>
@@ -828,7 +878,10 @@
                         <input type="number" id="map-dia" class="form-control" placeholder="Örn. 80">
                     </div>
 
-                    <button class="btn btn-primary btn-sm" id="calc-map-btn">MAP Hesapla</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary btn-sm" id="calc-map-btn">MAP Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-map-btn">🧹 Temizle</button>
+                    </div>
 
                     <div id="map-result-output" style="margin-top: 12px;"></div>
                 </div>
@@ -886,8 +939,264 @@
                 </div>
             </div>
 
+            <!-- 6. Saatlik İdrar Çıkışı (Oligüri Hesabı) & Norton Bası Yarası Skalası -->
+            <div class="grid-2" style="margin-top: 24px;">
+                <!-- Urine Output / Oliguria -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🧪</span>
+                            <h3>Saatlik İdrar Çıkışı & Oligüri Kontrolü (mL/kg/saat)</h3>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.84rem; margin-bottom: 14px;">Böbrek perfüzyonu takibi. Klinik olarak idrar çıkışının &lt; 0.5 mL/kg/saat olması oligüri ve akut böbrek hasarı göstergesidir.</p>
 
-            <!-- 6. Klinik IV Sıvı & Sık Kullanılan İlaç Hızlı Rehberi -->
+                    <div class="form-group">
+                        <label class="form-label" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
+                        <input type="number" id="urine-ml" class="form-control" placeholder="Örn. 350">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
+                        <input type="number" id="urine-weight" class="form-control" placeholder="Örn. 70">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="urine-hours">Takip Süresi (Saat)</label>
+                        <input type="number" id="urine-hours" class="form-control" value="24" placeholder="Örn. 8 veya 24">
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-urine-btn">🧹 Temizle</button>
+                    </div>
+                    <div id="urine-result-output" style="margin-top: 12px;"></div>
+                </div>
+
+                <!-- Norton Scale -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🩺</span>
+                            <h3>Norton Bası Yarası Risk Ölçeği</h3>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="norton-physical">Fiziksel Durum</label>
+                        <select id="norton-physical" class="form-select norton-input">
+                            <option value="4">4 - İyi</option>
+                            <option value="3">3 - Orta</option>
+                            <option value="2">2 - Kötü</option>
+                            <option value="1">1 - Çok Kötü</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="norton-mental">Zihinsel (Mental) Durum</label>
+                        <select id="norton-mental" class="form-select norton-input">
+                            <option value="4">4 - Açık / Oryante</option>
+                            <option value="3">3 - Apatik (İlgisiz)</option>
+                            <option value="2">2 - Konfüze</option>
+                            <option value="1">1 - Stupor / Stuporöz</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="norton-activity">Aktivite</label>
+                        <select id="norton-activity" class="form-select norton-input">
+                            <option value="4">4 - Yürür</option>
+                            <option value="3">3 - Yardım ile Yürür</option>
+                            <option value="2">2 - Sandalyeye Bağımlı</option>
+                            <option value="1">1 - Yatağa Bağımlı</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="norton-mobility">Hareketlilik (Mobilite)</label>
+                        <select id="norton-mobility" class="form-select norton-input">
+                            <option value="4">4 - Tam</option>
+                            <option value="3">3 - Hafif Kısıtlı</option>
+                            <option value="2">2 - Çok Kısıtlı</option>
+                            <option value="1">1 - Hareketsiz</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="norton-incontinence">İnkontinans (Çiş/Kaka Kaçırma)</label>
+                        <select id="norton-incontinence" class="form-select norton-input">
+                            <option value="4">4 - Yok</option>
+                            <option value="3">3 - Bazen</option>
+                            <option value="2">2 - Genellikle Üriner</option>
+                            <option value="1">1 - Çift İnkontinans (Her ikisi)</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 14px; text-align: center;">
+                        <h4 style="color: var(--text-secondary); margin-bottom: 4px;">Norton Puanı</h4>
+                        <div id="norton-score-display" style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);">20 / 20</div>
+                    </div>
+                    <div id="norton-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                        DÜŞÜK RİSK / RİSK YOK (> 14 Puan)
+                    </div>
+                    <ul id="norton-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary);"></ul>
+                    <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-sm btn-outline" id="transfer-norton-btn">
+                            ⚡ Norton Skorunu Bakım Planıma Aktar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-norton-btn">
+                            🧹 Temizle
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. FLACC Pediatrik Ağrı Skalası & Parkland Yanık Formülü -->
+            <div class="grid-2" style="margin-top: 24px;">
+                <!-- FLACC Scale -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">👶</span>
+                            <h3>FLACC Pediatrik & Sözel Olmayan Ağrı Skalası (0-2 Yaş)</h3>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.84rem; margin-bottom: 14px;">Bebekler, çocuklar veya konuşamayan yoğun bakım hastaları için davranışsal ağrı değerlendirmesi.</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="flacc-face">Yüz İfadesi (Face)</label>
+                        <select id="flacc-face" class="form-select flacc-input">
+                            <option value="0">0 - Belirgin özel bir ifade yok veya gülümser</option>
+                            <option value="1">1 - Ara sıra kaş çatma, huzursuz görünüm</option>
+                            <option value="2">2 - Sık kaş çatma, çene titremesi, diş sıkma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="flacc-legs">Bacaklar (Legs)</label>
+                        <select id="flacc-legs" class="form-select flacc-input">
+                            <option value="0">0 - Normal veya gevşek</option>
+                            <option value="1">1 - Huzursuz, gergin, kasılmış</option>
+                            <option value="2">2 - Çırpınma veya bacakları karnına çekme</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="flacc-activity">Aktivite (Activity)</label>
+                        <select id="flacc-activity" class="form-select flacc-input">
+                            <option value="0">0 - Sakin yatar, rahat hareket eder</option>
+                            <option value="1">1 - Kıvranma, gerinme, ileri-geri sallanma</option>
+                            <option value="2">2 - Katılaşma, sürekli sarsılma veya arkaya kayma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="flacc-cry">Ağlama (Cry)</label>
+                        <select id="flacc-cry" class="form-select flacc-input">
+                            <option value="0">0 - Ağlama yok (uyur veya uyanık)</option>
+                            <option value="1">1 - İnleme, sızlanma, ara sıra şikayet</option>
+                            <option value="2">2 - Sürekli ağlama, çığlık atma, sık şikayet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="flacc-consolability">Sakinleştirilebilirlik (Consolability)</label>
+                        <select id="flacc-consolability" class="form-select flacc-input">
+                            <option value="0">0 - Sakin ve rahat</option>
+                            <option value="1">1 - Dokunma veya konuşma ile sakinleşir</option>
+                            <option value="2">2 - Sakinleştirmekte güçlük çekilir</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 14px; text-align: center;">
+                        <h4 style="color: var(--text-secondary); margin-bottom: 4px;">FLACC Ağrı Skoru</h4>
+                        <div id="flacc-score-display" style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);">0 / 10</div>
+                    </div>
+                    <div id="flacc-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                        AĞRI YOK / RAHAT (0 Puan)
+                    </div>
+                    <div style="margin-top: 14px; text-align: center;">
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-flacc-btn">🧹 Temizle</button>
+                    </div>
+                </div>
+
+                <!-- Parkland Burn Calculator -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">🔥</span>
+                            <h3>Yanık Yüzdesi & Parkland IV Sıvı Formülü</h3>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.84rem; margin-bottom: 14px;">Formül: 4 mL × Kilo (kg) × % Yanık Yüzdesi (% TBSA). Sıvının %50'si ilk 8 saatte, %50'si kalan 16 saatte verilir.</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="parkland-weight">Hasta Vücut Ağırlığı (kg)</label>
+                        <input type="number" id="parkland-weight" class="form-control" placeholder="Örn. 70">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="parkland-burn">Yanık Yüzdesi (% TBSA - 9'lar Kuralı)</label>
+                        <input type="number" id="parkland-burn" class="form-control" placeholder="Örn. 25">
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 16px;">
+                        <button class="btn btn-primary btn-sm" id="calc-parkland-btn">🧮 Parkland Sıvısını Hesapla</button>
+                        <button class="btn btn-secondary btn-sm" id="clear-parkland-btn">🧹 Temizle</button>
+                    </div>
+                    <div id="parkland-result-output" style="margin-top: 14px;"></div>
+                </div>
+            </div>
+
+            <!-- 8. Pediatrik Boy & Kilo Persentil Hesaplayıcısı (Çocuk Sağlığı ve Gelişimi) -->
+            <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(13,148,136,0.06), #ffffff); border: 2px solid var(--primary);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">👶</span>
+                        <h3>Pediatrik Boy & Kilo Persentil Hesaplayıcısı (0 - 18 Yaş)</h3>
+                    </div>
+                    <span class="badge badge-primary">WHO & Prof. Dr. Olcay Neyzi Standartları</span>
+                </div>
+                <p style="font-size: 0.86rem; margin-bottom: 16px; color: var(--text-secondary);">
+                    Çocuk gelişimi ve büyüme eğrileri. Bebeğin/çocuğun yaş, cinsiyet, boy ve kilosuna göre %3, %15, %50, %85 ve %97 persentil seviyelerini ve klinik gelişim analizini hesaplar.
+                </p>
+
+                <div class="grid-2">
+                    <div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="percentile-gender">Cinsiyet</label>
+                                <select id="percentile-gender" class="form-select">
+                                    <option value="Erkek">Erkek Çocuk 👦</option>
+                                    <option value="Kadın">Kız Çocuk 👧</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="percentile-age-years">Yaş (Yıl)</label>
+                                <input type="number" id="percentile-age-years" class="form-control" min="0" max="18" placeholder="Örn. 3">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="percentile-age-months">İlave Ay (0-11)</label>
+                                <input type="number" id="percentile-age-months" class="form-control" min="0" max="11" placeholder="Örn. 6">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="percentile-weight">Vücut Ağırlığı (kg)</label>
+                                <input type="number" step="0.1" id="percentile-weight" class="form-control" placeholder="Örn. 15.5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="percentile-height">Boy Uzunluğu (cm)</label>
+                            <input type="number" step="0.5" id="percentile-height" class="form-control" placeholder="Örn. 98">
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-primary" id="calc-percentile-btn">🧮 Persentil Değerlerini Hesapla</button>
+                            <button type="button" class="btn btn-secondary" id="clear-percentile-btn">🧹 Formu Temizle</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div id="percentile-result-output" style="min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                            <div style="text-align: center; color: var(--text-muted); font-size: 0.88rem;">
+                                📊 Lütfen sol taraftaki yaş, cinsiyet, boy ve kilo bilgilerini girip <strong>"Persentil Değerlerini Hesapla"</strong> butonuna basınız.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Klinik IV Sıvı & Sık Kullanılan İlaç Hızlı Rehberi -->
             <div class="card" style="margin-top: 24px;">
                 <div class="card-header">
                     <div class="card-title">
@@ -952,7 +1261,7 @@
                 <h2>📖 NANDA-I Hemşirelik Tanıları Sözlüğü</h2>
                 <p>NANDA hemşirelik tanılarını arayın, etiyolojilerini ve tanısal belirtilerini inceleyin.</p>
                 
-                <div class="grid-3" style="margin-top: 16px;">
+                <div class="grid-4" style="margin-top: 16px;">
                     <div class="form-group">
                         <label class="form-label" for="nanda-search-input">Tanı veya Kod Ara</label>
                         <input type="text" id="nanda-search-input" class="form-control" placeholder="Örn. Ağrı, Gaz Değişimi, 00030...">
@@ -960,6 +1269,10 @@
                     <div class="form-group">
                         <label class="form-label" for="nanda-category-select">Kategoriye Göre Filtrele</label>
                         <select id="nanda-category-select" class="form-select"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="nanda-domain-select">NANDA Etki Alanı (Domain)</label>
+                        <select id="nanda-domain-select" class="form-select"></select>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="nanda-sort-select">Sıralama Düzeni</label>
@@ -1038,11 +1351,25 @@
             <div class="form-group">
                 <label class="form-label" for="modal-etiology-input">Etiyoloji / İlişkili Faktörler (... bağlı olarak)</label>
                 <input type="text" id="modal-etiology-input" class="form-control" placeholder="Örn. Cerrahi insizyona bağlı olarak">
+                <div class="suggestion-chips" id="etiology-chips">
+                    <button type="button" class="chip-btn" data-target="modal-etiology-input" data-text="Cerrahi insizyona ve doku hasarına bağlı olarak">+ Cerrahi İnsizyona Bağlı</button>
+                    <button type="button" class="chip-btn" data-target="modal-etiology-input" data-text="Hareketsizliğe (İmmobiliteye) bağlı olarak">+ Hareketsizliğe Bağlı</button>
+                    <button type="button" class="chip-btn" data-target="modal-etiology-input" data-text="Enfeksiyon sürecine ve doku inflamasyonuna bağlı olarak">+ Enfeksiyon Sürecine Bağlı</button>
+                    <button type="button" class="chip-btn" data-target="modal-etiology-input" data-text="Bilinç düzeyinde azalmaya bağlı olarak">+ Bilinç Azalmasına Bağlı</button>
+                    <button type="button" class="chip-btn" data-target="modal-etiology-input" data-text="Oksijenlenme yetersizliğine bağlı olarak">+ Oksijenlenme Yetersizliğine Bağlı</button>
+                </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="modal-symptoms-input">Belirti ve Bulgular (... şeklinde gösterilen)</label>
                 <input type="text" id="modal-symptoms-input" class="form-control" placeholder="Örn. Ağrı skorunun 6/10 olması şeklinde gösterilen">
+                <div class="suggestion-chips" id="symptom-chips">
+                    <button type="button" class="chip-btn" data-target="modal-symptoms-input" data-text="Ağrı skorunun 6/10 olması şeklinde gösterilen">+ Ağrı Skoru (6/10)</button>
+                    <button type="button" class="chip-btn" data-target="modal-symptoms-input" data-text="SpO2 değerinin %91'e düşmesi şeklinde gösterilen">+ Düşük SpO2 (%91)</button>
+                    <button type="button" class="chip-btn" data-target="modal-symptoms-input" data-text="Vücut sıcaklığının 38.2°C olması şeklinde gösterilen">+ Yüksek Ateş (38.2°C)</button>
+                    <button type="button" class="chip-btn" data-target="modal-symptoms-input" data-text="Kuru öksürük ve dispne ile gösterilen">+ Dispne & Öksürük</button>
+                    <button type="button" class="chip-btn" data-target="modal-symptoms-input" data-text="Ciltte kızarıklık ve bası izi ile gösterilen">+ Cilt Kızarıklığı</button>
+                </div>
             </div>
 
             <div class="form-group">
