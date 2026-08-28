@@ -493,27 +493,64 @@ function initCarePlanWizard() {
     document.getElementById('clear-patient-form-btn-bottom')?.addEventListener('click', clearFormHandler);
 
 
+    function syncFormToState() {
+        const info = {
+            name: document.getElementById('patient-name-input')?.value || '',
+            age: document.getElementById('patient-age-input')?.value || '',
+            gender: document.getElementById('patient-gender-select')?.value || 'Erkek',
+            diagnosis: document.getElementById('patient-diag-input')?.value || '',
+            room: document.getElementById('patient-room-input')?.value || '',
+            weight: document.getElementById('patient-weight-input')?.value || '',
+            height: document.getElementById('patient-height-input')?.value || '',
+            vitals: {
+                ates: document.getElementById('vital-ates-input')?.value || '',
+                tansiyonSystolic: document.getElementById('vital-tansys-input')?.value || '',
+                tansiyonDiastolic: document.getElementById('vital-tandia-input')?.value || '',
+                nabiz: document.getElementById('vital-nabiz-input')?.value || '',
+                solunum: document.getElementById('vital-solunum-input')?.value || '',
+                spo2: document.getElementById('vital-spo2-input')?.value || '',
+                agri: document.getElementById('vital-agri-input')?.value || '0'
+            }
+        };
+        carePlanBuilder.setPatientInfo(info);
+
+        const academic = {
+            university: document.getElementById('academic-university')?.value || '',
+            faculty: document.getElementById('academic-faculty')?.value || '',
+            course: document.getElementById('academic-course')?.value || '',
+            instructor: document.getElementById('academic-instructor')?.value || '',
+            hospital: document.getElementById('academic-hospital')?.value || '',
+            student: document.getElementById('academic-student')?.value || '',
+            date: document.getElementById('academic-date')?.value || ''
+        };
+        carePlanBuilder.setAcademicInfo(academic);
+    }
+
     // Final Save / Export / Copy / JSON Backup Buttons
 
     document.getElementById('save-plan-btn')?.addEventListener('click', () => {
+        syncFormToState();
         const saved = window.savePlanToStorage(carePlanBuilder.currentPlan);
         if (window.showToast) window.showToast(`"Bakım Planı (${saved.patientInfo?.name || 'Hasta'})" başarıyla kaydedildi!`, 'success');
     });
 
     document.getElementById('copy-plan-btn')?.addEventListener('click', () => {
+        syncFormToState();
         window.copyPlanToClipboard(carePlanBuilder.currentPlan);
     });
 
     document.getElementById('export-text-btn')?.addEventListener('click', () => {
+        syncFormToState();
         window.exportPlanAsText(carePlanBuilder.currentPlan);
     });
 
     document.getElementById('export-word-btn')?.addEventListener('click', () => {
+        syncFormToState();
         window.exportPlanAsWord(carePlanBuilder.currentPlan);
     });
 
-
     document.getElementById('export-json-btn')?.addEventListener('click', () => {
+        syncFormToState();
         window.exportPlanAsJSON(carePlanBuilder.currentPlan);
     });
 

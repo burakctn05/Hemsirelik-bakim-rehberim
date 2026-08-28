@@ -43,10 +43,22 @@ window.deletePlanFromStorage = function(planId) {
 };
 
 window.generatePlanFormattedText = function(planObject) {
+    const academic = planObject.academicInfo || {};
     let text = `====================================================\n`;
     text += `       HEMŞİRELİK BAKIM PLANI - HEMŞİRELİK BAKIM REHBERİM\n`;
     text += `====================================================\n\n`;
 
+    if (academic.university || academic.faculty || academic.course || academic.instructor || academic.hospital || academic.student || academic.date) {
+        text += `[AKADEMİK STAJ & ÜST BİLGİ]\n`;
+        if (academic.university) text += `Üniversite: ${academic.university}\n`;
+        if (academic.faculty) text += `Fakülte / Bölüm: ${academic.faculty}\n`;
+        if (academic.course) text += `Dersin Adı: ${academic.course}\n`;
+        if (academic.instructor) text += `Sorumlu Öğretim Elemanı: ${academic.instructor}\n`;
+        if (academic.hospital) text += `Staj Hastanesi / Servis: ${academic.hospital}\n`;
+        if (academic.student) text += `Öğrenci Adı Soyadı & No: ${academic.student}\n`;
+        if (academic.date) text += `Staj Tarihi: ${academic.date}\n`;
+        text += `----------------------------------------------------\n\n`;
+    }
 
     text += `[HASTA BİLGİLERİ]\n`;
     text += `Adı Soyadı: ${planObject.patientInfo?.name || '-'}\n`;
@@ -172,6 +184,33 @@ window.exportPlanAsWord = function(planObject) {
     const p = planObject || {};
     const info = p.patientInfo || {};
     const vitals = info.vitals || {};
+    const academic = p.academicInfo || {};
+
+    let academicTableHtml = '';
+    if (academic.university || academic.faculty || academic.course || academic.instructor || academic.hospital || academic.student || academic.date) {
+        academicTableHtml = `
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 16pt; border: 2px solid #0d9488;">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color: #0d9488; color: #ffffff; text-align: center; padding: 8pt; font-size: 13pt;">
+                        ${academic.university ? academic.university.toUpperCase() : 'AKADEMİK STAJ & KLİNİK ÜST BİLGİ'}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                ${academic.faculty ? `<tr><td colspan="2" style="background-color: #f0fdf4; color: #0f766e; text-align: center; font-weight: bold; padding: 6pt; font-size: 11pt;">${academic.faculty}</td></tr>` : ''}
+                <tr>
+                    <td style="width: 50%; background-color: #f8fafc; padding: 6pt;"><strong>Dersin Adı:</strong> ${academic.course || '-'}</td>
+                    <td style="width: 50%; background-color: #f8fafc; padding: 6pt;"><strong>Sorumlu Öğretim Elemanı:</strong> ${academic.instructor || '-'}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; background-color: #f8fafc; padding: 6pt;"><strong>Staj Yapılan Hastane / Servis:</strong> ${academic.hospital || '-'}</td>
+                    <td style="width: 50%; background-color: #f8fafc; padding: 6pt;"><strong>Öğrenci Adı Soyadı & No:</strong> ${academic.student || '-'}</td>
+                </tr>
+                ${academic.date ? `<tr><td colspan="2" style="background-color: #f8fafc; padding: 6pt;"><strong>Staj / Bakım Planı Tarihi:</strong> ${academic.date}</td></tr>` : ''}
+            </tbody>
+        </table>`;
+    }
 
     let html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
     <head><meta charset="utf-8"><title>Hemşirelik Bakım Planı</title>
@@ -186,6 +225,8 @@ window.exportPlanAsWord = function(planObject) {
     </style>
     </head>
     <body>
+        ${academicTableHtml}
+
         <h1>T.C. HEMŞİRELİK BAKIM PLANI</h1>
         <p class="sub">Hemşirelik Bakım Rehberim - Akademik Klinik Bakım Planı Formu</p>
 
