@@ -736,15 +736,22 @@ window.openAddDiagnosisModal = function(diagId) {
         </label>
     `).join('');
 
-    // NIC Checkboxes
+    // NIC Checkboxes with Rationales
     const nicContainer = document.getElementById('modal-nic-checkboxes');
     const nicList = (diag.nic && diag.nic.length > 0) ? diag.nic : ['Vital bulgular düzenli takip edilecek.', 'Hekim istemine uygun tedavi uygulanacak.'];
+    const rationalesList = diag.rationales || [];
     const existingNic = (existing?.nic && existing.nic.length > 0) ? existing.nic : null;
-    nicContainer.innerHTML = nicList.map(n => `
-        <label style="display: block; font-size: 0.88rem; margin-bottom: 6px; cursor: pointer;">
-            <input type="checkbox" class="modal-nic-cb" value="${n}" ${existingNic ? existingNic.includes(n) : true}> ${n}
-        </label>
-    `).join('');
+    nicContainer.innerHTML = nicList.map((n, idx) => {
+        const r = rationalesList[idx] || rationalesList[0];
+        return `
+            <div style="margin-bottom: 8px; background: var(--bg-card-hover); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);">
+                <label style="display: block; font-size: 0.88rem; cursor: pointer; font-weight: 600;">
+                    <input type="checkbox" class="modal-nic-cb" value="${n}" ${existingNic ? existingNic.includes(n) : true}> ${n}
+                </label>
+                ${r ? `<div style="font-size: 0.80rem; color: #0284c7; margin-top: 4px; padding-left: 20px;">🔬 <strong>Girişim Rasyoneli:</strong> ${r}</div>` : ''}
+            </div>
+        `;
+    }).join('');
 
     document.getElementById('modal-custom-noc').value = '';
     document.getElementById('modal-custom-nic').value = '';
@@ -931,10 +938,15 @@ function renderCarePlanPreviewTable() {
         html += `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">Henüz plana bir hemşirelik tanısı eklenmedi. Step 2\'ye dönüp tanı ekleyin.</td></tr>`;
     } else {
         plan.carePlans.forEach(cp => {
+            const nandaList = window.NANDA_DIAGNOSES || [];
+            const origDiag = nandaList.find(d => d.id === cp.diagnosisId);
+            const rationalesList = origDiag ? (origDiag.rationales || []) : [];
+
             html += `
                 <tr>
                     <td>
                         <strong style="color: var(--primary-dark);">${getDiagnosisTitle(cp)}</strong>
+                        ${origDiag?.domainName ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">${origDiag.domainName}</div>` : ''}
                     </td>
                     <td>
                         <div><strong>İlişkili Faktörler:</strong> ${cp.etiology || '-'}</div>
@@ -948,7 +960,15 @@ function renderCarePlanPreviewTable() {
                     </td>
                     <td>
                         <ul class="table-bullet-list">
-                            ${(cp.nic || []).map(n => `<li>${n}</li>`).join('')}
+                            ${(cp.nic || []).map((n, idx) => {
+                                const r = rationalesList[idx] || rationalesList[0];
+                                return `
+                                    <li style="margin-bottom: 6px;">
+                                        <div>${n}</div>
+                                        ${r ? `<div style="font-size: 0.75rem; color: #0284c7; font-style: italic; margin-top: 2px;">🔬 Gerekçe: ${r}</div>` : ''}
+                                    </li>
+                                `;
+                            }).join('')}
                         </ul>
                         ${cp.frequency ? `<div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--secondary); background: rgba(59,130,246,0.15); padding: 4px 8px; border-radius: 6px;">⏱️ Sıklık/Zaman: <strong>${cp.frequency}</strong></div>` : ''}
                     </td>
@@ -1568,7 +1588,9 @@ function initNandaDictionary() {
         const filtered = diagnoses.filter(d => {
             const matchesQuery = d.title.toLowerCase().includes(query) ||
                 d.code.includes(query) ||
-                d.definition.toLowerCase().includes(query);
+                d.definition.toLowerCase().includes(query) ||
+                (d.etiology || []).some(e => e.toLowerCase().includes(query)) ||
+                (d.symptoms || []).some(s => s.toLowerCase().includes(query));
             
             let matchesCat = true;
             if (catFilter === 'favorites') {
@@ -1604,32 +1626,55 @@ function initNandaDictionary() {
             const isFav = favorites.includes(d.id);
 
             return `
-                <div class="card nanda-dict-card" style="margin-bottom: 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <div>
-                            <span class="badge badge-primary" style="background: #065f46; color: #ffffff; font-weight: 700;">${d.code}</span>
+                <div class="card nanda-dict-card" style="margin-bottom: 20px; border-left: 4px solid ${catObj?.color || '#065f46'};">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                            <span class="badge badge-primary" style="background: #065f46; color: #ffffff; font-weight: 700; font-size: 0.88rem;">${d.code}</span>
                             <span class="badge badge-secondary" style="color: ${catObj?.color || '#0f172a'}; font-weight: 600;">${catObj?.name || d.category}</span>
+                            ${d.domainName ? `<span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 600; font-size: 0.78rem;">${d.domainName}</span>` : ''}
+                            ${d.className ? `<span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 600; font-size: 0.78rem;">${d.className}</span>` : ''}
                         </div>
                         <button class="favorite-star-btn ${isFav ? 'active' : ''}" onclick="toggleFavoriteDiagnosis('${d.id}')" title="Favorilere Ekle/Çıkar">
                             ${isFav ? '⭐' : '☆'}
                         </button>
                     </div>
-                    <h3 class="nanda-dict-title" style="margin-bottom: 6px; color: #065f46; font-weight: 700; font-size: 1.15rem;">${d.title}</h3>
-                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-primary);"><strong>Tanım:</strong> ${d.definition}</p>
 
-                    <div class="grid-2" style="font-size: 0.86rem;">
+                    <h3 class="nanda-dict-title" style="margin-bottom: 8px; color: #065f46; font-weight: 800; font-size: 1.2rem;">${d.title}</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 14px; color: var(--text-primary); line-height: 1.5;"><strong>Tanım:</strong> ${d.definition}</p>
+
+                    <div class="grid-2" style="font-size: 0.86rem; margin-bottom: 12px;">
                         <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--warning);">Etiyoloji (Nedenler):</strong>
+                            <strong style="color: var(--warning);">🔍 Etiyoloji (İlişkili Faktörler):</strong>
                             <ul style="padding-left: 16px; margin-top: 4px; color: var(--text-secondary);">
-                                ${(d.etiology || []).map(e => `<li>${e}</li>`).join('')}
+                                ${(d.etiology || []).slice(0, 3).map(e => `<li>${e}</li>`).join('')}
+                                ${(d.etiology || []).length > 3 ? `<li style="list-style: none; font-size: 0.78rem; color: var(--primary); margin-top: 2px;">+ ${(d.etiology || []).length - 3} faktör daha...</li>` : ''}
                             </ul>
                         </div>
                         <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--info);">Belirti ve Bulgular:</strong>
+                            <strong style="color: var(--info);">📋 Belirti ve Bulgular:</strong>
                             <ul style="padding-left: 16px; margin-top: 4px; color: var(--text-secondary);">
-                                ${(d.symptoms || []).map(s => `<li>${s}</li>`).join('')}
+                                ${(d.symptoms || []).slice(0, 3).map(s => `<li>${s}</li>`).join('')}
+                                ${(d.symptoms || []).length > 3 ? `<li style="list-style: none; font-size: 0.78rem; color: var(--primary); margin-top: 2px;">+ ${(d.symptoms || []).length - 3} bulgu daha...</li>` : ''}
                             </ul>
                         </div>
+                    </div>
+
+                    ${d.rationales && d.rationales.length > 0 ? `
+                        <div style="background: rgba(14,165,233,0.06); border: 1px dashed #0284c7; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.84rem;">
+                            <strong style="color: #0284c7;">🔬 Örnek Kanıta Dayalı Girişim Rasyoneli:</strong>
+                            <span style="color: var(--text-primary); display: block; margin-top: 2px;">"${d.rationales[0]}"</span>
+                        </div>
+                    ` : ''}
+
+                    ${d.studentNotes ? `
+                        <div style="background: rgba(16,185,129,0.06); border: 1px solid #10b981; padding: 8px 12px; border-radius: 6px; margin-bottom: 14px; font-size: 0.83rem; color: #065f46;">
+                            <strong>🎓 Öğrenci İpucu:</strong> ${d.studentNotes}
+                        </div>
+                    ` : ''}
+
+                    <div style="display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px;">
+                        <button class="btn btn-sm btn-outline" onclick="openDiagnosisDetailModal('${d.id}')">📖 Detaylı Akademik İncele</button>
+                        <button class="btn btn-sm btn-primary" onclick="openAddDiagnosisModal('${d.id}')">⚡ Bu Tanıyı Bakım Planıma Ekle</button>
                     </div>
                 </div>`;
         }).join('');
@@ -1641,6 +1686,114 @@ function initNandaDictionary() {
     if (sortSelect) sortSelect.addEventListener('change', renderDictionary);
     renderDictionary();
 }
+
+window.openDiagnosisDetailModal = function(diagId) {
+    const nandaList = window.NANDA_DIAGNOSES || [];
+    const diag = nandaList.find(d => d.id === diagId);
+    if (!diag) return;
+
+    const modal = document.getElementById('nanda-detail-modal');
+    if (!modal) return;
+
+    document.getElementById('detail-diag-code').textContent = diag.code;
+    document.getElementById('detail-diag-title').textContent = diag.title;
+    
+    const catObj = (window.NANDA_CATEGORIES || []).find(c => c.id === diag.category);
+    const catEl = document.getElementById('detail-diag-category');
+    if (catEl) {
+        catEl.textContent = catObj ? catObj.name : diag.category;
+        catEl.style.color = catObj?.color || 'var(--text-primary)';
+    }
+
+    const domainEl = document.getElementById('detail-diag-domain');
+    if (domainEl) {
+        domainEl.textContent = diag.domainName || diag.domain || 'NANDA Taksonomisi';
+    }
+
+    const classEl = document.getElementById('detail-diag-class');
+    if (classEl) {
+        classEl.textContent = diag.className ? `📌 ${diag.className}` : '';
+    }
+
+    const body = document.getElementById('detail-modal-body');
+    if (body) {
+        body.innerHTML = `
+            <div style="background: rgba(6,182,212,0.06); border-left: 4px solid #06b6d4; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
+                <strong style="color: #0891b2; font-size: 0.95rem;">📖 NANDA-I Akademik Tanımı:</strong>
+                <p style="margin-top: 4px; font-size: 0.9rem; color: var(--text-primary); line-height: 1.5;">${diag.definition}</p>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 16px;">
+                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px;">
+                    <h4 style="color: var(--warning); font-size: 0.95rem; margin-bottom: 8px;">🔍 Etiyoloji (İlişkili / Risk Faktörleri)</h4>
+                    <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
+                        ${(diag.etiology || []).map(e => `<li style="margin-bottom: 4px;">${e}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px;">
+                    <h4 style="color: var(--info); font-size: 0.95rem; margin-bottom: 8px;">📋 Belirti ve Bulgular (Tanımlayıcı Özellikler)</h4>
+                    <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
+                        ${(diag.symptoms || []).map(s => `<li style="margin-bottom: 4px;">${s}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px; margin-bottom: 16px;">
+                <h4 style="color: var(--success); font-size: 0.95rem; margin-bottom: 8px;">🎯 Beklenen Hasta Çıktıları & Hedefler (NOC)</h4>
+                <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
+                    ${(diag.noc || []).map(n => `<li style="margin-bottom: 4px;">${n}</li>`).join('')}
+                </ul>
+            </div>
+
+            <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px; margin-bottom: 16px;">
+                <h4 style="color: #3b82f6; font-size: 0.95rem; margin-bottom: 8px;">🩺 Hemşirelik Girişimleri (NIC) & Kanıta Dayalı Rasyonelleri</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    ${(diag.nic || []).map((n, idx) => {
+                        const r = (diag.rationales || [])[idx] || (diag.rationales || [])[0];
+                        return `
+                            <div style="background: var(--bg-card-hover); padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border);">
+                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">• ${n}</div>
+                                ${r ? `<div style="font-size: 0.82rem; color: #0284c7; margin-top: 4px; padding-left: 12px;">🔬 <em>Girişim Rasyoneli / Bilimsel Gerekçesi: ${r}</em></div>` : ''}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+
+            ${diag.studentNotes ? `
+                <div class="alert alert-success" style="font-size: 0.88rem; margin-bottom: 16px;">
+                    <strong>🎓 Öğrenci Klinik Rehber İpucu (Staj Formu İçin):</strong><br>
+                    ${diag.studentNotes}
+                </div>
+            ` : ''}
+
+            ${diag.relatedDiseases ? `
+                <div style="margin-top: 10px;">
+                    <strong style="font-size: 0.85rem; color: var(--text-secondary);">🏥 İlişkili Klinik Vaka & Hastalıklar:</strong>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;">
+                        ${diag.relatedDiseases.map(rd => `<span class="badge" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">${rd}</span>`).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        `;
+    }
+
+    const addBtn = document.getElementById('detail-modal-add-btn');
+    if (addBtn) {
+        addBtn.onclick = () => {
+            closeDetailModal();
+            openAddDiagnosisModal(diag.id);
+        };
+    }
+
+    modal.classList.add('active');
+};
+
+window.closeDetailModal = function() {
+    const modal = document.getElementById('nanda-detail-modal');
+    if (modal) modal.classList.remove('active');
+};
 
 /* ==========================================================================
    6. Saved Plans View

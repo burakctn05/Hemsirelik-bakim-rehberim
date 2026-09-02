@@ -1452,6 +1452,33 @@
     </div>
 
     <!-- ===================================================================
+         MODAL: NANDA DIAGNOSIS FULL ACADEMIC DETAIL MODAL
+         =================================================================== -->
+    <div id="nanda-detail-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 850px; width: 92%; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header" style="border-bottom: 2px solid var(--border); padding-bottom: 12px;">
+                <div>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+                        <span id="detail-diag-code" class="badge badge-primary" style="background: #065f46; color: #fff; font-weight: 700; font-size: 0.95rem;"></span>
+                        <span id="detail-diag-category" class="badge badge-secondary"></span>
+                        <span id="detail-diag-domain" class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 600;"></span>
+                    </div>
+                    <h2 id="detail-diag-title" style="color: var(--primary-dark); font-weight: 800; margin: 0;"></h2>
+                    <p id="detail-diag-class" style="font-size: 0.85rem; color: var(--text-secondary); margin: 4px 0 0 0;"></p>
+                </div>
+                <button class="modal-close" onclick="closeDetailModal()">✕</button>
+            </div>
+
+            <div id="detail-modal-body" style="padding-top: 16px;"></div>
+
+            <div class="modal-footer" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <button type="button" class="btn btn-secondary" onclick="closeDetailModal()">Kapat</button>
+                <button type="button" class="btn btn-primary" id="detail-modal-add-btn">⚡ Bu Tanıyı Bakım Planıma Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
          MODAL: COMMAND PALETTE / GLOBAL SEARCH (Ctrl + K)
          =================================================================== -->
     <div id="command-palette-modal" class="cmd-palette-backdrop">
