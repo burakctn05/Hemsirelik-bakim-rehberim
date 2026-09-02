@@ -391,7 +391,7 @@ window.NANDA_DIAGNOSES = [
             'Aşırı akut kanama veya sıvı kaybı (Hipovolemik Şok)',
             'Şiddetli sistemik enfeksiyon (Saptik Şok)',
             'Miyokard pompalama yetersizliği (Kardiyojenik Şok)',
-             me severe alerjik reaksiyon (Anafilaktik Şok)'
+            'Şiddetli alerjik reaksiyon (Anafilaktik Şok)'
         ],
         symptoms: ['Risk tanısıdır (Hipotansiyon, filiform nabız, soğuk yapışkan terleme).'],
         noc: ['Hemodinamik stabilite korunacak, hasta şok tablosuna girmeyecek.'],
