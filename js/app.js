@@ -1923,6 +1923,7 @@ function initCommandPalette() {
 
     window.openCommandPalette = function() {
         backdrop.classList.add('active');
+        document.body.classList.add('modal-open');
         searchInput.value = '';
         searchInput.focus();
         renderCmdResults('');
@@ -1930,6 +1931,7 @@ function initCommandPalette() {
 
     window.closeCommandPalette = function() {
         backdrop.classList.remove('active');
+        document.body.classList.remove('modal-open');
     };
 
     openBtns.forEach(btn => btn.addEventListener('click', window.openCommandPalette));
@@ -1943,7 +1945,15 @@ function initCommandPalette() {
                 window.openCommandPalette();
             }
         }
-        if (e.key === 'Escape' && backdrop.classList.contains('active')) {
+        if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) && backdrop.classList.contains('active')) {
+            e.preventDefault();
+            window.closeCommandPalette();
+        }
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+            e.preventDefault();
             window.closeCommandPalette();
         }
     });
@@ -1966,6 +1976,7 @@ function initCommandPalette() {
             if (!q || d.title.toLowerCase().includes(q) || d.code.includes(q) || d.definition.toLowerCase().includes(q)) {
                 results.push({
                     type: 'NANDA Tanısı',
+                    typeClass: 'type-nanda',
                     icon: '📖',
                     title: `${d.code} - ${d.title}`,
                     sub: d.definition,
@@ -1999,6 +2010,7 @@ function initCommandPalette() {
             if (!q || c.title.toLowerCase().includes(q) || c.sub.toLowerCase().includes(q)) {
                 results.push({
                     type: 'Hesaplayıcı',
+                    typeClass: 'type-calc',
                     icon: '🧮',
                     title: c.title,
                     sub: c.sub,
@@ -2017,6 +2029,7 @@ function initCommandPalette() {
             if (!q || t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q)) {
                 results.push({
                     type: 'Vaka Şablonu',
+                    typeClass: 'type-template',
                     icon: '📋',
                     title: t.title,
                     sub: t.description,
@@ -2043,7 +2056,7 @@ function initCommandPalette() {
                         <div class="cmd-result-sub">${r.sub}</div>
                     </div>
                 </div>
-                <span class="cmd-result-type">${r.type}</span>
+                <span class="cmd-result-type ${r.typeClass || ''}">${r.type}</span>
             </div>
         `).join('');
 
