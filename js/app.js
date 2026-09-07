@@ -20,6 +20,46 @@ function debounce(func, wait = 150) {
     };
 }
 
+// NIC Autonomy Helper Function (🟢 Bağımsız, 🟡 İşbirlikli, 🔴 Bağımlı)
+window.getNicAutonomyInfo = function(nicText) {
+    if (!nicText) return { cleanText: '', type: 'independent', badgeHtml: '<span class="nic-autonomy-badge nic-badge-independent">🟢 Bağımsız Girişim</span>' };
+    
+    let text = String(nicText).trim();
+    let type = '';
+
+    if (text.startsWith('[Bağımsız]') || text.startsWith('🟢') || text.toLowerCase().includes('(bağımsız)')) {
+        type = 'independent';
+        text = text.replace(/^\[Bağımsız\]\s*/i, '').replace(/^🟢\s*/, '').replace(/\(Bağımsız\)\s*/i, '');
+    } else if (text.startsWith('[İşbirlikli]') || text.startsWith('🟡') || text.toLowerCase().includes('(işbirlikli)')) {
+        type = 'collaborative';
+        text = text.replace(/^\[İşbirlikli\]\s*/i, '').replace(/^🟡\s*/, '').replace(/\(İşbirlikli\)\s*/i, '');
+    } else if (text.startsWith('[Bağımlı]') || text.startsWith('🔴') || text.toLowerCase().includes('(bağımlı)')) {
+        type = 'dependent';
+        text = text.replace(/^\[Bağımlı\]\s*/i, '').replace(/^🔴\s*/, '').replace(/\(Bağımlı\)\s*/i, '');
+    } else {
+        // Smart keyword fallback auto-detection
+        const lower = text.toLowerCase();
+        if (lower.includes('hekim istem') || lower.includes('ordere') || lower.includes('orderine') || lower.includes('iv analjezik') || lower.includes('infüzyon') || lower.includes('antibiyotik') || lower.includes('reçete') || lower.includes('kan transfüzyon') || lower.includes('hekim istemine uygun') || lower.includes('hekim kontrolünde') || lower.includes('ilaç verilecek') || lower.includes('dozu ayarlanacak')) {
+            type = 'dependent';
+        } else if (lower.includes('diyetisyen') || lower.includes('fizyoterapist') || lower.includes('psikolog') || lower.includes('sosyal hizmet') || lower.includes('konsültasyon') || lower.includes('rom egzersiz') || lower.includes('ekip çalışması') || lower.includes('uğraş terapisti')) {
+            type = 'collaborative';
+        } else {
+            type = 'independent';
+        }
+    }
+
+    let badgeHtml = '';
+    if (type === 'independent') {
+        badgeHtml = `<span class="nic-autonomy-badge nic-badge-independent" title="Bağımsız Girişim: Hemşirenin kendi mesleki kararıyla yaptığı otonom uygulama">🟢 Bağımsız Girişim</span>`;
+    } else if (type === 'collaborative') {
+        badgeHtml = `<span class="nic-autonomy-badge nic-badge-collaborative" title="İşbirlikli Girişim: Diyetisyen, fizyoterapist vb. multidisipliner ekiple yürütülen uygulama">🟡 İşbirlikli Girişim</span>`;
+    } else {
+        badgeHtml = `<span class="nic-autonomy-badge nic-badge-dependent" title="Bağımlı Girişim: Hekim istemine (tıbbi reçete/order) bağlı uygulanan müdahale">🔴 Bağımlı Girişim</span>`;
+    }
+
+    return { cleanText: text, type: type, badgeHtml: badgeHtml };
+};
+
 // Global Tab Switcher Function - Available IMMEDIATELY on script load
 window.switchTab = function(targetTab) {
     if (!targetTab) return;
@@ -867,11 +907,13 @@ function renderStep3CustomizationList() {
                     <ul style="padding-left: 16px; margin-top: 4px;">
                         ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
                     </ul>
-                </div>
                 <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                     <strong style="color: var(--info);">NIC Girişimleri (${(cp.nic || []).length}):</strong>
-                    <ul style="padding-left: 16px; margin-top: 4px;">
-                        ${(cp.nic || []).map(n => `<li>${n}</li>`).join('')}
+                    <ul style="padding-left: 0; list-style: none; margin-top: 6px;">
+                        ${(cp.nic || []).map(n => {
+                            const autonomy = window.getNicAutonomyInfo(n);
+                            return `<li style="margin-bottom: 6px;">${autonomy.badgeHtml} <span style="font-size: 0.86rem; color: var(--text-primary);">${autonomy.cleanText}</span></li>`;
+                        }).join('')}
                     </ul>
                 </div>
             </div>
@@ -921,6 +963,13 @@ function renderCarePlanPreviewTable() {
             </div>
         </div>
 
+        <div class="autonomy-legend-box">
+            <strong style="color: var(--primary-dark);"> Hemşirelik Girişimleri (NIC) Otonomi Sınıflandırması:</strong>
+            <span><span class="nic-autonomy-badge nic-badge-independent">🟢 Bağımsız Girişim</span> (Hemşire Otonomisi)</span>
+            <span><span class="nic-autonomy-badge nic-badge-collaborative">🟡 İşbirlikli Girişim</span> (Multidisipliner Ekip)</span>
+            <span><span class="nic-autonomy-badge nic-badge-dependent">🔴 Bağımlı Girişim</span> (Hekim İstemli)</span>
+        </div>
+
         <div class="plan-table-wrapper">
             <table class="plan-table">
                 <thead>
@@ -961,10 +1010,12 @@ function renderCarePlanPreviewTable() {
                     <td>
                         <ul class="table-bullet-list">
                             ${(cp.nic || []).map((n, idx) => {
+                                const autonomy = window.getNicAutonomyInfo(n);
                                 const r = rationalesList[idx] || rationalesList[0];
                                 return `
-                                    <li style="margin-bottom: 6px;">
-                                        <div>${n}</div>
+                                    <li style="margin-bottom: 8px;">
+                                        <div style="margin-bottom: 3px;">${autonomy.badgeHtml}</div>
+                                        <div style="font-size: 0.86rem; line-height: 1.45;">${autonomy.cleanText}</div>
                                         ${r ? `<div style="font-size: 0.75rem; color: #0284c7; font-style: italic; margin-top: 2px;">🔬 Gerekçe: ${r}</div>` : ''}
                                     </li>
                                 `;
@@ -982,7 +1033,7 @@ function renderCarePlanPreviewTable() {
 
     html += `</tbody></table></div>`;
 
-    // Academic Signature Block (Imza Kutusu)
+    // Academic Signature Block (İmza Kutusu)
     html += `
         <div class="academic-signature-block">
             <div class="signature-box">
@@ -994,6 +1045,16 @@ function renderCarePlanPreviewTable() {
                 <h5>👩‍🏫 Danışman Öğretim Elemanı Değerlendirme & Onay</h5>
                 <p style="font-size: 0.84rem;">Notu / Görüşü: _______________________</p>
                 <p style="font-size: 0.84rem; margin-top: 4px;">Unvan / Adı / İmza: _______________________</p>
+            </div>
+        </div>
+        
+        <!-- Official Academic Citation Footnote -->
+        <div class="academic-citation-box" style="margin-top: 24px; padding: 14px 18px; background: rgba(5,150,105,0.06); border: 1.5px solid var(--primary); border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 0.88rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                📜 Resmi Klinik ve Akademik Karar Destek Atıf Dipnotu
+            </div>
+            <div style="font-size: 0.83rem; color: var(--text-primary); font-style: italic; line-height: 1.5;">
+                "Bu bakım planı NANDA International 2024-2026 Taksonomisi, NIC (Nursing Interventions Classification 8th Ed.) ve NOC (Nursing Outcomes Classification 7th Ed.) klinik karar destek standartlarına uygun olarak oluşturulmuştur."
             </div>
         </div>`;
 
@@ -1476,24 +1537,58 @@ function initCalculators() {
    4. Clinical Templates Library
    ========================================================================== */
 function initTemplateLibrary() {
-    const container = document.getElementById('templates-list-container');
-    if (!container) return;
+    window.renderTemplates = function(categoryFilter = 'all') {
+        const container = document.getElementById('templates-list-container');
+        if (!container) return;
 
-    const templates = window.CLINICAL_TEMPLATES || [];
-    container.innerHTML = templates.map(tmpl => `
-        <div class="card card-hover feature-card">
-            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
-                ${tmpl.tags.map(t => `<span class="badge badge-secondary">${t}</span>`).join('')}
+        const templates = window.CLINICAL_TEMPLATES || [];
+        const filtered = (categoryFilter === 'all') 
+            ? templates 
+            : templates.filter(t => t.category === categoryFilter || (t.tags && t.tags.some(tag => tag.toLowerCase().includes(categoryFilter))));
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="alert alert-info" style="grid-column: span 2;">Bu branşa ait şablon henüz bulunmuyor. Diğer branş sekmelerini inceleyebilirsiniz.</div>`;
+            return;
+        }
+
+        container.innerHTML = filtered.map(tmpl => `
+            <div class="card card-hover feature-card">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+                    ${tmpl.category ? `<span class="badge badge-primary" style="font-weight:700;">${getCategoryLabel(tmpl.category)}</span>` : ''}
+                    ${(tmpl.tags || []).map(t => `<span class="badge badge-secondary">${t}</span>`).join('')}
+                </div>
+                <h3>${tmpl.title}</h3>
+                <p style="margin-top: 6px; margin-bottom: 14px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">${tmpl.description}</p>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-sm btn-primary" onclick="loadTemplateIntoBuilder('${tmpl.id}')">
+                        🚀 Bu Şablonu Kullan & Düzenle
+                    </button>
+                </div>
             </div>
-            <h3>${tmpl.title}</h3>
-            <p>${tmpl.description}</p>
-            <div style="display: flex; gap: 8px;">
-                <button class="btn btn-sm btn-primary" onclick="loadTemplateIntoBuilder('${tmpl.id}')">
-                    🚀 Bu Şablonu Kullan & Düzenle
-                </button>
-            </div>
-        </div>
-    `).join('');
+        `).join('');
+    };
+
+    window.filterTemplatesCategory = function(cat, btn) {
+        const pills = document.querySelectorAll('#template-branch-pills .category-pill');
+        pills.forEach(p => p.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        window.renderTemplates(cat);
+    };
+
+    function getCategoryLabel(cat) {
+        switch(cat) {
+            case 'pediatri': return '👶 Pediatri & Çocuk';
+            case 'kadin_dogum': return '🤰 Kadın Doğum & Lohusalık';
+            case 'psikiatri': return '🧘 Psikiyatri & Ruh Sağlığı';
+            case 'cerrahi': return '🏥 Cerrahi';
+            case 'dahiliye': return '🩺 Dahiliye';
+            case 'noroloji': return '🧠 Nöroloji';
+            default: return '📋 Klinik';
+        }
+    }
+
+    window.renderTemplates('all');
 
     window.loadTemplateIntoBuilder = function(templateId) {
         const templatesList = window.CLINICAL_TEMPLATES || [];
@@ -1750,10 +1845,12 @@ window.openDiagnosisDetailModal = function(diagId) {
                 <h4 style="color: #3b82f6; font-size: 0.95rem; margin-bottom: 8px;">🩺 Hemşirelik Girişimleri (NIC) & Kanıta Dayalı Rasyonelleri</h4>
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     ${(diag.nic || []).map((n, idx) => {
+                        const autonomy = window.getNicAutonomyInfo(n);
                         const r = (diag.rationales || [])[idx] || (diag.rationales || [])[0];
                         return `
                             <div style="background: var(--bg-card-hover); padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border);">
-                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">• ${n}</div>
+                                <div style="margin-bottom: 4px;">${autonomy.badgeHtml}</div>
+                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">${autonomy.cleanText}</div>
                                 ${r ? `<div style="font-size: 0.82rem; color: #0284c7; margin-top: 4px; padding-left: 12px;">🔬 <em>Girişim Rasyoneli / Bilimsel Gerekçesi: ${r}</em></div>` : ''}
                             </div>
                         `;

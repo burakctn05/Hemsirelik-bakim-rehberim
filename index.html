@@ -595,8 +595,19 @@
              =================================================================== -->
         <section id="tab-templates" class="tab-content">
             <div class="card" style="margin-bottom: 24px;">
-                <h2>📚 Hazır Klinik Vaka Bakım Planları</h2>
-                <p>Sık karşılaşılan klinik senaryolar için hazırlanmış standart bakım planları. Dilediğiniz planı tek tıkla yükleyip üzerinde değişiklik yapabilirsiniz.</p>
+                <div>
+                    <h2>📚 Hazır Klinik Vaka Bakım Planları</h2>
+                    <p style="margin-bottom: 14px;">Pediatri, Kadın Doğum, Psikiyatri, Dahiliye, Cerrahi ve Nöroloji stajlarınız için hazırlanmış akademik vaka şablonları. Dilediğiniz planı tek tıkla yükleyip üzerinde değişiklik yapabilirsiniz.</p>
+                </div>
+                <div class="category-pills-container" id="template-branch-pills" style="margin-bottom: 0;">
+                    <button class="category-pill active" data-template-cat="all" onclick="filterTemplatesCategory('all', this)">🌐 Tüm Branşlar</button>
+                    <button class="category-pill" data-template-cat="pediatri" onclick="filterTemplatesCategory('pediatri', this)">👶 Pediatri & Çocuk Sağlığı</button>
+                    <button class="category-pill" data-template-cat="kadin_dogum" onclick="filterTemplatesCategory('kadin_dogum', this)">🤰 Kadın Doğum & Lohusalık</button>
+                    <button class="category-pill" data-template-cat="psikiatri" onclick="filterTemplatesCategory('psikiatri', this)">🧘 Psikiyatri & Ruh Sağlığı</button>
+                    <button class="category-pill" data-template-cat="dahiliye" onclick="filterTemplatesCategory('dahiliye', this)">🩺 Dahiliye & Genel Tıp</button>
+                    <button class="category-pill" data-template-cat="cerrahi" onclick="filterTemplatesCategory('cerrahi', this)">🏥 Cerrahi & Ameliyat</button>
+                    <button class="category-pill" data-template-cat="noroloji" onclick="filterTemplatesCategory('noroloji', this)">🧠 Nöroloji & Yoğun Bakım</button>
+                </div>
             </div>
 
             <div id="templates-list-container" class="grid-2"></div>

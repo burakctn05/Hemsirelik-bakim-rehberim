@@ -56,6 +56,14 @@
 
 /* Primary Clean White Theme Variables */
 
+html {
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: hidden;
+    touch-action: pan-x pan-y;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -68,9 +76,14 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: hidden;
+    -webkit-overflow-scrolling: touch;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 

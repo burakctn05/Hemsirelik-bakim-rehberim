@@ -94,4 +94,49 @@
         background: transparent !important;
         color: #000 !important;
     }
+
+    /* Print NIC Autonomy Badges & Academic Citation */
+    .nic-autonomy-badge {
+        border: 1px solid #666 !important;
+        font-size: 8pt !important;
+        padding: 1px 6px !important;
+        display: inline-block !important;
+        font-weight: bold !important;
+    }
+    
+    .nic-badge-independent {
+        background-color: #e6f4ea !important;
+        color: #137333 !important;
+    }
+
+    .nic-badge-collaborative {
+        background-color: #fef7e0 !important;
+        color: #b06000 !important;
+    }
+
+    .nic-badge-dependent {
+        background-color: #fce8e6 !important;
+        color: #c5221f !important;
+    }
+
+    .autonomy-legend-box {
+        border: 1px solid #666 !important;
+        background-color: #f8fafc !important;
+        color: #000 !important;
+        font-size: 8.5pt !important;
+        margin-bottom: 10px !important;
+    }
+
+    .academic-citation-box {
+        border: 1px solid #666 !important;
+        background-color: #f8fafc !important;
+        color: #000 !important;
+        margin-top: 15px !important;
+        padding: 10px !important;
+        page-break-inside: avoid;
+    }
+
+    .academic-citation-box div {
+        color: #000 !important;
+    }
 }

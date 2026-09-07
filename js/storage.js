@@ -258,7 +258,10 @@ window.exportPlanAsWord = function(planObject) {
 
     (p.carePlans || []).forEach(cp => {
         const nocText = (cp.noc || []).map(n => `• ${n}`).join('<br>');
-        const nicText = (cp.nic || []).map(n => `• ${n}`).join('<br>');
+        const nicText = (cp.nic || []).map(n => {
+            const autonomy = window.getNicAutonomyInfo ? window.getNicAutonomyInfo(n) : { cleanText: n, badgeHtml: '' };
+            return `${autonomy.badgeHtml} ${autonomy.cleanText}`;
+        }).join('<br><br>');
         const scoreInfo = cp.scoreBefore && cp.scoreTarget ? `<br><small style="color:#0d9488;"><strong>[Puan: Önce ${cp.scoreBefore}/5 ➔ Hedef ${cp.scoreTarget}/5]</strong></small>` : '';
         const freqInfo = cp.frequency ? `<br><small style="color:#3b82f6;"><strong>[Sıklık: ${cp.frequency}]</strong></small>` : '';
 
@@ -282,6 +285,10 @@ window.exportPlanAsWord = function(planObject) {
                 <td style="width: 50%; border: none;"><strong>Sorumlu Öğretim Elemanı / Hemşire İmza:</strong><br><br>___________________________</td>
             </tr>
         </table>
+        <br>
+        <div style="padding:10px; border:1px solid #059669; background:#ecfdf5; text-align:center; font-size:8.5pt; color:#047857; font-style:italic;">
+            "Bu bakım planı NANDA International 2024-2026 Taksonomisi, NIC (Nursing Interventions Classification 8th Ed.) ve NOC (Nursing Outcomes Classification 7th Ed.) klinik karar destek standartlarına uygun olarak oluşturulmuştur."
+        </div>
     </body>
     </html>`;
 
