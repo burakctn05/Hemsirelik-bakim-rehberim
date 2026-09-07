@@ -60,6 +60,22 @@ window.getNicAutonomyInfo = function(nicText) {
     return { cleanText: text, type: type, badgeHtml: badgeHtml };
 };
 
+// 2026-2027 Academic Year Splash Dismiss Function (Auto-dismiss in 2.0s)
+window.dismissWelcomeSplash = function() {
+    const splash = document.getElementById('welcome-splash-overlay');
+    if (!splash || splash.classList.contains('fade-out')) return;
+    
+    splash.classList.add('fade-out');
+    setTimeout(() => {
+        splash.style.display = 'none';
+    }, 450);
+};
+
+// Auto-dismiss splash overlay after 2.0 seconds smoothly
+setTimeout(() => {
+    window.dismissWelcomeSplash();
+}, 2000);
+
 // Global Tab Switcher Function - Available IMMEDIATELY on script load
 window.switchTab = function(targetTab) {
     if (!targetTab) return;
