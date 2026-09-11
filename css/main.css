@@ -440,31 +440,97 @@ a:hover {
     flex-wrap: wrap;
 }
 
+/* High Performance GPU Optimization */
+*, *::before, *::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.tab-content {
+    contain: paint layout;
+}
+
+.card, .hero-card, .feature-card, .stat-card {
+    transform: translateZ(0);
+}
+
+/* Mobile Bottom Navigation Bar Styles */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 4px;
+    box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
+    transform: translateZ(0);
+}
+
+body.dark-theme .mobile-bottom-nav {
+    background: #131f37 !important;
+    border-top-color: #263859 !important;
+}
+
+.mobile-nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 6px 0;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.mobile-nav-btn.active {
+    color: var(--primary) !important;
+    font-weight: 700;
+}
+
+.mobile-nav-btn.active .mobile-nav-icon {
+    transform: scale(1.15);
+}
+
 /* Responsive */
 /* Responsive Navigation & Mobile Support */
 @media (max-width: 900px) {
     .header-content {
         flex-direction: column;
-        gap: 14px;
+        gap: 10px;
         text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     .brand-text h1 {
         font-size: 1.15rem;
     }
     .nav-tabs {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 6px;
-        -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
-        scroll-behavior: smooth;
+        display: none !important; /* Clean 0-tab welcome screen header on mobile */
     }
-    .nav-tab {
-        padding: 8px 12px;
-        font-size: 0.82rem;
-        flex-shrink: 0;
-        touch-action: manipulation;
+    .mobile-bottom-nav {
+        display: flex !important;
+    }
+    body {
+        padding-bottom: 68px !important;
     }
     .hero-card {
         padding: 22px 18px;

@@ -80,20 +80,17 @@ setTimeout(() => {
 window.switchTab = function(targetTab) {
     if (!targetTab) return;
     
-    // 1. Update Navigation Buttons
-    const navButtons = document.querySelectorAll('.nav-tab[data-tab]');
+    // 1. Update Navigation Buttons (Both Desktop Header Nav & Mobile Bottom Nav)
+    const navButtons = document.querySelectorAll('.nav-tab[data-tab], .mobile-nav-btn[data-tab]');
     navButtons.forEach(btn => {
         if (btn.getAttribute('data-tab') === targetTab) {
             btn.classList.add('active');
-            if (btn.scrollIntoView && window.innerWidth <= 900) {
-                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
         } else {
             btn.classList.remove('active');
         }
     });
 
-    // 2. Update Tab Contents with inline style enforcement
+    // 2. Update Tab Contents with high performance DOM toggling
     const allTabContents = document.querySelectorAll('.tab-content');
     allTabContents.forEach(section => {
         if (section.id === `tab-${targetTab}`) {
@@ -107,7 +104,7 @@ window.switchTab = function(targetTab) {
         }
     });
 
-    // 3. Scroll to top
+    // 3. Instant scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
 
     // 4. Special Page Renders
@@ -1567,21 +1564,25 @@ function initTemplateLibrary() {
             return;
         }
 
-        container.innerHTML = filtered.map(tmpl => `
-            <div class="card card-hover feature-card">
-                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+        container.innerHTML = filtered.map(tmpl => {
+            const planCount = (tmpl.carePlans || []).length;
+            return `
+            <div class="card card-hover feature-card" style="border-top: 4px solid var(--primary);">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center;">
                     ${tmpl.category ? `<span class="badge badge-primary" style="font-weight:700;">${getCategoryLabel(tmpl.category)}</span>` : ''}
+                    <span class="badge" style="background: #ecfdf5; color: #047857; font-weight: 800; border: 1px solid #10b981;">📋 ${planCount} Bakım Planı (Ana + Yan Tanılar)</span>
                     ${(tmpl.tags || []).map(t => `<span class="badge badge-secondary">${t}</span>`).join('')}
                 </div>
-                <h3>${tmpl.title}</h3>
+                <h3 style="font-size: 1.15rem; color: var(--text-primary);">${tmpl.title}</h3>
                 <p style="margin-top: 6px; margin-bottom: 14px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">${tmpl.description}</p>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-sm btn-primary" onclick="loadTemplateIntoBuilder('${tmpl.id}')">
-                        🚀 Bu Şablonu Kullan & Düzenle
+                <div style="display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-primary" onclick="loadTemplateIntoBuilder('${tmpl.id}')" style="font-weight:700;">
+                        🚀 Bu Şablonu Kullan & Düzenle (${planCount} Plan Yükle)
                     </button>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
     };
 
     window.filterTemplatesCategory = function(cat, btn) {
