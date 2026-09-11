@@ -2622,9 +2622,11 @@ function initThemeToggle() {
     const currentTheme = localStorage.getItem('bakimrehberim_theme');
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-theme');
+        document.documentElement.classList.add('dark-theme');
         themeBtn.innerHTML = '☀️ Gündüz Modu';
     } else {
         document.body.classList.remove('dark-theme');
+        document.documentElement.classList.remove('dark-theme');
         themeBtn.innerHTML = '🌙 Gece Modu';
     }
 
@@ -2634,6 +2636,7 @@ function initThemeToggle() {
             e.preventDefault();
         }
         const isDark = document.body.classList.toggle('dark-theme');
+        document.documentElement.classList.toggle('dark-theme', isDark);
         if (isDark) {
             localStorage.setItem('bakimrehberim_theme', 'dark');
             themeBtn.innerHTML = '☀️ Gündüz Modu';
