@@ -222,9 +222,9 @@ a:hover {
     border-radius: var(--radius-md);
 }
 
-/* Header & Nav - Deep Rich Medical Emerald Theme & Geometric Motif Pattern (Inspired by islamiyet.gen.tr) */
+/* Header & Nav - Clean Deep Rich Medical Emerald Theme (Sade & Şık) */
 .app-header {
-    background: linear-gradient(135deg, #05553e 0%, #046c4e 50%, #064e3b 100%);
+    background: linear-gradient(135deg, #065f46 0%, #047857 50%, #064e3b 100%);
     border-bottom: 3px solid #10b981;
     position: sticky;
     top: 0;
@@ -232,26 +232,6 @@ a:hover {
     padding: 12px 0;
     box-shadow: 0 4px 20px rgba(6, 95, 70, 0.35);
     will-change: transform;
-    overflow: hidden;
-}
-
-.app-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236ee7b7' fill-opacity='0.25' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3Ccircle cx='20' cy='20' r='3.5'/%3E%3Ccircle cx='0' cy='0' r='2.5'/%3E%3Ccircle cx='40' cy='0' r='2.5'/%3E%3Ccircle cx='0' cy='40' r='2.5'/%3E%3Ccircle cx='40' cy='40' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: repeat;
-    opacity: 0.85;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.app-header > * {
-    position: relative;
-    z-index: 1;
 }
 
 .header-content {
