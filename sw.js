@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bakimrehberim-v4.5';
+const CACHE_NAME = 'bakimrehberim-v5.0';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
