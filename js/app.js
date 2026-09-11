@@ -2691,8 +2691,9 @@ function handleHashRoute() {
     }
 }
 
-window.addEventListener('hashchange', handleHashRoute);
 document.addEventListener('DOMContentLoaded', () => {
+    const legacyContactBtn = document.querySelector('.mobile-bottom-nav .trigger-contact-modal');
+    if (legacyContactBtn) legacyContactBtn.remove();
     setTimeout(handleHashRoute, 200);
 });
 
