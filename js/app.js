@@ -76,9 +76,12 @@ setTimeout(() => {
     window.dismissWelcomeSplash();
 }, 4000);
 
-// Global Tab Switcher Function - Available IMMEDIATELY on script load
-window.switchTab = function(targetTab) {
+let currentActiveTab = 'home';
+
+// Global Tab Switcher Function - SPA History API Integrated
+window.switchTab = function(targetTab, pushHistory = true) {
     if (!targetTab) return;
+    currentActiveTab = targetTab;
     
     // 1. Update Navigation Buttons (Both Desktop Header Nav & Mobile Bottom Nav)
     const navButtons = document.querySelectorAll('.nav-tab[data-tab], .mobile-nav-btn[data-tab]');
@@ -104,14 +107,79 @@ window.switchTab = function(targetTab) {
         }
     });
 
-    // 3. Instant scroll to top
+    // 3. Update Top-Left Smart Back Button UI
+    window.updateTopLeftBackButtonUI();
+
+    // 4. Push History State for seamless Browser Back Button Navigation
+    if (pushHistory) {
+        const hash = `#tab-${targetTab}` + (targetTab === 'builder' ? `-step-${currentStep}` : '');
+        try {
+            if (location.hash !== hash) {
+                history.pushState({ tab: targetTab, step: currentStep }, '', hash);
+            }
+        } catch (e) {}
+    }
+
+    // 5. Instant scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
 
-    // 4. Special Page Renders
+    // 6. Special Page Renders
     if (targetTab === 'saved' && typeof window.renderSavedPlansList === 'function') {
         window.renderSavedPlansList();
     }
 };
+
+/**
+ * Akıllı Geri Yönlendirme (Sol üst geri butonu veya tarayıcı geri okuna basıldığında siteden çıkışı önler!)
+ */
+window.handleSmartAppBack = function(fromPopState = false) {
+    if (currentActiveTab === 'builder') {
+        if (currentStep > 1) {
+            window.goToWizardStep(currentStep - 1, !fromPopState);
+        } else {
+            window.switchTab('home', !fromPopState);
+        }
+    } else if (currentActiveTab !== 'home') {
+        window.switchTab('home', !fromPopState);
+    } else {
+        if (!fromPopState && window.showToast) {
+            window.showToast('ℹ️ Ana sayfadasınız.', 'info');
+        }
+    }
+};
+
+window.updateTopLeftBackButtonUI = function() {
+    const btn = document.getElementById('global-top-left-back-btn');
+    if (!btn) return;
+    if (currentActiveTab === 'home') {
+        btn.style.display = 'none';
+    } else {
+        btn.style.display = 'inline-flex';
+        if (currentActiveTab === 'builder') {
+            btn.innerHTML = `← Adım ${currentStep > 1 ? (currentStep - 1) : 'Ana Sayfa'}`;
+        } else {
+            btn.innerHTML = `← Ana Sayfa`;
+        }
+    }
+};
+
+// Tarayıcı Geri/İleri (Popstate) Etkinliğini Dinleme - Siteden Çıkışı Engeller
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.tab) {
+        const targetTab = event.state.tab;
+        const targetStep = event.state.step || 1;
+        window.switchTab(targetTab, false);
+        if (targetTab === 'builder') {
+            window.goToWizardStep(targetStep, false);
+        }
+    } else {
+        window.handleSmartAppBack(true);
+    }
+});
+
+try {
+    history.replaceState({ tab: 'home', step: 1 }, '', location.href);
+} catch (e) {}
 
 function runAppInitialization() {
     const safeExec = (fn, name) => {
@@ -354,7 +422,7 @@ function initCarePlanWizard() {
         window.goToWizardStep(targetStep);
     };
 
-    window.goToWizardStep = function(stepNum) {
+    window.goToWizardStep = function(stepNum, pushHistory = true) {
         if (stepNum < 1 || stepNum > 4) return;
         currentStep = stepNum;
 
@@ -383,6 +451,16 @@ function initCarePlanWizard() {
         }
 
         updateMobileSelectedDockUI();
+        if (typeof window.updateTopLeftBackButtonUI === 'function') window.updateTopLeftBackButtonUI();
+
+        if (pushHistory) {
+            const hash = `#tab-builder-step-${currentStep}`;
+            try {
+                if (location.hash !== hash) {
+                    history.pushState({ tab: 'builder', step: currentStep }, '', hash);
+                }
+            } catch (e) {}
+        }
     };
 
     // Patient info form input change listeners (Debounced for zero-lag typing)
