@@ -57,11 +57,16 @@
 /* Primary Clean White Theme Variables */
 
 html {
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
     overscroll-behavior-y: none;
     overscroll-behavior-x: hidden;
     touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 * {
@@ -360,17 +365,21 @@ a:hover {
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
 }
 
-/* Tab Views Container */
+/* Tab Views Container with Hardware Acceleration & Smooth Fade */
 .tab-content {
     display: none;
     opacity: 0;
-    will-change: opacity;
+    transform: translate3d(0, 6px, 0);
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: opacity, transform;
 }
 
 .tab-content.active {
     display: block !important;
     opacity: 1 !important;
-    animation: fadeIn 0.2s ease-out forwards;
+    transform: translate3d(0, 0, 0) !important;
 }
 
 @keyframes fadeIn {
@@ -460,17 +469,20 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 66px;
+    height: calc(66px + env(safe-area-inset-bottom, 0px));
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px)) 6px;
     background: linear-gradient(135deg, #065f46 0%, #047857 50%, #064e3b 100%);
     border-top: 2px solid #10b981;
     z-index: 1000;
     justify-content: space-around;
     align-items: center;
-    padding: 4px 6px;
     box-shadow: 0 -6px 25px rgba(6, 95, 70, 0.45);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     will-change: transform;
 }
 
@@ -546,7 +558,7 @@ body.dark-theme .mobile-bottom-nav {
         display: flex !important;
     }
     body {
-        padding-bottom: 68px !important;
+        padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
     }
     .hero-card {
         padding: 22px 18px;

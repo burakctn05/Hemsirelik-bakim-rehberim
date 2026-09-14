@@ -90,17 +90,17 @@ window.switchTab = function(targetTab) {
         }
     });
 
-    // 2. Update Tab Contents with high performance DOM toggling
+    // 2. Update Tab Contents with high performance GPU DOM toggling
     const allTabContents = document.querySelectorAll('.tab-content');
     allTabContents.forEach(section => {
         if (section.id === `tab-${targetTab}`) {
             section.classList.add('active');
-            section.style.setProperty('display', 'block', 'important');
-            section.style.setProperty('opacity', '1', 'important');
+            section.style.display = '';
+            section.style.opacity = '';
         } else {
             section.classList.remove('active');
-            section.style.setProperty('display', 'none', 'important');
-            section.style.setProperty('opacity', '0', 'important');
+            section.style.display = '';
+            section.style.opacity = '';
         }
     });
 
@@ -319,9 +319,49 @@ function initCarePlanWizard() {
     const stepItems = document.querySelectorAll('.step-item');
     const stepPanels = document.querySelectorAll('.wizard-step-panel');
 
+    window.triggerAuto10PlansAndGoToStep = function(targetStep = 2) {
+        const patientForm = document.getElementById('patient-info-form');
+        if (patientForm) {
+            const formData = new FormData(patientForm);
+            carePlanBuilder.setPatientInfo({
+                name: formData.get('patientName') || document.getElementById('patient-name-input')?.value || '',
+                age: formData.get('patientAge') || document.getElementById('patient-age-input')?.value || '',
+                gender: formData.get('patientGender') || document.getElementById('patient-gender-select')?.value || 'Kadın',
+                diagnosis: formData.get('patientDiagnosis') || document.getElementById('patient-diag-input')?.value || '',
+                room: formData.get('patientRoom') || document.getElementById('patient-room-input')?.value || '',
+                weight: document.getElementById('patient-weight-input')?.value || '',
+                height: document.getElementById('patient-height-input')?.value || ''
+            });
+            carePlanBuilder.setVitals({
+                ates: document.getElementById('vital-ates-input')?.value || '',
+                tansiyonSystolic: document.getElementById('vital-tansys-input')?.value || '',
+                tansiyonDiastolic: document.getElementById('vital-tandia-input')?.value || '',
+                nabiz: document.getElementById('vital-nabiz-input')?.value || '',
+                solunum: document.getElementById('vital-solunum-input')?.value || '',
+                spo2: document.getElementById('vital-spo2-input')?.value || '',
+                agri: document.getElementById('vital-agri-input')?.value || '0'
+            });
+        }
+
+        const generated = carePlanBuilder.generateAutoCarePlans();
+        const mainCount = generated.filter(p => p.isMainPlan !== false).length;
+        const secCount = generated.length - mainCount;
+
+        if (window.showToast) {
+            window.showToast(`⚡ Vital bulgular ve tıbbi tanıya özel ${generated.length} adet bakım planı (${mainCount} Ana + ${secCount} Yan Plan) başarıyla oluşturuldu!`, 'success');
+        }
+
+        window.goToWizardStep(targetStep);
+    };
+
     window.goToWizardStep = function(stepNum) {
         if (stepNum < 1 || stepNum > 4) return;
         currentStep = stepNum;
+
+        // Adım 2, 3 veya 4'e geçilirken plan dizisi boş ise otomatik 10+ bakım planı üret
+        if (stepNum >= 2 && (!carePlanBuilder.currentPlan.carePlans || carePlanBuilder.currentPlan.carePlans.length === 0)) {
+            carePlanBuilder.generateAutoCarePlans();
+        }
 
         stepItems.forEach((item, idx) => {
             item.classList.remove('active', 'completed');
@@ -872,22 +912,34 @@ function renderSelectedDiagnosesSummary() {
     updateMobileSelectedDockUI();
     if (!summaryBox) return;
 
-    const items = carePlanBuilder.currentPlan.carePlans;
+    const items = carePlanBuilder.currentPlan.carePlans || [];
     if (items.length === 0) {
-        summaryBox.innerHTML = `<p style="font-size: 0.88rem; color: var(--text-muted);">Henüz tanı eklenmedi. Yukarıdan tanı seçip planınıza ekleyin.</p>`;
+        summaryBox.innerHTML = `<p style="font-size: 0.88rem; color: var(--text-muted);">Henüz tanı eklenmedi. Yukarıdan tanı seçebilir veya <strong>"⚡ Vital & Tanıya Göre 10+ Planı Otomatik Ekle"</strong> butonuna basabilirsiniz.</p>`;
         return;
     }
 
+    const mainCount = items.filter(cp => cp.isMainPlan !== false).length;
+    const secCount = items.length - mainCount;
+
     summaryBox.innerHTML = `
-        <div style="margin-top: 14px; background: var(--bg-card-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-            <strong style="color: var(--primary);">Seçilen Hemşirelik Tanıları (${items.length}):</strong>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
-                ${items.map(cp => `
-                    <span class="badge badge-primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--secondary-light); color: var(--secondary-hover); border: 1px solid var(--secondary);">
-                        ${getDiagnosisTitle(cp)}
-                        <span style="cursor: pointer; font-weight: bold;" onclick="removeDiagnosisItem('${cp.diagnosisId}')">✕</span>
-                    </span>
-                `).join('')}
+        <div style="margin-top: 14px; background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                <strong style="color: var(--primary); font-size: 0.96rem;">
+                    📋 Seçilen Hemşirelik Bakım Planları (Toplam ${items.length} Plan: ${mainCount} Ana + ${secCount} Yan Plan):
+                </strong>
+                <button type="button" class="btn btn-sm btn-outline" onclick="triggerAuto10PlansAndGoToStep(2)" style="font-size: 0.78rem;">
+                    🔄 10+ Planı Vital Bulgularla Yeniden Hesapla
+                </button>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                ${items.map(cp => {
+                    const isMain = cp.isMainPlan !== false;
+                    return `
+                    <span class="badge" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: ${isMain ? 'rgba(239, 68, 68, 0.15)' : 'rgba(59, 130, 246, 0.15)'}; color: ${isMain ? '#ef4444' : '#3b82f6'}; border: 1px solid ${isMain ? '#ef4444' : '#3b82f6'};">
+                        ${isMain ? '🔴 Ana Plan:' : '🔵 Yan Plan:'} ${getDiagnosisTitle(cp)}
+                        <span style="cursor: pointer; font-weight: bold; margin-left: 4px;" onclick="removeDiagnosisItem('${cp.diagnosisId}')" title="Kaldır">✕</span>
+                    </span>`;
+                }).join('')}
             </div>
         </div>`;
 }
@@ -896,19 +948,29 @@ function renderStep3CustomizationList() {
     const container = document.getElementById('step3-customization-list');
     if (!container) return;
 
-    const items = carePlanBuilder.currentPlan.carePlans;
+    const items = carePlanBuilder.currentPlan.carePlans || [];
     if (items.length === 0) {
-        container.innerHTML = `<div class="alert alert-warning">Henüz planınıza tanı eklemediniz. Lütfen Step 2'ye geçip en az 1 tanı ekleyin.</div>`;
+        container.innerHTML = `<div class="alert alert-warning">Henüz planınıza tanı eklemediniz. Lütfen Step 2'ye geçip en az 1 tanı ekleyin veya 10+ otomatik bakım planı oluşturun.</div>`;
         return;
     }
 
-    container.innerHTML = items.map(cp => `
-        <div class="card" style="margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+    container.innerHTML = items.map((cp, index) => {
+        const isMain = cp.isMainPlan !== false;
+        return `
+        <div class="card" style="margin-bottom: 16px; border-left: 5px solid ${isMain ? '#ef4444' : '#3b82f6'};">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
                 <div>
-                    <h3 style="color: var(--primary-dark); font-weight: 700;">${getDiagnosisTitle(cp)}</h3>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                        <span class="badge" style="background: ${isMain ? '#ef4444' : '#3b82f6'}; color: #fff; font-weight: 700;">
+                            ${isMain ? '🔴 Ana Bakım Planı #' + (index + 1) : '🔵 Yan Bakım Planı #' + (index + 1)}
+                        </span>
+                    </div>
+                    <h3 style="color: var(--primary-dark); font-weight: 700; margin: 4px 0;">${getDiagnosisTitle(cp)}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
-                        <strong>İlişkili Faktörler:</strong> ${cp.etiology || 'Belirtilmedi'}
+                        <strong>İlişkili Faktörler (Etiyoloji):</strong> ${cp.etiology || 'Belirtilmedi'}
+                    </p>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
+                        <strong>Belirti / Bulgular:</strong> ${cp.symptoms || 'Belirtilmedi'}
                     </p>
                 </div>
                 <button class="btn btn-sm btn-outline" onclick="openAddDiagnosisModal('${cp.diagnosisId}')">✏️ Düzenle</button>
@@ -920,6 +982,7 @@ function renderStep3CustomizationList() {
                     <ul style="padding-left: 16px; margin-top: 4px;">
                         ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
                     </ul>
+                </div>
                 <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                     <strong style="color: var(--info);">NIC Girişimleri (${(cp.nic || []).length}):</strong>
                     <ul style="padding-left: 0; list-style: none; margin-top: 6px;">
@@ -931,7 +994,8 @@ function renderStep3CustomizationList() {
                 </div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 window.removeDiagnosisItem = function(diagId) {
@@ -965,6 +1029,10 @@ function renderCarePlanPreviewTable() {
         </div>`;
     }
 
+    const items = plan.carePlans || [];
+    const mainCount = items.filter(cp => cp.isMainPlan !== false).length;
+    const secCount = items.length - mainCount;
+
     html += `
         <div class="patient-print-summary">
             <div><strong>Hasta Adı Soyadı:</strong> ${info.name || 'Girilmedi'}</div>
@@ -973,6 +1041,9 @@ function renderCarePlanPreviewTable() {
             <div><strong>Oda / Servis:</strong> ${info.room || 'Girilmedi'}</div>
             <div style="grid-column: span 2;">
                 <strong>Yaşam Bulguları:</strong> Ateş: ${v.ates || '-'}°C | TA: ${v.tansiyonSystolic || '-'}/${v.tansiyonDiastolic || '-'} | Nabız: ${v.nabiz || '-'}/dk | Solunum: ${v.solunum || '-'}/dk | SpO2: %${v.spo2 || '-'} | Ağrı: ${v.agri || '-'}/10
+            </div>
+            <div style="grid-column: span 2; background: rgba(13,148,136,0.1); color: var(--primary-dark); font-weight: 700; padding: 4px 8px; border-radius: 4px;">
+                📋 Bakım Planı Özeti: Toplam ${items.length} Adet Hemşirelik Bakım Planı (${mainCount} Ana Bakım Planı + ${secCount} Yan Bakım Planı)
             </div>
         </div>
 
@@ -996,18 +1067,24 @@ function renderCarePlanPreviewTable() {
                 </thead>
                 <tbody>`;
 
-    if (!plan.carePlans || plan.carePlans.length === 0) {
+    if (!items || items.length === 0) {
         html += `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">Henüz plana bir hemşirelik tanısı eklenmedi. Step 2\'ye dönüp tanı ekleyin.</td></tr>`;
     } else {
-        plan.carePlans.forEach(cp => {
+        items.forEach((cp, idx) => {
             const nandaList = window.NANDA_DIAGNOSES || [];
             const origDiag = nandaList.find(d => d.id === cp.diagnosisId);
             const rationalesList = origDiag ? (origDiag.rationales || []) : [];
+            const isMain = cp.isMainPlan !== false;
 
             html += `
                 <tr>
                     <td>
-                        <strong style="color: var(--primary-dark);">${getDiagnosisTitle(cp)}</strong>
+                        <div style="margin-bottom: 4px;">
+                            <span class="badge" style="background: ${isMain ? '#ef4444' : '#3b82f6'}; color: #ffffff; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">
+                                ${isMain ? '🔴 Ana Plan #' + (idx + 1) : '🔵 Yan Plan #' + (idx + 1)}
+                            </span>
+                        </div>
+                        <strong style="color: var(--primary-dark); font-size: 0.95rem;">${getDiagnosisTitle(cp)}</strong>
                         ${origDiag?.domainName ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">${origDiag.domainName}</div>` : ''}
                     </td>
                     <td>
@@ -1022,9 +1099,9 @@ function renderCarePlanPreviewTable() {
                     </td>
                     <td>
                         <ul class="table-bullet-list">
-                            ${(cp.nic || []).map((n, idx) => {
+                            ${(cp.nic || []).map((n, idxNic) => {
                                 const autonomy = window.getNicAutonomyInfo(n);
-                                const r = rationalesList[idx] || rationalesList[0];
+                                const r = rationalesList[idxNic] || rationalesList[0];
                                 return `
                                     <li style="margin-bottom: 8px;">
                                         <div style="margin-bottom: 3px;">${autonomy.badgeHtml}</div>
@@ -1040,7 +1117,6 @@ function renderCarePlanPreviewTable() {
                         <span class="badge badge-success">${cp.evaluationStatus || 'Ulaşıldı'}</span>
                     </td>
                 </tr>`;
-
         });
     }
 

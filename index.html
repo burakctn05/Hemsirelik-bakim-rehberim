@@ -504,13 +504,18 @@
                             </div>
                         </div>
 
-                        <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                             <button type="button" class="btn btn-secondary" id="clear-patient-form-btn-bottom">
                                 🧹 Formu Temizle
                             </button>
-                            <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(2)">
-                                İleri: NANDA Tanı Seçimine Geç →
-                            </button>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button type="button" class="btn btn-success btn-lg" id="auto-generate-10-plans-btn" onclick="triggerAuto10PlansAndGoToStep(2)" style="background: linear-gradient(135deg, #10b981, #059669); border: none; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                                    ⚡ Vital & Tanıya Göre 10+ Bakım Planı Oluştur
+                                </button>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="goToWizardStep(2)">
+                                    İleri: Tanı Seçimine Geç →
+                                </button>
+                            </div>
                         </div>
 
                     </form>
@@ -528,7 +533,12 @@
                             <span class="card-icon">🧠</span>
                             <h3>Adım 2: NANDA-I Hemşirelik Tanısı Seçimi</h3>
                         </div>
-                        <button class="btn btn-sm btn-secondary" onclick="goToWizardStep(1)">← Geri</button>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button type="button" class="btn btn-sm btn-success" onclick="triggerAuto10PlansAndGoToStep(2)" style="background: linear-gradient(135deg, #10b981, #059669); border: none;">
+                                ⚡ Vital & Tanıya Göre 10+ Planı Otomatik Ekle
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="goToWizardStep(1)">← Geri</button>
+                        </div>
                     </div>
 
                     <!-- Diagnosis Grid -->
