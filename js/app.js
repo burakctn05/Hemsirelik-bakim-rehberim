@@ -206,6 +206,7 @@ function runAppInitialization() {
     safeExec(initDevAdminModal, 'initDevAdminModal');
     safeExec(initAcademicAndChipsHandlers, 'initAcademicAndChipsHandlers');
     safeExec(restoreDraftIfAvailable, 'restoreDraftIfAvailable');
+    safeExec(updateMobileSelectedDockUI, 'updateMobileSelectedDockUI');
 }
 
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -962,8 +963,10 @@ function updateMobileSelectedDockUI() {
         // Yüzen dock ikonu SADECE Bakım Planı Oluşturma modunda (tab-builder) VE Step 2 veya Step 3'teyken gösterilir!
         if (typeof currentActiveTab !== 'undefined' && currentActiveTab === 'builder' && count > 0 && (currentStep === 2 || currentStep === 3)) {
             dock.classList.add('active');
+            dock.style.setProperty('display', 'flex', 'important');
         } else {
             dock.classList.remove('active');
+            dock.style.setProperty('display', 'none', 'important');
         }
     }
 
