@@ -107,8 +107,9 @@ window.switchTab = function(targetTab, pushHistory = true) {
         }
     });
 
-    // 3. Update Top-Left Smart Back Button UI
+    // 3. Update Top-Left Smart Back Button & Mobile Dock UI
     window.updateTopLeftBackButtonUI();
+    if (typeof updateMobileSelectedDockUI === 'function') updateMobileSelectedDockUI();
 
     // 4. Push History State for seamless Browser Back Button Navigation
     if (pushHistory) {
@@ -958,7 +959,8 @@ function updateMobileSelectedDockUI() {
     if (drawerCount) drawerCount.textContent = count;
 
     if (dock) {
-        if (count > 0 && (currentStep === 2 || currentStep === 3)) {
+        // Yüzen dock ikonu SADECE Bakım Planı Oluşturma modunda (tab-builder) VE Step 2 veya Step 3'teyken gösterilir!
+        if (typeof currentActiveTab !== 'undefined' && currentActiveTab === 'builder' && count > 0 && (currentStep === 2 || currentStep === 3)) {
             dock.classList.add('active');
         } else {
             dock.classList.remove('active');
