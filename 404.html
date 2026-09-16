@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemşirelik Bakım Rehberim - Yönlendiriliyor...</title>
+    <script>
+        // SPA Fallback Redirect for GitHub Pages & Static Servers
+        // Preserves path, search, and hash for single page app routing
+        (function() {
+            var path = window.location.pathname;
+            var search = window.location.search;
+            var hash = window.location.hash;
+            
+            // Prevent infinite loops if already at root
+            if (path && path !== '/' && path !== '/index.html') {
+                sessionStorage.setItem('spa_redirect_path', path + search + hash);
+                window.location.replace('/');
+            } else {
+                window.location.replace('/');
+            }
+        })();
+    </script>
+</head>
+<body>
+</body>
+</html>

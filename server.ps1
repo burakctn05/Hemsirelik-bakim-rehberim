@@ -14,6 +14,10 @@ while ($listener.IsListening) {
     if ($path -eq "/") { $path = "/index.html" }
     $localPath = Join-Path $root $path.TrimStart('/')
 
+    if (Test-Path $localPath -PathType Container) {
+        $localPath = Join-Path $localPath "index.html"
+    }
+
     if (Test-Path $localPath -PathType Leaf) {
         $content = [System.IO.File]::ReadAllBytes($localPath)
         $ext = [System.IO.Path]::GetExtension($localPath).ToLower()
@@ -33,9 +37,18 @@ while ($listener.IsListening) {
         $response.ContentLength64 = $content.Length
         $response.OutputStream.Write($content, 0, $content.Length)
     } else {
-        $response.StatusCode = 404
-        $msg = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found")
-        $response.OutputStream.Write($msg, 0, $msg.Length)
+        $fallbackPath = Join-Path $root "404.html"
+        if (Test-Path $fallbackPath -PathType Leaf) {
+            $content = [System.IO.File]::ReadAllBytes($fallbackPath)
+            $response.ContentType = "text/html; charset=utf-8"
+            $response.StatusCode = 404
+            $response.ContentLength64 = $content.Length
+            $response.OutputStream.Write($content, 0, $content.Length)
+        } else {
+            $response.StatusCode = 404
+            $msg = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found")
+            $response.OutputStream.Write($msg, 0, $msg.Length)
+        }
     }
     $response.OutputStream.Close()
 }

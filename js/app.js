@@ -78,7 +78,159 @@ setTimeout(() => {
 
 let currentActiveTab = 'home';
 
-// Global Tab Switcher Function - SPA History API Integrated
+/* ==========================================================================
+   Clean Path-Based SEO Route Registry & Helper System
+   ========================================================================== */
+window.APP_ROUTES = [
+    { path: '/', tab: 'home' },
+    { path: '/index.html', tab: 'home' },
+    { path: '/hemsirelik-bakim-plani-olustur', tab: 'builder' },
+    { path: '/klinik-vaka-bakim-planlari', tab: 'templates' },
+    { path: '/klinik-hesaplayicilar', tab: 'calculators' },
+    { path: '/nanda-hemsirelik-tanilari', tab: 'dictionary' },
+    { path: '/kayitli-bakim-planlari', tab: 'saved' },
+    
+    // Klinik Hesaplayıcılar Özel Route Eşleşmeleri
+    { path: '/gks-hesaplama', tab: 'calculators', calcId: 'gks' },
+    { path: '/braden-olcegi', tab: 'calculators', calcId: 'braden' },
+    { path: '/norton-olcegi', tab: 'calculators', calcId: 'norton' },
+    { path: '/barthel-indeksi', tab: 'calculators', calcId: 'barthel' },
+    { path: '/damla-hizi-hesaplama', tab: 'calculators', calcId: 'iv-damla' },
+    { path: '/vki-hesaplama', tab: 'calculators', calcId: 'vki' },
+    { path: '/sivi-dengesi-hesaplama', tab: 'calculators', calcId: 'sivi-hesabi' },
+    { path: '/kan-gazi-analizi', tab: 'calculators', calcId: 'kan-gazlari' }
+];
+
+window.getPathForTab = function(targetTab) {
+    if (targetTab === 'builder') return '/hemsirelik-bakim-plani-olustur';
+    if (targetTab === 'templates') return '/klinik-vaka-bakim-planlari';
+    if (targetTab === 'calculators') return '/klinik-hesaplayicilar';
+    if (targetTab === 'dictionary' || targetTab === 'guide') return '/nanda-hemsirelik-tanilari';
+    if (targetTab === 'saved') return '/kayitli-bakim-planlari';
+    return '/';
+};
+
+window.resolveRouteFromPath = function(pathname) {
+    if (!pathname) return { path: '/', tab: 'home' };
+    const cleanPath = pathname.replace(/\/$/, '') || '/';
+    const match = window.APP_ROUTES.find(r => r.path === cleanPath || r.path === pathname);
+    if (match) return match;
+    return { path: '/', tab: 'home' };
+};
+
+window.ROUTE_METADATA = {
+    '/': {
+        title: 'Hemşirelik Rehberi | Hemşirelik Bakım Planı ve Klinik Hesaplama',
+        description: 'Hemşirelik öğrencileri ve intörnler için hemşirelik bakım planları, NANDA hemşirelik tanıları, klinik hesaplayıcılar ve pratik hemşirelik araçları.',
+        canonical: 'https://hemsirelikrehberi.com.tr/'
+    },
+    '/hemsirelik-bakim-plani-olustur': {
+        title: 'Hemşirelik Bakım Planı Oluştur | NANDA, NIC ve NOC',
+        description: 'NANDA hemşirelik tanıları, NIC girişimleri ve NOC sonuçları ile klinik duruma uygun hemşirelik bakım planı oluşturun.',
+        canonical: 'https://hemsirelikrehberi.com.tr/hemsirelik-bakim-plani-olustur'
+    },
+    '/klinik-vaka-bakim-planlari': {
+        title: 'Klinik Vaka Bakım Planları | Hemşirelik Rehberi',
+        description: 'Farklı klinik durumlar için hazırlanmış örnek hemşirelik bakım planlarını ve vaka temelli bakım planı şablonlarını inceleyin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/klinik-vaka-bakim-planlari'
+    },
+    '/klinik-hesaplayicilar': {
+        title: 'Klinik Hesaplayıcılar | Hemşirelik Rehberi',
+        description: 'Hemşirelik öğrencileri ve sağlık profesyonelleri için GKS, Braden, Norton, Barthel, VKİ, sıvı dengesi ve diğer klinik hesaplama araçları.',
+        canonical: 'https://hemsirelikrehberi.com.tr/klinik-hesaplayicilar'
+    },
+    '/gks-hesaplama': {
+        title: 'Glasgow Koma Skalası (GKS) Hesaplama | Hemşirelik Rehberi',
+        description: 'Glasgow Koma Skalası (GKS) puanını göz, sözel ve motor yanıtlar üzerinden hesaplayın ve bilinç düzeyinin değerlendirilmesinde kullanın.',
+        canonical: 'https://hemsirelikrehberi.com.tr/gks-hesaplama'
+    },
+    '/braden-olcegi': {
+        title: 'Braden Ölçeği Hesaplama | Basınç Yarası Riski',
+        description: 'Braden Ölçeği ile duyusal algı, nem, aktivite, mobilite, beslenme ve sürtünme açısından basınç yarası riskini değerlendirin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/braden-olcegi'
+    },
+    '/norton-olcegi': {
+        title: 'Norton Ölçeği Hesaplama | Basınç Yarası Riski',
+        description: 'Norton Ölçeği kullanarak fiziksel durum, mental durum, aktivite, mobilite ve inkontinans üzerinden basınç yarası riskini değerlendirin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/norton-olcegi'
+    },
+    '/barthel-indeksi': {
+        title: 'Barthel İndeksi Hesaplama | Günlük Yaşam Aktiviteleri',
+        description: 'Barthel İndeksi ile beslenme, banyo, giyinme, mobilite, tuvalet ve diğer günlük yaşam aktivitelerindeki bağımsızlık düzeyini değerlendirin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/barthel-indeksi'
+    },
+    '/damla-hizi-hesaplama': {
+        title: 'IV Damla Hızı Hesaplama | Hemşirelik Rehberi',
+        description: 'IV sıvı tedavisinde damla/dakika hızını hesaplayın. Serum hacmi, süre ve set faktörüne göre pratik damla hızı hesaplama aracı.',
+        canonical: 'https://hemsirelikrehberi.com.tr/damla-hizi-hesaplama'
+    },
+    '/vki-hesaplama': {
+        title: 'Vücut Kitle İndeksi (VKİ) Hesaplama | Hemşirelik Rehberi',
+        description: 'Boy ve kilo bilgilerinizi kullanarak Vücut Kitle İndeksi (VKİ) değerini hesaplayın ve sonucu değerlendirin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/vki-hesaplama'
+    },
+    '/sivi-dengesi-hesaplama': {
+        title: 'Sıvı Dengesi Hesaplama | Hemşirelik Rehberi',
+        description: 'Alınan ve çıkarılan sıvı miktarlarını kullanarak hastanın günlük sıvı dengesini hesaplayın ve sıvı bilançosunu değerlendirin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/sivi-dengesi-hesaplama'
+    },
+    '/kan-gazi-analizi': {
+        title: 'Kan Gazı Analizi | Hemşirelik Rehberi',
+        description: 'Arter kan gazı değerlerini değerlendirmeye yardımcı olan pratik kan gazı analiz aracı ile pH, PaCO₂, HCO₃ ve diğer değerleri inceleyin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/kan-gazi-analizi'
+    },
+    '/nanda-hemsirelik-tanilari': {
+        title: 'NANDA Hemşirelik Tanıları | Hemşirelik Rehberi',
+        description: 'NANDA hemşirelik tanılarını arayın, tanı açıklamalarını inceleyin ve hemşirelik bakım planı hazırlarken uygun tanıları belirleyin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/nanda-hemsirelik-tanilari'
+    },
+    '/kayitli-bakim-planlari': {
+        title: 'Kayıtlı Hemşirelik Bakım Planları | Hemşirelik Rehberi',
+        description: 'Daha önce oluşturduğunuz hemşirelik bakım planlarına erişin, kayıtlı planlarınızı inceleyin ve gerektiğinde yeniden düzenleyin.',
+        canonical: 'https://hemsirelikrehberi.com.tr/kayitli-bakim-planlari'
+    }
+};
+
+window.updateLiveSEOMetadata = function(pathOrTab) {
+    let targetPath = typeof pathOrTab === 'string' && pathOrTab.startsWith('/') ? pathOrTab : window.getPathForTab(pathOrTab);
+    const cleanPath = targetPath ? targetPath.replace(/\/$/, '') || '/' : '/';
+    const meta = window.ROUTE_METADATA[cleanPath] || window.ROUTE_METADATA['/'];
+
+    if (meta.title) document.title = meta.title;
+
+    const setMeta = (attrName, attrValue, content) => {
+        let el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(attrName, attrValue);
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+    };
+
+    if (meta.title) {
+        setMeta('name', 'title', meta.title);
+        setMeta('property', 'og:title', meta.title);
+        setMeta('name', 'twitter:title', meta.title);
+    }
+    if (meta.description) {
+        setMeta('name', 'description', meta.description);
+        setMeta('property', 'og:description', meta.description);
+        setMeta('name', 'twitter:description', meta.description);
+    }
+    if (meta.canonical) {
+        let canonicalEl = document.getElementById('meta-canonical-link') || document.querySelector('link[rel="canonical"]');
+        if (canonicalEl) {
+            canonicalEl.setAttribute('href', meta.canonical);
+        }
+        setMeta('property', 'og:url', meta.canonical);
+        setMeta('name', 'twitter:url', meta.canonical);
+    }
+    setMeta('property', 'og:type', 'website');
+    setMeta('property', 'og:site_name', 'Hemşirelik Rehberi');
+};
+
+// Global Tab Switcher Function - SPA History API Integrated (Clean Paths)
 window.switchTab = function(targetTab, pushHistory = true) {
     if (!targetTab) return;
     currentActiveTab = targetTab;
@@ -111,14 +263,18 @@ window.switchTab = function(targetTab, pushHistory = true) {
     window.updateTopLeftBackButtonUI();
     if (typeof updateMobileSelectedDockUI === 'function') updateMobileSelectedDockUI();
 
-    // 4. Push History State for seamless Browser Back Button Navigation
+    // 4. Push History State & Live Meta Tags Update
     if (pushHistory) {
-        const hash = `#tab-${targetTab}` + (targetTab === 'builder' ? `-step-${currentStep}` : '');
+        const targetPath = window.getPathForTab(targetTab);
         try {
-            if (location.hash !== hash) {
-                history.pushState({ tab: targetTab, step: currentStep }, '', hash);
+            if (location.pathname !== targetPath) {
+                history.pushState({ tab: targetTab, step: currentStep }, '', targetPath);
             }
         } catch (e) {}
+    }
+
+    if (typeof window.updateLiveSEOMetadata === 'function') {
+        window.updateLiveSEOMetadata(targetTab);
     }
 
     // 5. Instant scroll to top
@@ -174,12 +330,18 @@ window.addEventListener('popstate', function(event) {
             window.goToWizardStep(targetStep, false);
         }
     } else {
-        window.handleSmartAppBack(true);
+        const routeInfo = window.resolveRouteFromPath(location.pathname);
+        if (routeInfo && routeInfo.tab) {
+            window.switchTab(routeInfo.tab, false);
+        } else {
+            window.handleSmartAppBack(true);
+        }
     }
 });
 
 try {
-    history.replaceState({ tab: 'home', step: 1 }, '', location.href);
+    const initRoute = window.resolveRouteFromPath(location.pathname);
+    history.replaceState({ tab: initRoute.tab || 'home', step: 1 }, '', location.pathname);
 } catch (e) {}
 
 function runAppInitialization() {
@@ -456,10 +618,10 @@ function initCarePlanWizard() {
         if (typeof window.updateTopLeftBackButtonUI === 'function') window.updateTopLeftBackButtonUI();
 
         if (pushHistory) {
-            const hash = `#tab-builder-step-${currentStep}`;
+            const targetPath = window.getPathForTab('builder');
             try {
-                if (location.hash !== hash) {
-                    history.pushState({ tab: 'builder', step: currentStep }, '', hash);
+                if (location.pathname !== targetPath) {
+                    history.pushState({ tab: 'builder', step: currentStep }, '', targetPath);
                 }
             } catch (e) {}
         }
@@ -2809,7 +2971,7 @@ function initThemeToggle() {
 }
 
 /* ==========================================================================
-   SEO Hash Routing & Deep-Linking System
+   SEO Routing, Backward Compatibility & Deep-Linking System
    ========================================================================== */
 function handleHashRoute() {
     const hash = window.location.hash;
@@ -2817,43 +2979,101 @@ function handleHashRoute() {
 
     if (hash.startsWith('#tani-')) {
         const diagId = hash.replace('#tani-', '');
-        if (typeof window.switchTab === 'function') window.switchTab('guide');
+        if (typeof window.switchTab === 'function') window.switchTab('dictionary');
         if (typeof window.openDiagnosisModal === 'function') {
             setTimeout(() => window.openDiagnosisModal(diagId), 150);
         }
     } else if (hash.startsWith('#kategori-')) {
         const catId = hash.replace('#kategori-', '');
-        if (typeof window.switchTab === 'function') window.switchTab('guide');
+        if (typeof window.switchTab === 'function') window.switchTab('dictionary');
         if (typeof window.filterCategory === 'function') {
             setTimeout(() => window.filterCategory(catId), 150);
         }
     } else if (hash.startsWith('#hesaplayici-')) {
-        if (typeof window.switchTab === 'function') window.switchTab('calculators');
+        const calcId = hash.replace('#hesaplayici-', '');
+        const calcMap = {
+            'gks': '/gks-hesaplama',
+            'braden': '/braden-olcegi',
+            'norton': '/norton-olcegi',
+            'barthel': '/barthel-indeksi',
+            'iv-damla': '/damla-hizi-hesaplama',
+            'vki': '/vki-hesaplama',
+            'sivi-hesabi': '/sivi-dengesi-hesaplama',
+            'kan-gazlari': '/kan-gazi-analizi'
+        };
+        const targetPath = calcMap[calcId] || '/klinik-hesaplayicilar';
+        try { history.replaceState({ tab: 'calculators' }, '', targetPath); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('calculators', false);
     } else if (hash.startsWith('#sablon-')) {
         const templateId = hash.replace('#sablon-', '');
-        if (typeof window.switchTab === 'function') window.switchTab('templates');
+        try { history.replaceState({ tab: 'templates' }, '', '/klinik-vaka-bakim-planlari'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('templates', false);
         if (typeof window.useTemplate === 'function') {
             setTimeout(() => window.useTemplate(templateId), 150);
         }
     } else if (hash === '#tani-rehberi') {
-        if (typeof window.switchTab === 'function') window.switchTab('guide');
+        try { history.replaceState({ tab: 'dictionary' }, '', '/nanda-hemsirelik-tanilari'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('dictionary', false);
     } else if (hash === '#bakim-plani-olusturucu') {
-        if (typeof window.switchTab === 'function') window.switchTab('builder');
+        try { history.replaceState({ tab: 'builder' }, '', '/hemsirelik-bakim-plani-olustur'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('builder', false);
     } else if (hash === '#klinik-hesaplayicilar') {
-        if (typeof window.switchTab === 'function') window.switchTab('calculators');
+        try { history.replaceState({ tab: 'calculators' }, '', '/klinik-hesaplayicilar'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('calculators', false);
     } else if (hash === '#hazir-sablonlar') {
-        if (typeof window.switchTab === 'function') window.switchTab('templates');
+        try { history.replaceState({ tab: 'templates' }, '', '/klinik-vaka-bakim-planlari'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('templates', false);
     } else if (hash === '#kayitli-planlar') {
-        if (typeof window.switchTab === 'function') window.switchTab('saved');
+        try { history.replaceState({ tab: 'saved' }, '', '/kayitli-bakim-planlari'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('saved', false);
     } else if (hash === '#sss') {
-        if (typeof window.switchTab === 'function') window.switchTab('faq');
+        try { history.replaceState({ tab: 'home' }, '', '/'); } catch (e) {}
+        if (typeof window.switchTab === 'function') window.switchTab('home', false);
+    }
+}
+
+function handleInitialAppRoute() {
+    // 1. SPA Redirect Check (GitHub Pages 404.html Fallback)
+    const redirectPath = sessionStorage.getItem('spa_redirect_path');
+    if (redirectPath) {
+        sessionStorage.removeItem('spa_redirect_path');
+        try {
+            const origin = window.location.origin || (window.location.protocol + '//' + window.location.host);
+            const tempUrl = new URL(redirectPath, origin);
+            const targetPath = tempUrl.pathname;
+            const targetHash = tempUrl.hash;
+
+            try { history.replaceState({ tab: 'redirect' }, '', targetPath + targetHash); } catch (e) {}
+
+            const match = window.resolveRouteFromPath(targetPath);
+            if (match && match.tab) {
+                window.switchTab(match.tab, false);
+                if (targetHash) handleHashRoute();
+                return;
+            }
+        } catch (e) {
+            console.warn('SPA redirect parsing error:', e);
+        }
+    }
+
+    // 2. Legacy Hash Upgrade Check
+    if (window.location.hash) {
+        handleHashRoute();
+        return;
+    }
+
+    // 3. Direct Path Match
+    const currentPath = window.location.pathname;
+    const match = window.resolveRouteFromPath(currentPath);
+    if (match && match.tab && match.tab !== 'home') {
+        window.switchTab(match.tab, false);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const legacyContactBtn = document.querySelector('.mobile-bottom-nav .trigger-contact-modal');
     if (legacyContactBtn) legacyContactBtn.remove();
-    setTimeout(handleHashRoute, 200);
+    setTimeout(handleInitialAppRoute, 150);
 });
 
 
