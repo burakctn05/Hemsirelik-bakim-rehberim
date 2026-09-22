@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <base href="/">
@@ -152,15 +152,42 @@
 
             
             <nav class="nav-tabs">
-                <button class="nav-tab active" data-tab="home" onclick="switchTab('home')">🏠 Ana Sayfa</button>
-                <button class="nav-tab" data-tab="builder" onclick="switchTab('builder')">✍️ Bakım Planı Oluştur</button>
-                <button class="nav-tab" data-tab="templates" onclick="switchTab('templates')">📚 Hazır Şablonlar</button>
-                <button class="nav-tab" data-tab="calculators" onclick="switchTab('calculators')">🧮 Klinik Ölçekler</button>
-                <button class="nav-tab" data-tab="dictionary" onclick="switchTab('dictionary')">📖 NANDA Sözlüğü</button>
-                <button class="nav-tab" data-tab="saved" onclick="switchTab('saved')">💾 Kaydedilenler</button>
-                <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">🔍 Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span></button>
-                <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">💬 İletişim</button>
-                <button class="nav-tab theme-toggle-btn" id="theme-toggle-btn" title="Karanlık/Aydınlık Tema (Hastane Gece Nöbeti Modu)">🌙 Gece Modu</button>
+                <button class="nav-tab active" data-tab="home" onclick="switchTab('home')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Ana Sayfa
+                </button>
+                <button class="nav-tab" data-tab="builder" onclick="switchTab('builder')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Bakım Planı Oluştur
+                </button>
+                <button class="nav-tab" data-tab="templates" onclick="switchTab('templates')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Hazır Şablonlar
+                </button>
+                <button class="nav-tab" data-tab="calculators" onclick="switchTab('calculators')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+                    Klinik Ölçekler
+                </button>
+                <button class="nav-tab" data-tab="dictionary" onclick="switchTab('dictionary')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    NANDA Sözlüğü
+                </button>
+                <button class="nav-tab" data-tab="saved" onclick="switchTab('saved')">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    Kaydedilenler
+                </button>
+                <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Ara <span class="cmd-kbd-badge" style="margin-left:2px;">Ctrl+K</span>
+                </button>
+                <button class="nav-tab trigger-contact-modal" title="İletişim ve Geri Bildirim Formu">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    İletişim
+                </button>
+                <button class="nav-tab theme-toggle-btn" id="theme-toggle-btn" title="Karanlık/Aydınlık Tema (Hastane Gece Nöbeti Modu)">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    Gece Modu
+                </button>
             </nav>
         </div>
     </header>
@@ -170,25 +197,29 @@
     <main class="app-container">
 
         <!-- ===================================================================
-             TAB 1: HOME / DASHBOARD
+             TAB 1: HOME / DASHBOARD (CLEAN & MODULAR LAUNCHPAD)
              =================================================================== -->
         <section id="tab-home" class="tab-content active">
+            <!-- Hero Dashboard Banner -->
             <div class="hero-card">
                 <div class="hero-text">
-                    <div class="hero-badge">✨ NANDA-I / NIC / NOC Standartlarında</div>
-                    <h2>Hemşirelik Bakım Planlarınızı Dakikalar İçinde Hazırlayın</h2>
+                    <div class="hero-badge">✨ NANDA-I / NIC / NOC Klinik Standartlarında</div>
+                    <h2>Hemşirelik Bakım Planı ve Akademik Klinik Karar Destek Platformu</h2>
                     <p>
-                        Klinik stajlarınızda ve derslerinizde hastanızın vital bulgularını girin, akıllı tanı önerileriyle doğru NANDA tanılarını seçin, NOC hedeflerini ve NIC girişimlerini akademik formata uygun olarak **PDF / Yazdır** çıktısı alın!
+                        Klinik staj ve nöbetlerinizde hastanızın vital bulgularını girin, akıllı öneri motoruyla doğru NANDA tanılarını belirleyin, PES formatında özelleştirip **Renkli Akademik PDF / Yazdır** çıktısı alın!
                     </p>
                     <div class="hero-actions">
                         <button class="btn btn-lg btn-primary" data-goto-tab="builder">
-                            ✍️ Yeni Bakım Planı Başlat
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                            Yeni Bakım Planı Başlat
                         </button>
                         <button class="btn btn-lg btn-secondary" data-goto-tab="templates">
-                            📋 Hazır Vaka Şablonlarını İncele
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            Hazır Vaka Şablonları (26+)
                         </button>
                         <button class="btn btn-lg btn-outline trigger-cmd-palette">
-                            🔍 Hızlı Arama (Ctrl + K)
+                            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            Hızlı Arama (Ctrl + K)
                         </button>
                     </div>
                 </div>
@@ -200,28 +231,36 @@
             <!-- Stats Bar -->
             <div class="stats-bar">
                 <div class="stat-card">
-                    <div class="stat-icon-wrapper">📖</div>
+                    <div class="stat-icon-wrapper">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
                     <div>
                         <div class="stat-number">50+</div>
                         <div class="stat-label">NANDA-I Tanısı</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-wrapper">📚</div>
+                    <div class="stat-icon-wrapper">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
                     <div>
                         <div class="stat-number">26+</div>
                         <div class="stat-label">Klinik Vaka Şablonu</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-wrapper">🧮</div>
+                    <div class="stat-icon-wrapper">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg>
+                    </div>
                     <div>
                         <div class="stat-number">12+</div>
                         <div class="stat-label">Klinik Ölçek & Persentil</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-wrapper">🖨️</div>
+                    <div class="stat-icon-wrapper">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    </div>
                     <div>
                         <div class="stat-number">%100</div>
                         <div class="stat-label">Akademik PDF / Yazdır</div>
@@ -229,26 +268,79 @@
                 </div>
             </div>
 
-            <div class="grid-3">
-                <div class="card card-hover feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Akıllı Tanı Öneri Motoru</h3>
-                    <p>Ateş, tansiyon, SpO2 ve ağrı skorunu girin; sistem hastanız için en uygun NANDA hemşirelik tanılarını otomatik önersin.</p>
-                    <button class="btn btn-sm btn-outline" data-goto-tab="builder">Plan Oluştur →</button>
-                </div>
+            <!-- Modern Portal Launchpad Grid (Cognitive Overload Reducer) -->
+            <div style="margin-top: 28px;">
+                <h3 style="margin-bottom: 6px; font-size: 1.35rem; color: var(--primary-dark);">
+                    🏥 Klinik Modüller ve Karar Destek Portalları
+                </h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">
+                    Aşağıdaki modüllerden ihtiyacınız olan aracı seçerek tek tıkla doğrudan ilgili çalışma ekranına geçebilirsiniz.
+                </p>
 
-                <div class="card card-hover feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>GKS, Braden, Norton, FLACC & Persentil</h3>
-                    <p>Glasgow Koma, Braden & Norton Bası Yarası, FLACC Ağrı ve Pediatrik Boy-Kilo Persentil eğrilerini hesaplayın.</p>
-                    <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
-                </div>
+                <div class="portal-grid">
+                    <!-- Portal 1: Bakım Planı Sihirbazı -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-card-icon" style="background: rgba(5, 150, 105, 0.12); color: var(--primary);">
+                                <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </div>
+                            <div class="portal-card-title">Bakım Planı Sihirbazı</div>
+                            <div class="portal-card-desc">
+                                Hastanızın vital bulgularını girin, akıllı NANDA öneri motoruyla otomatik 10+ bakım planı oluşturup PES formatında PDF çıktısı alın.
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-primary portal-card-btn" data-goto-tab="builder">
+                            Plan Oluştur →
+                        </button>
+                    </div>
 
-                <div class="card card-hover feature-card">
-                    <div class="feature-icon">💧</div>
-                    <h3>Sıvı Dengesi, Doz & Yanık Hesabı</h3>
-                    <p>Net sıvı bilanço hesabı (+/- mL), oligüri takibi, Parkland Yanık formülü, IV damla hızı ve ilaç doz hesaplamaları.</p>
-                    <button class="btn btn-sm btn-outline" data-goto-tab="calculators">Hesaplayıcılara Git →</button>
+                    <!-- Portal 2: Klinik Hesaplayıcılar -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-card-icon" style="background: rgba(14, 165, 233, 0.12); color: var(--secondary);">
+                                <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path></svg>
+                            </div>
+                            <div class="portal-card-title">Klinik Ölçekler & Dozaj</div>
+                            <div class="portal-card-desc">
+                                GKS, Braden, Norton, İtaki Düşme, MAP, Sıvı Dengesi (24s), IV Damla Hızı, Doz Hesaplayıcı, Parkland Yanık ve Pediatrik Persentil.
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary portal-card-btn" data-goto-tab="calculators">
+                            Hesaplayıcılara Git →
+                        </button>
+                    </div>
+
+                    <!-- Portal 3: Hazır Vaka Şablonları -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-card-icon" style="background: rgba(139, 92, 246, 0.12); color: #8b5cf6;">
+                                <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            </div>
+                            <div class="portal-card-title">Hazır Vaka Şablonları</div>
+                            <div class="portal-card-desc">
+                                Pediatri, Kadın Doğum, Dahiliye, Cerrahi, Psikiyatri ve Nöroloji stajlarınız için hazırlanmış 26+ akademik klinik bakım planı şablonu.
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline portal-card-btn" data-goto-tab="templates">
+                            Şablonları İncele →
+                        </button>
+                    </div>
+
+                    <!-- Portal 4: NANDA-I Sözlüğü -->
+                    <div class="portal-card">
+                        <div>
+                            <div class="portal-card-icon" style="background: rgba(236, 72, 153, 0.12); color: #ec4899;">
+                                <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            </div>
+                            <div class="portal-card-title">NANDA-I Tanı Sözlüğü</div>
+                            <div class="portal-card-desc">
+                                50+ NANDA hemşirelik tanısının Domain, Sınıf, Tanım, İlişkili Faktörler (Etiyoloji), Girişimler (NIC) ve Hemşirelik Girişim Gerekçeleri.
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline portal-card-btn" data-goto-tab="dictionary">
+                            Sözlüğü Aç →
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -257,7 +349,7 @@
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
                     <div style="display: flex; align-items: center; gap: 14px;">
                         <div style="font-size: 2.2rem; background: #ffffff; width: 54px; height: 54px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
-                            📱
+                            <svg class="svg-icon" style="width: 28px; height: 28px; color: var(--secondary);" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
                         </div>
                         <div>
                             <h4 style="margin: 0; font-size: 1.05rem; color: var(--text-primary);">
@@ -321,17 +413,25 @@
 
 
                     <form id="patient-info-form">
+                        <!-- KVKK & Patient Privacy Warning Banner -->
+                        <div class="kvkk-alert-banner">
+                            <svg class="kvkk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <div>
+                                <strong>🔒 KVKK ve Hasta Gizliliği Uyarısı:</strong> Hasta mahremiyeti ilkesi gereğince lütfen gerçek ad-soyad girmeyiniz. Yalnızca rumuz (ör. A.Y.) veya hasta protokol numarası kullanınız.
+                            </div>
+                        </div>
+
                         <div class="grid-2">
                             <div>
                                 <h4 style="margin-bottom: 12px; color: var(--primary-dark);">Hasta Demografik Verileri</h4>
                                 <div class="form-group">
                                     <label class="formülübel" for="patient-name-input">Hasta Adı Soyadı (Rumuz)</label>
-                                    <input type="text" id="patient-name-input" name="patientName" class="form-control" placeholder="Örn. Ahmet Y." required>
+                                    <input type="text" id="patient-name-input" name="patientName" class="form-control" placeholder="Örn. Ahmet Y. (Rumuz)" required>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group">
-                                        <label class="formülübel" for="patient-age-input">Yaş</label>
-                                        <input type="number" id="patient-age-input" name="patientAge" class="form-control" placeholder="Örn. 55">
+                                        <label class="formülübel" for="patient-age-input">Yaş (0 - 120)</label>
+                                        <input type="number" id="patient-age-input" name="patientAge" min="0" max="120" class="form-control" placeholder="Örn. 55">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-gender-select">Cinsiyet</label>
@@ -352,11 +452,11 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-weight-input">Kilo (kg)</label>
-                                        <input type="number" id="patient-weight-input" name="patientWeight" class="form-control" placeholder="Örn. 70">
+                                        <input type="number" id="patient-weight-input" name="patientWeight" min="1" max="350" step="0.1" class="form-control" placeholder="Örn. 70">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-height-input">Boy (cm)</label>
-                                        <input type="number" id="patient-height-input" name="patientHeight" class="form-control" placeholder="Örn. 175">
+                                        <input type="number" id="patient-height-input" name="patientHeight" min="30" max="250" class="form-control" placeholder="Örn. 175">
                                     </div>
                                 </div>
                                 <div id="step1-bmi-badge" style="margin-bottom: 12px;"></div>
@@ -547,9 +647,21 @@
                         <button class="btn btn-sm btn-secondary" onclick="goToWizardStep(2)">← Geri</button>
                     </div>
 
-                    <p style="margin-bottom: 20px;">
-                        Eklemiş olduğunuz tanıların etiyolojisini, hedeflerini (NOC) ve hemşirelik girişimlerini (NIC) düzenlemek için aşağıdaki kartlara tıklayabilirsiniz.
-                    </p>
+                    <!-- Academic PES Format Guide Callout -->
+                    <div class="pes-guide-box">
+                        <h4>
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            Akademik Staj Standardı: PES (Problem - Etiyoloji - Semptom) Formatı
+                        </h4>
+                        <p style="margin-bottom: 8px; font-size: 0.86rem; color: var(--text-secondary);">
+                            Akademik staj değerlendirmesinde tam puan almak için tanınızı aşağıdaki 3 bileşene uygun doldurduğunuzdan emin olun:
+                        </p>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 6px;">
+                            <span class="pes-badge-item pes-badge-p">1. Problem (P): NANDA Tanı Etiketi</span>
+                            <span class="pes-badge-item pes-badge-e">2. Etiyoloji (E): "...ile ilişkili"</span>
+                            <span class="pes-badge-item pes-badge-s">3. Belirtiler (S): "...ile kanıtlanan"</span>
+                        </div>
+                    </div>
 
                     <div id="step3-customization-list"></div>
 
@@ -837,12 +949,14 @@
 
                     <div class="form-group">
                         <label class="formülübel" for="map-sys">Sistolik Tansiyon (Büyük Tansiyon - mmHg)</label>
-                        <input type="number" id="map-sys" class="form-control" placeholder="Örn. 120">
+                        <input type="number" id="map-sys" min="30" max="300" class="form-control" placeholder="Örn. 120">
+                        <div class="input-error-msg" id="map-sys-error">Sistolik tansiyon 30 - 300 mmHg arasında olmalıdır.</div>
                     </div>
 
                     <div class="form-group">
                         <label class="formülübel" for="map-dia">Diastolik Tansiyon (Küçük Tansiyon - mmHg)</label>
-                        <input type="number" id="map-dia" class="form-control" placeholder="Örn. 80">
+                        <input type="number" id="map-dia" min="20" max="200" class="form-control" placeholder="Örn. 80">
+                        <div class="input-error-msg" id="map-dia-error">Diastolik tansiyon 20 - 200 mmHg arasında ve sistolikten küçük olmalıdır.</div>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 16px;">
@@ -872,19 +986,19 @@
                             <h5 style="color: #0891b2; margin-bottom: 6px; font-weight: 700;">📥 Alınan Sıvılar (mL)</h5>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-in-oral">Oral / NG (mL)</label>
-                                <input type="number" id="fluid-in-oral" class="form-control" placeholder="1500">
+                                <input type="number" id="fluid-in-oral" min="0" max="20000" class="form-control" placeholder="1500">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-in-iv">IV Mayi (mL)</label>
-                                <input type="number" id="fluid-in-iv" class="form-control" placeholder="1000">
+                                <input type="number" id="fluid-in-iv" min="0" max="20000" class="form-control" placeholder="1000">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-in-blood">Kan / Plazma (mL)</label>
-                                <input type="number" id="fluid-in-blood" class="form-control" placeholder="0">
+                                <input type="number" id="fluid-in-blood" min="0" max="10000" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-in-other">Diğer Alım (mL)</label>
-                                <input type="number" id="fluid-in-other" class="form-control" placeholder="0">
+                                <input type="number" id="fluid-in-other" min="0" max="10000" class="form-control" placeholder="0">
                             </div>
                         </div>
 
@@ -892,19 +1006,19 @@
                             <h5 style="color: #d97706; margin-bottom: 6px; font-weight: 700;">📤 Çıkarılan Sıvılar (mL)</h5>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-out-urine">İdrar (mL)</label>
-                                <input type="number" id="fluid-out-urine" class="form-control" placeholder="1200">
+                                <input type="number" id="fluid-out-urine" min="0" max="20000" class="form-control" placeholder="1200">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-out-drain">Dren / NG (mL)</label>
-                                <input type="number" id="fluid-out-drain" class="form-control" placeholder="150">
+                                <input type="number" id="fluid-out-drain" min="0" max="10000" class="form-control" placeholder="150">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-out-vomit">Kusma (mL)</label>
-                                <input type="number" id="fluid-out-vomit" class="form-control" placeholder="0">
+                                <input type="number" id="fluid-out-vomit" min="0" max="10000" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group">
                                 <label class="formülübel" for="fluid-out-stool">Dışkı / Diğer (mL)</label>
-                                <input type="number" id="fluid-out-stool" class="form-control" placeholder="100">
+                                <input type="number" id="fluid-out-stool" min="0" max="10000" class="form-control" placeholder="100">
                             </div>
                         </div>
                     </div>
@@ -929,15 +1043,18 @@
 
                     <div class="form-group">
                         <label class="formülübel" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
-                        <input type="number" id="urine-ml" class="form-control" placeholder="Örn. 350">
+                        <input type="number" id="urine-ml" min="0" max="20000" class="form-control" placeholder="Örn. 350">
+                        <div class="input-error-msg" id="urine-ml-error">Lütfen 0 - 20.000 mL arasında geçerli değer giriniz.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
-                        <input type="number" id="urine-weight" class="form-control" placeholder="Örn. 70">
+                        <input type="number" id="urine-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
+                        <div class="input-error-msg" id="urine-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="urine-hours">Takip Süresi (Saat)</label>
-                        <input type="number" id="urine-hours" class="form-control" value="24" placeholder="Örn. 8 veya 24">
+                        <input type="number" id="urine-hours" min="1" max="168" class="form-control" value="24" placeholder="Örn. 8 veya 24">
+                        <div class="input-error-msg" id="urine-hours-error">Takip süresi 1 - 168 saat arasında olmalıdır.</div>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 16px;">
                         <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
@@ -962,11 +1079,13 @@
                     
                     <div class="form-group">
                         <label class="formülübel" for="drip-volume">Sıvı Miktarı (mL)</label>
-                        <input type="number" id="drip-volume" class="form-control" placeholder="Örn. 500">
+                        <input type="number" id="drip-volume" min="1" max="10000" class="form-control" placeholder="Örn. 500">
+                        <div class="input-error-msg" id="drip-volume-error">Sıvı miktarı 1 - 10.000 mL arasında olmalıdır.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="drip-hours">İnfüzyon Süresi (Saat)</label>
-                        <input type="number" id="drip-hours" class="form-control" placeholder="Örn. 8">
+                        <input type="number" id="drip-hours" min="0.1" max="168" step="0.1" class="form-control" placeholder="Örn. 8">
+                        <div class="input-error-msg" id="drip-hours-error">Süre 0.1 - 168 saat arasında olmalıdır.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="drip-factor">Damla Faktörü (1 mL = ? damla)</label>
@@ -995,15 +1114,18 @@
                     
                     <div class="form-group">
                         <label class="formülübel" for="dose-desired">İstenen Doz (mg)</label>
-                        <input type="number" id="dose-desired" class="form-control" placeholder="Örn. 250">
+                        <input type="number" id="dose-desired" min="0.001" step="any" class="form-control" placeholder="Örn. 250">
+                        <div class="input-error-msg" id="dose-desired-error">Lütfen 0'dan büyük geçerli bir doz giriniz.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="dose-onhand">Ampuldeki / Eldeki Doz (mg)</label>
-                        <input type="number" id="dose-onhand" class="form-control" placeholder="Örn. 500">
+                        <input type="number" id="dose-onhand" min="0.001" step="any" class="form-control" placeholder="Örn. 500">
+                        <div class="input-error-msg" id="dose-onhand-error">Eldeki doz 0'dan büyük olmalıdır.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="dose-volhand">Ampul Hacmi (mL)</label>
-                        <input type="number" id="dose-volhand" class="form-control" placeholder="Örn. 2">
+                        <input type="number" id="dose-volhand" min="0.01" step="any" class="form-control" placeholder="Örn. 2">
+                        <div class="input-error-msg" id="dose-volhand-error">Hacim 0'dan büyük olmalıdır.</div>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 16px;">
                         <button class="btn btn-primary btn-sm" id="calc-dose-btn">🧮 Dozajı Hesapla</button>
@@ -1170,11 +1292,13 @@
 
                     <div class="form-group">
                         <label class="formülübel" for="parkland-weight">Hasta Vücut Ağırlığı (kg)</label>
-                        <input type="number" id="parkland-weight" class="form-control" placeholder="Örn. 70">
+                        <input type="number" id="parkland-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
+                        <div class="input-error-msg" id="parkland-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
                     </div>
                     <div class="form-group">
                         <label class="formülübel" for="parkland-burn">Yanık Yüzdesi (% TBSA - 9'lar Kuralı)</label>
-                        <input type="number" id="parkland-burn" class="form-control" placeholder="Örn. 25">
+                        <input type="number" id="parkland-burn" min="1" max="100" step="1" class="form-control" placeholder="Örn. 25">
+                        <div class="input-error-msg" id="parkland-burn-error">Yanık yüzdesi %1 - %100 arasında olmalıdır.</div>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 16px;">
                         <button class="btn btn-primary btn-sm" id="calc-parkland-btn">🧮 Parkland Sıvısını Hesapla</button>
@@ -1549,6 +1673,11 @@
                 </div>
             </div>
 
+            <!-- Permanent Academic & NANDA-I Copyright Disclaimer Box -->
+            <div style="margin-top: 18px; padding: 12px 16px; background: rgba(5, 150, 105, 0.08); border: 1px solid var(--primary); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+                <strong>📜 NANDA-I, NIC ve NOC Terminolojisi & Telif Uyarısı:</strong> Bu platformda yer alan hemşirelik tanı etiketleri, NANDA International (NANDA-I Inc.) tarafından belirlenen standart taksonomiye dayanmaktadır. NANDA-I, NIC ve NOC terminolojileri hemşirelik öğrencilerine ve intörnlerine eğitim ve klinik rehberlik sunmak amacıyla referans alınmıştır. NANDA-I tescilli markadır.
+            </div>
+
             <div class="footer-bottom">
                 <div>© 2026 <strong>Hemşirelik Bakım Rehberim</strong> | Kâr Amacı Gütmeyen Akademik Eğitim Platformu.</div>
                 <div>Sürüm <strong>v2.5 (Web Akademik Sürüm)</strong></div>
@@ -1807,26 +1936,26 @@
         </div>
     </div>
 
-    <!-- Mobile Fixed Bottom Navigation Bar (0-Tab Clean Mobile Welcome Screen) -->
+    <!-- Mobile Fixed Bottom Navigation Bar -->
     <nav class="mobile-bottom-nav no-print">
         <button class="mobile-nav-btn active" data-tab="home" onclick="switchTab('home')">
-            <span class="mobile-nav-icon">🏠</span>
+            <span class="mobile-nav-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
             <span class="mobile-nav-label">Ana Sayfa</span>
         </button>
         <button class="mobile-nav-btn" data-tab="builder" onclick="switchTab('builder')">
-            <span class="mobile-nav-icon">✍️</span>
+            <span class="mobile-nav-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
             <span class="mobile-nav-label">Plan Oluştur</span>
         </button>
         <button class="mobile-nav-btn" data-tab="templates" onclick="switchTab('templates')">
-            <span class="mobile-nav-icon">📚</span>
+            <span class="mobile-nav-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
             <span class="mobile-nav-label">Şablonlar</span>
         </button>
         <button class="mobile-nav-btn" data-tab="calculators" onclick="switchTab('calculators')">
-            <span class="mobile-nav-icon">🧮</span>
+            <span class="mobile-nav-icon"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg></span>
             <span class="mobile-nav-label">Ölçekler</span>
         </button>
         <button class="mobile-nav-btn" data-tab="dictionary" onclick="switchTab('dictionary')">
-            <span class="mobile-nav-icon">📖</span>
+            <span class="mobile-nav-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span>
             <span class="mobile-nav-label">Sözlük</span>
         </button>
     </nav>

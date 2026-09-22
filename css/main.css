@@ -1359,4 +1359,169 @@ body.dark-theme .plan-table tbody tr:hover {
     background-color: #1c2b4a !important;
 }
 
+/* ==========================================================================
+   New UI Enhancement Styles: KVKK Banner, PES Guide Box, Validation & SVG Icons
+   ========================================================================== */
+
+/* 1. KVKK & Patient Privacy Warning Banner */
+.kvkk-alert-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 185, 129, 0.08));
+    border: 1.5px solid var(--warning);
+    border-left: 5px solid var(--warning);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
+}
+
+.kvkk-alert-banner .kvkk-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--warning);
+}
+
+.kvkk-alert-banner strong {
+    color: var(--warning);
+}
+
+/* 2. Academic PES Format Guide Box */
+.pes-guide-box {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.06), rgba(14, 165, 233, 0.06));
+    border: 1.5px solid var(--primary);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+}
+
+.pes-guide-box h4 {
+    color: var(--primary-dark);
+    font-size: 0.98rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pes-badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+.pes-badge-p { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+.pes-badge-e { background: #fef3c7; color: #d97706; border: 1px solid #fcd34d; }
+.pes-badge-s { background: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; }
+
+/* 3. Input Validation Error Styles */
+.input-error {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.04) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+.input-error-msg {
+    display: none;
+    color: #ef4444;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.input-error-msg.active {
+    display: block;
+}
+
+/* 4. Vector SVG Icon Helpers */
+.svg-icon {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: -0.2em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nav-tab .svg-icon,
+.mobile-nav-btn .svg-icon {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+/* 5. Dashboard Launchpad Portal Cards */
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.portal-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.portal-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.portal-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.portal-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.portal-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.portal-card-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+}
+
+
 

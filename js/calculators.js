@@ -81,23 +81,40 @@ window.calculateItaki = function(selectedMajorCount, selectedMinorCount) {
 };
 
 window.calculateDripRate = function(volumeMl, hours, dropFactor = 20) {
-    if (!volumeMl || !hours || hours <= 0 || volumeMl <= 0) return null;
-    const totalMinutes = hours * 60;
-    const dripRatePerMin = Math.round((volumeMl * dropFactor) / totalMinutes);
-    const mlPerHour = (volumeMl / hours).toFixed(1);
+    const vol = parseFloat(volumeMl);
+    const hrs = parseFloat(hours);
+    const df = parseFloat(dropFactor);
+
+    if (isNaN(vol) || isNaN(hrs) || vol <= 0 || hrs <= 0 || vol > 10000 || hrs > 168) {
+        return { error: 'Lütfen geçerli sıvı hacmi (1-10.000 mL) ve infüzyon süresi (0.1-168 saat) giriniz.' };
+    }
+    const totalMinutes = hrs * 60;
+    const dripRatePerMin = Math.round((vol * df) / totalMinutes);
+    const mlPerHour = (vol / hrs).toFixed(1);
     return { dripRatePerMin, mlPerHour, totalMinutes };
 };
 
 window.calculateMedDose = function(desiredDose, doseOnHand, volumeOnHand) {
-    if (!desiredDose || !doseOnHand || !volumeOnHand || doseOnHand <= 0) return null;
-    const resultVolume = (desiredDose / doseOnHand) * volumeOnHand;
-    return resultVolume.toFixed(2);
+    const desired = parseFloat(desiredDose);
+    const onHand = parseFloat(doseOnHand);
+    const vol = parseFloat(volumeOnHand);
+
+    if (isNaN(desired) || isNaN(onHand) || isNaN(vol) || desired <= 0 || onHand <= 0 || vol <= 0 || desired > 100000 || onHand > 100000) {
+        return { error: 'Lütfen geçerli pozitif doz (mg/mcg/g) ve ampul hacmi (mL) değerleri giriniz.' };
+    }
+    const resultVolume = (desired / onHand) * vol;
+    return { resultVolume: resultVolume.toFixed(2) };
 };
 
 window.calculateBMI = function(weightKg, heightCm) {
-    if (!weightKg || !heightCm || heightCm <= 0) return null;
-    const heightM = heightCm / 100;
-    const bmi = (weightKg / (heightM * heightM)).toFixed(1);
+    const w = parseFloat(weightKg);
+    const h = parseFloat(heightCm);
+
+    if (isNaN(w) || isNaN(h) || w <= 0 || h <= 30 || w > 400 || h > 260) {
+        return { error: 'Lütfen geçerli kilo (1-400 kg) ve boy (30-260 cm) değerleri giriniz.' };
+    }
+    const heightM = h / 100;
+    const bmi = (w / (heightM * heightM)).toFixed(1);
 
     let status = '';
     let alertClass = '';
@@ -117,7 +134,13 @@ window.calculateBMI = function(weightKg, heightCm) {
 window.calculateMAP = function(systolic, diastolic) {
     const sys = parseFloat(systolic);
     const dia = parseFloat(diastolic);
-    if (isNaN(sys) || isNaN(dia) || sys <= 0 || dia <= 0) return null;
+
+    if (isNaN(sys) || isNaN(dia) || sys < 30 || sys > 300 || dia < 20 || dia > 200) {
+        return { error: 'Lütfen fizyolojik sınırlar içinde tansiyon değerleri giriniz (Sistolik: 30-300, Diastolik: 20-200 mmHg).' };
+    }
+    if (dia >= sys) {
+        return { error: 'Diastolik (küçük) tansiyon, Sistolik (büyük) tansiyondan büyük veya eşit olamaz.' };
+    }
 
     const map = Math.round((sys + (2 * dia)) / 3);
     let status = '';
@@ -177,7 +200,9 @@ window.calculateUrineOutput = function(urineMl, weightKg, hours = 24) {
     const kg = parseFloat(weightKg);
     const hrs = parseFloat(hours);
 
-    if (isNaN(ml) || isNaN(kg) || isNaN(hrs) || kg <= 0 || hrs <= 0) return null;
+    if (isNaN(ml) || isNaN(kg) || isNaN(hrs) || ml < 0 || kg <= 0 || hrs <= 0 || kg > 300 || hrs > 168 || ml > 20000) {
+        return { error: 'Lütfen geçerli idrar miktarı (0-20.000 mL), kilo (1-300 kg) ve süre (1-168 saat) giriniz.' };
+    }
 
     const mlPerKgPerHour = (ml / kg / hrs).toFixed(2);
     const rate = parseFloat(mlPerKgPerHour);
@@ -278,7 +303,9 @@ window.calculateParkland = function(weightKg, burnPercentage) {
     const kg = parseFloat(weightKg);
     const burn = parseFloat(burnPercentage);
 
-    if (isNaN(kg) || isNaN(burn) || kg <= 0 || burn <= 0 || burn > 100) return null;
+    if (isNaN(kg) || isNaN(burn) || kg <= 0 || burn <= 0 || burn > 100 || kg > 300) {
+        return { error: 'Lütfen geçerli vücut ağırlığı (1-300 kg) ve yanık yüzdesi (%1-100) giriniz.' };
+    }
 
     const total24hMl = Math.round(4 * kg * burn);
     const first8hMl = Math.round(total24hMl / 2);

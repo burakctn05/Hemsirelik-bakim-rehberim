@@ -402,6 +402,7 @@ window.CarePlanBuilder = class CarePlanBuilder {
 
     /**
      * Tanıyı hastanın vital bulgularına ve tıbbi tanısına özel etiyoloji ve belirtilerle zenginleştirir.
+     * Akademik PES Formatı: Problem (NANDA) - Etiyoloji (...ile ilişkili) - Belirtiler (...ile kanıtlanan)
      */
     buildCustomizedCarePlanItem(diag, isMainPlan, info, vitals) {
         const diagText = info.diagnosis || 'Klinik Durum';
@@ -411,20 +412,25 @@ window.CarePlanBuilder = class CarePlanBuilder {
         const agri = vitals.agri ? `${vitals.agri}/10 NRS` : '';
         const tansiyon = (vitals.tansiyonSystolic && vitals.tansiyonDiastolic) ? `${vitals.tansiyonSystolic}/${vitals.tansiyonDiastolic} mmHg` : '';
 
-        // Özel Etiyoloji Metni Oluşturma
-        let etiologyText = '';
+        // Özel Etiyoloji Metni Oluşturma (PES: ...ile ilişkili)
+        let rawEtiology = '';
         if (diag.etiology && diag.etiology.length > 0) {
-            etiologyText = diag.etiology.slice(0, 2).join('; ');
+            rawEtiology = diag.etiology.slice(0, 2).join('; ');
         } else {
-            etiologyText = `${diagText} hastalığı süreci ve doku irritasyonu`;
+            rawEtiology = `${diagText} patofizyolojik süreci ve doku irritasyonu`;
         }
 
-        // Hastaya Özel Fiziksel Belirti Metni Oluşturma
+        let etiologyText = rawEtiology;
+        if (!etiologyText.toLowerCase().includes('ilişkili')) {
+            etiologyText = `${rawEtiology} ile ilişkili`;
+        }
+
+        // Hastaya Özel Fiziksel Belirti Metni Oluşturma (PES: ...ile kanıtlanan)
         const symptomsArr = [];
         if (diagText) symptomsArr.push(`Tıbbi Tanı: ${diagText}`);
         if (ates && (diag.id === 'hipertermi' || diag.id === 'enfeksiyon_riski')) symptomsArr.push(`Vücut Sıcaklığı: ${ates}`);
         if (spo2 && (diag.id === 'gaz_degisimi' || diag.id === 'solunum_yolu_kapanmasi' || diag.id === 'etkisiz_solunum_deseni')) symptomsArr.push(`SpO2 Düzeyi: ${spo2}`);
-        if (solunum && (diag.id === 'etkisiz_solunum_deseni' || diag.id === 'solunum_yolu_kapanmasi')) symptomsArr.push(`Solunum Sayısı: ${solunum}`);
+        if (solunum && (diag.id === 'etkisiz_solunum_deseni' || diag.id === 'solunum_yolu_kapanmasi')) symptomsArr.push(`Solunum Hızı: ${solunum}`);
         if (agri && (diag.id === 'akut_agri' || diag.id === 'kronik_agri')) symptomsArr.push(`Ağrı Skoru: ${agri}`);
         if (tansiyon && (diag.id === 'periferik_doku_perfuzyonu' || diag.id === 'kardiyak_cikti_azalma')) symptomsArr.push(`Kan Basıncı: ${tansiyon}`);
 
@@ -432,7 +438,11 @@ window.CarePlanBuilder = class CarePlanBuilder {
             symptomsArr.push(diag.symptoms.slice(0, 2).join('; '));
         }
 
-        const symptomsText = symptomsArr.join(' | ');
+        let rawSymptoms = symptomsArr.join(' | ');
+        let symptomsText = rawSymptoms;
+        if (rawSymptoms && !rawSymptoms.toLowerCase().includes('kanıtlanan')) {
+            symptomsText = `${rawSymptoms} ile kanıtlanan`;
+        }
 
         // NOC ve NIC Seçimleri
         const selectedNoc = diag.noc ? [...diag.noc] : ['Hasta çıktısı fizyolojik sınırlar içinde tutulacak.'];

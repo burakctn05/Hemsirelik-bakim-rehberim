@@ -1201,27 +1201,48 @@ function renderStep3CustomizationList() {
 
     container.innerHTML = items.map((cp, index) => {
         const isMain = cp.isMainPlan !== false;
+        let etiolText = cp.etiology || 'Belirtilmedi';
+        if (etiolText !== 'Belirtilmedi' && !etiolText.toLowerCase().includes('ilişkili')) etiolText += ' ile ilişkili';
+
+        let sympText = cp.symptoms || 'Belirtilmedi';
+        if (sympText !== 'Belirtilmedi' && !sympText.toLowerCase().includes('kanıtlanan')) sympText += ' ile kanıtlanan';
+
         return `
         <div class="card" style="margin-bottom: 16px; border-left: 5px solid ${isMain ? '#ef4444' : '#3b82f6'};">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                <div>
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <div style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
                         <span class="badge" style="background: ${isMain ? '#ef4444' : '#3b82f6'}; color: #fff; font-weight: 700;">
                             ${isMain ? '🔴 Ana Bakım Planı #' + (index + 1) : '🔵 Yan Bakım Planı #' + (index + 1)}
                         </span>
+                        <span class="pes-badge-item pes-badge-p">Problem (P)</span>
                     </div>
-                    <h3 style="color: var(--primary-dark); font-weight: 700; margin: 4px 0;">${getDiagnosisTitle(cp)}</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
-                        <strong>İlişkili Faktörler (Etiyoloji):</strong> ${cp.etiology || 'Belirtilmedi'}
-                    </p>
-                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
-                        <strong>Belirti / Bulgular:</strong> ${cp.symptoms || 'Belirtilmedi'}
-                    </p>
+                    <h3 style="color: var(--primary-dark); font-weight: 700; margin: 4px 0 10px 0;">${getDiagnosisTitle(cp)}</h3>
+                    
+                    <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <span class="pes-badge-item pes-badge-e">Etiyoloji (E)</span>
+                            <strong style="font-size: 0.85rem; color: var(--text-primary);">İlişkili Olduğu Durum:</strong>
+                        </div>
+                        <p style="font-size: 0.88rem; color: var(--text-primary); margin: 0; padding-left: 4px;">
+                            ${etiolText}
+                        </p>
+                    </div>
+
+                    <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <span class="pes-badge-item pes-badge-s">Semptom / Belirtiler (S)</span>
+                            <strong style="font-size: 0.85rem; color: var(--text-primary);">Tanımlayıcı Özellikler & Kanıtlar:</strong>
+                        </div>
+                        <p style="font-size: 0.86rem; color: var(--text-secondary); margin: 0; padding-left: 4px;">
+                            ${sympText}
+                        </p>
+                    </div>
                 </div>
-                <button class="btn btn-sm btn-outline" onclick="openAddDiagnosisModal('${cp.diagnosisId}')">✏️ Düzenle</button>
+                <button class="btn btn-sm btn-outline" onclick="openAddDiagnosisModal('${cp.diagnosisId}')" style="margin-left: 10px;">✏️ Düzenle</button>
             </div>
             
-            <div class="grid-2" style="font-size: 0.86rem; margin-top: 10px;">
+            <div class="grid-2" style="font-size: 0.86rem; margin-top: 12px;">
                 <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
                     <strong style="color: var(--success);">NOC Hedefleri (${(cp.noc || []).length}):</strong>
                     <ul style="padding-left: 16px; margin-top: 4px;">
@@ -1554,53 +1575,59 @@ function initCalculators() {
     });
 
     document.getElementById('calc-drip-btn')?.addEventListener('click', () => {
-        const volume = parseFloat(document.getElementById('drip-volume').value);
-        const hours = parseFloat(document.getElementById('drip-hours').value);
-        const factor = parseFloat(document.getElementById('drip-factor').value);
+        const volume = parseFloat(document.getElementById('drip-volume')?.value);
+        const hours = parseFloat(document.getElementById('drip-hours')?.value);
+        const factor = parseFloat(document.getElementById('drip-factor')?.value);
 
         const res = window.calculateDripRate(volume, hours, factor);
         const output = document.getElementById('drip-result-output');
-        if (res) {
-            output.innerHTML = `
-                <div class="alert alert-success">
-                    <strong>💧 Damla Hızı:</strong> ${res.dripRatePerMin} damla / dakika (gtt/dk)<br>
-                    <strong>⏱️ İnfüzyon Hızı:</strong> ${res.mlPerHour} mL / saat
-                </div>`;
-        } else {
-            output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli hacim ve saat değerleri giriniz.</div>`;
+        if (output) {
+            if (res && !res.error) {
+                output.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>💧 Damla Hızı:</strong> ${res.dripRatePerMin} damla / dakika (gtt/dk)<br>
+                        <strong>⏱️ İnfüzyon Hızı:</strong> ${res.mlPerHour} mL / saat
+                    </div>`;
+            } else {
+                output.innerHTML = `<div class="alert alert-danger">⚠️ ${res?.error || 'Lütfen geçerli hacim (mL) ve süre (saat) değerleri giriniz.'}</div>`;
+            }
         }
     });
 
     // Clear / Reset Drip Rate
     document.getElementById('clear-drip-btn')?.addEventListener('click', () => {
-        document.getElementById('drip-volume').value = '';
-        document.getElementById('drip-hours').value = '';
-        document.getElementById('drip-result-output').innerHTML = '';
+        if (document.getElementById('drip-volume')) document.getElementById('drip-volume').value = '';
+        if (document.getElementById('drip-hours')) document.getElementById('drip-hours').value = '';
+        const output = document.getElementById('drip-result-output');
+        if (output) output.innerHTML = '';
     });
 
     document.getElementById('calc-dose-btn')?.addEventListener('click', () => {
-        const desired = parseFloat(document.getElementById('dose-desired').value);
-        const onHand = parseFloat(document.getElementById('dose-onhand').value);
-        const volHand = parseFloat(document.getElementById('dose-volhand').value);
+        const desired = parseFloat(document.getElementById('dose-desired')?.value);
+        const onHand = parseFloat(document.getElementById('dose-onhand')?.value);
+        const volHand = parseFloat(document.getElementById('dose-volhand')?.value);
 
-        const resVolume = window.calculateMedDose(desired, onHand, volHand);
+        const res = window.calculateMedDose(desired, onHand, volHand);
         const output = document.getElementById('dose-result-output');
-        if (resVolume) {
-            output.innerHTML = `
-                <div class="alert alert-success">
-                    <strong>💉 Çekilecek/Uygulanacak Miktar:</strong> ${resVolume} mL
-                </div>`;
-        } else {
-            output.innerHTML = `<div class="alert alert-danger">Lütfen pozitif doz sayıları giriniz.</div>`;
+        if (output) {
+            if (res && res.resultVolume && !res.error) {
+                output.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>💉 Çekilecek/Uygulanacak Miktar:</strong> ${res.resultVolume} mL
+                    </div>`;
+            } else {
+                output.innerHTML = `<div class="alert alert-danger">⚠️ ${res?.error || 'Lütfen 0\'dan büyük pozitif doz ve hacim sayıları giriniz.'}</div>`;
+            }
         }
     });
 
     // Clear / Reset Med Dose
     document.getElementById('clear-dose-btn')?.addEventListener('click', () => {
-        document.getElementById('dose-desired').value = '';
-        document.getElementById('dose-onhand').value = '';
-        document.getElementById('dose-volhand').value = '';
-        document.getElementById('dose-result-output').innerHTML = '';
+        if (document.getElementById('dose-desired')) document.getElementById('dose-desired').value = '';
+        if (document.getElementById('dose-onhand')) document.getElementById('dose-onhand').value = '';
+        if (document.getElementById('dose-volhand')) document.getElementById('dose-volhand').value = '';
+        const output = document.getElementById('dose-result-output');
+        if (output) output.innerHTML = '';
     });
 
     // MAP Calculator
@@ -1610,14 +1637,14 @@ function initCalculators() {
         const res = window.calculateMAP(sys, dia);
         const output = document.getElementById('map-result-output');
         if (output) {
-            if (res) {
+            if (res && !res.error) {
                 output.innerHTML = `
                     <div class="alert ${res.alertClass}">
                         <strong>🫀 Ortalama Arter Basıncı (MAP):</strong> ${res.map} mmHg<br>
                         <strong>Durum:</strong> ${res.status}
                     </div>`;
             } else {
-                output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli sistolik ve diastolik tansiyon değerleri giriniz.</div>`;
+                output.innerHTML = `<div class="alert alert-danger">⚠️ ${res?.error || 'Lütfen geçerli sistolik ve diastolik tansiyon değerleri giriniz.'}</div>`;
             }
         }
     });
@@ -1753,29 +1780,68 @@ function initCalculators() {
 
     // 4. Parkland Burn Fluid Calculator
     document.getElementById('calc-parkland-btn')?.addEventListener('click', () => {
-        const weight = document.getElementById('parkland-weight').value;
-        const burn = document.getElementById('parkland-burn').value;
+        const weight = document.getElementById('parkland-weight')?.value;
+        const burn = document.getElementById('parkland-burn')?.value;
 
         const res = window.calculateParkland(weight, burn);
         const output = document.getElementById('parkland-result-output');
-        if (res) {
-            output.innerHTML = `
-                <div class="alert alert-warning">
-                    <strong>🔥 Toplam 24 Saatlik IV Sıvı (RL):</strong> ${res.total24hMl} mL<br>
-                    <strong>⏱️ İlk 8 Saatlik İnfüzyon:</strong> ${res.first8hMl} mL (${res.first8hDripRate} mL/saat)<br>
-                    <strong>⏱️ Sonraki 16 Saatlik İnfüzyon:</strong> ${res.next16hMl} mL (${res.next16hDripRate} mL/saat)
-                </div>
-                <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 4px;">• ${res.advice}</p>`;
-        } else {
-            output.innerHTML = `<div class="alert alert-danger">Lütfen geçerli kilo (kg) ve yanık yüzdesi (% TBSA) giriniz.</div>`;
+        if (output) {
+            if (res && !res.error) {
+                output.innerHTML = `
+                    <div class="alert alert-warning">
+                        <strong>🔥 Toplam 24 Saatlik IV Sıvı (RL):</strong> ${res.total24hMl} mL<br>
+                        <strong>⏱️ İlk 8 Saatlik İnfüzyon:</strong> ${res.first8hMl} mL (${res.first8hDripRate} mL/saat)<br>
+                        <strong>⏱️ Sonraki 16 Saatlik İnfüzyon:</strong> ${res.next16hMl} mL (${res.next16hDripRate} mL/saat)
+                    </div>
+                    <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 4px;">• ${res.advice}</p>`;
+            } else {
+                output.innerHTML = `<div class="alert alert-danger">⚠️ ${res?.error || 'Lütfen geçerli kilo (1-300 kg) ve yanık yüzdesi (%1-100) giriniz.'}</div>`;
+            }
         }
     });
 
     document.getElementById('clear-parkland-btn')?.addEventListener('click', () => {
-        document.getElementById('parkland-weight').value = '';
-        document.getElementById('parkland-burn').value = '';
-        document.getElementById('parkland-result-output').innerHTML = '';
+        if (document.getElementById('parkland-weight')) document.getElementById('parkland-weight').value = '';
+        if (document.getElementById('parkland-burn')) document.getElementById('parkland-burn').value = '';
+        const output = document.getElementById('parkland-result-output');
+        if (output) output.innerHTML = '';
     });
+
+    // Real-Time Instant Bounds Validation Helper Engine
+    const setupRealtimeInputValidation = () => {
+        const rules = [
+            { id: 'map-sys', errorId: 'map-sys-error', min: 30, max: 300 },
+            { id: 'map-dia', errorId: 'map-dia-error', min: 20, max: 200 },
+            { id: 'drip-volume', errorId: 'drip-volume-error', min: 1, max: 10000 },
+            { id: 'drip-hours', errorId: 'drip-hours-error', min: 0.1, max: 168 },
+            { id: 'dose-desired', errorId: 'dose-desired-error', min: 0.001, max: 100000 },
+            { id: 'dose-onhand', errorId: 'dose-onhand-error', min: 0.001, max: 100000 },
+            { id: 'dose-volhand', errorId: 'dose-volhand-error', min: 0.01, max: 1000 },
+            { id: 'urine-ml', errorId: 'urine-ml-error', min: 0, max: 20000 },
+            { id: 'urine-weight', errorId: 'urine-weight-error', min: 1, max: 300 },
+            { id: 'urine-hours', errorId: 'urine-hours-error', min: 1, max: 168 },
+            { id: 'parkland-weight', errorId: 'parkland-weight-error', min: 1, max: 300 },
+            { id: 'parkland-burn', errorId: 'parkland-burn-error', min: 1, max: 100 }
+        ];
+
+        rules.forEach(item => {
+            const input = document.getElementById(item.id);
+            const errorEl = document.getElementById(item.errorId);
+            if (input) {
+                input.addEventListener('input', () => {
+                    const val = parseFloat(input.value);
+                    if (input.value !== '' && (isNaN(val) || val < item.min || val > item.max)) {
+                        input.classList.add('input-error');
+                        if (errorEl) errorEl.classList.add('active');
+                    } else {
+                        input.classList.remove('input-error');
+                        if (errorEl) errorEl.classList.remove('active');
+                    }
+                });
+            }
+        });
+    };
+    setupRealtimeInputValidation();
 
     // 5. Pediatric Height & Weight Percentile Calculator
     document.getElementById('calc-percentile-btn')?.addEventListener('click', () => {
