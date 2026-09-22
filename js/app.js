@@ -240,6 +240,9 @@ window.switchTab = function(targetTab, pushHistory = true) {
     navButtons.forEach(btn => {
         if (btn.getAttribute('data-tab') === targetTab) {
             btn.classList.add('active');
+            if (btn.scrollIntoView && window.innerWidth <= 900 && btn.classList.contains('nav-tab')) {
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
         } else {
             btn.classList.remove('active');
         }
@@ -250,23 +253,25 @@ window.switchTab = function(targetTab, pushHistory = true) {
     allTabContents.forEach(section => {
         if (section.id === `tab-${targetTab}`) {
             section.classList.add('active');
-            section.style.display = '';
-            section.style.opacity = '';
+            section.style.display = 'block';
+            section.style.opacity = '1';
         } else {
             section.classList.remove('active');
-            section.style.display = '';
-            section.style.opacity = '';
+            section.style.display = 'none';
+            section.style.opacity = '0';
         }
     });
 
-    // 3. Update Top-Left Smart Back Button & Mobile Dock UI
-    window.updateTopLeftBackButtonUI();
-    if (typeof updateMobileSelectedDockUI === 'function') updateMobileSelectedDockUI();
+    // 3. Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
-    // 4. Push History State & Live Meta Tags Update
+    // 4. Update Top-Left Smart Back Button & Mobile Dock UI & Saved list
+    if (typeof window.updateTopLeftBackButtonUI === 'function') window.updateTopLeftBackButtonUI();
+    if (typeof updateMobileSelectedDockUI === 'function') updateMobileSelectedDockUI();
+    if (targetTab === 'saved' && typeof renderSavedPlansList === 'function') renderSavedPlansList();
+
+    // 5. Push History State & Live Meta Tags Update
     if (pushHistory) {
-        const targetPath = window.getPathForTab(targetTab);
-        try {
             if (location.pathname !== targetPath) {
                 history.pushState({ tab: targetTab, step: currentStep }, '', targetPath);
             }
@@ -482,47 +487,8 @@ function restoreDraftIfAvailable() {
 }
 
 /* ==========================================================================
-   1. Tab Navigation
+   1. Tab Navigation Init
    ========================================================================== */
-window.switchTab = function(targetTab) {
-    if (!targetTab) return;
-    
-    // 1. Navbar sekme butonlarını güncelle
-    const navButtons = document.querySelectorAll('.nav-tab[data-tab]');
-    navButtons.forEach(btn => {
-        if (btn.getAttribute('data-tab') === targetTab) {
-            btn.classList.add('active');
-            // Mobilde aktif sekmenin görünür alana kayması
-            if (btn.scrollIntoView && window.innerWidth <= 900) {
-                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-
-    // 2. Sekme içeriklerini güncelle (Doğrudan stil ve sınıf müdahalesi ile kesin görünürlük)
-    const allTabContents = document.querySelectorAll('.tab-content');
-    allTabContents.forEach(section => {
-        if (section.id === `tab-${targetTab}`) {
-            section.classList.add('active');
-            section.style.display = 'block';
-            section.style.opacity = '1';
-        } else {
-            section.classList.remove('active');
-            section.style.display = 'none';
-            section.style.opacity = '0';
-        }
-    });
-
-    // 3. Sayfayı yukarı kaydır
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
-    // 4. Özel sayfa yenilemeleri
-    if (targetTab === 'saved' && typeof renderSavedPlansList === 'function') {
-        renderSavedPlansList();
-    }
-};
 
 function initTabNavigation() {
     const tabs = document.querySelectorAll('.nav-tab[data-tab]');

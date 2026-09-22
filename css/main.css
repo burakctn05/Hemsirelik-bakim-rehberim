@@ -222,25 +222,42 @@ a:hover {
     border-radius: var(--radius-md);
 }
 
-/* Header & Nav - Clean Deep Rich Medical Emerald Theme (Sade & Şık) */
+/* Header & Nav - Clean Deep Rich Medical Emerald Theme (Sade, Şık & Ortalanmış) */
 .app-header {
     background: linear-gradient(135deg, #065f46 0%, #047857 50%, #064e3b 100%);
     border-bottom: 3px solid #10b981;
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 12px 0;
+    padding: 16px 0 14px 0;
     box-shadow: 0 4px 20px rgba(6, 95, 70, 0.35);
     will-change: transform;
 }
 
 .header-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+}
+
+.logo-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    width: 100%;
+    position: relative;
 }
 
 .top-left-back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -256,60 +273,31 @@ a:hover {
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    margin-right: 8px;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
 }
 
 .top-left-back-btn:hover {
     background: #10b981 !important;
     color: #ffffff !important;
-    transform: translateX(-3px);
+    transform: translateY(-50%) translateX(-3px);
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.6);
 }
 
-.logo-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .app-logo-img {
-    width: 54px;
-    height: 54px;
+    width: 52px;
+    height: 52px;
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), 0 0 8px rgba(52, 211, 153, 0.4);
     border: 2px solid rgba(167, 243, 208, 0.8);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    flex-shrink: 0;
 }
 
 .app-logo-img:hover {
     transform: scale(1.1) rotate(4deg);
     box-shadow: 0 0 25px rgba(52, 211, 153, 0.9);
-}
-
-.brand-text h1 {
-    font-size: 1.35rem;
-    line-height: 1.1;
-    color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.brand-text p {
-    font-size: 0.76rem;
-    color: #a7f3d0 !important;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
 /* Animated ECG Heart Rhythm Badge */
@@ -346,15 +334,61 @@ a:hover {
     100% { stroke-dashoffset: -200; }
 }
 
-/* Nav Tabs inside Deep Emerald Header */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.brand-text h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    margin: 0;
+}
+
+.brand-text p {
+    font-size: 0.82rem;
+    color: #a7f3d0 !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 3px;
+}
+
+#dev-brand-trigger {
+    font-size: 0.82rem !important;
+    color: #a7f3d0 !important;
+    font-weight: 700;
+    margin-top: 4px;
+    text-align: center;
+}
+
+#dev-brand-trigger strong {
+    color: #ffffff !important;
+}
+
+/* Nav Tabs inside Deep Emerald Header - Centered Underneath Title */
 .nav-tabs {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 6px;
-    background-color: rgba(4, 47, 34, 0.45);
-    padding: 5px;
+    background-color: rgba(4, 47, 34, 0.55);
+    padding: 6px;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(52, 211, 153, 0.35);
+    border: 1px solid rgba(52, 211, 153, 0.4);
     backdrop-filter: blur(8px);
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .nav-tab {
@@ -560,15 +594,31 @@ body.dark-theme .mobile-bottom-nav {
 /* Responsive */
 /* Responsive Navigation & Mobile Support */
 @media (max-width: 900px) {
+    .app-header {
+        padding: 12px 10px;
+    }
     .header-content {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .logo-brand {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
     }
     .brand-text h1 {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
+    }
+    .brand-text p {
+        font-size: 0.75rem;
+    }
+    main.app-container {
+        padding-top: 16px !important;
+        position: relative;
+        z-index: 1;
     }
     .nav-tabs {
         display: none !important; /* Clean 0-tab welcome screen header on mobile */
@@ -583,6 +633,7 @@ body.dark-theme .mobile-bottom-nav {
         padding: 22px 18px;
         flex-direction: column;
         text-align: center;
+        margin-top: 10px !important;
     }
     .hero-text h2 {
         font-size: 1.45rem;
@@ -1548,50 +1599,92 @@ body.dark-theme .plan-table tbody tr:hover {
     transition: transform 0.2s ease;
 }
 
-/* Vibrant Category Gradients */
-.badge-home {
+/* Vibrant Category Gradients - Active/Hover Tabs & Portal Cards Only */
+.nav-tab.active .badge-home,
+.mobile-nav-btn.active .badge-home,
+.nav-tab:hover .badge-home,
+.mobile-nav-btn:hover .badge-home,
+.portal-card-icon.badge-home {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
     box-shadow: 0 3px 10px rgba(16, 185, 129, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-builder {
+.nav-tab.active .badge-builder,
+.mobile-nav-btn.active .badge-builder,
+.nav-tab:hover .badge-builder,
+.mobile-nav-btn:hover .badge-builder,
+.portal-card-icon.badge-builder {
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
     box-shadow: 0 3px 10px rgba(59, 130, 246, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-templates {
+.nav-tab.active .badge-templates,
+.mobile-nav-btn.active .badge-templates,
+.nav-tab:hover .badge-templates,
+.mobile-nav-btn:hover .badge-templates,
+.portal-card-icon.badge-templates {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
     box-shadow: 0 3px 10px rgba(245, 158, 11, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-calculators {
+.nav-tab.active .badge-calculators,
+.mobile-nav-btn.active .badge-calculators,
+.nav-tab:hover .badge-calculators,
+.mobile-nav-btn:hover .badge-calculators,
+.portal-card-icon.badge-calculators {
     background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) !important;
     box-shadow: 0 3px 10px rgba(139, 92, 246, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-dictionary {
+.nav-tab.active .badge-dictionary,
+.mobile-nav-btn.active .badge-dictionary,
+.nav-tab:hover .badge-dictionary,
+.mobile-nav-btn:hover .badge-dictionary,
+.portal-card-icon.badge-dictionary {
     background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%) !important;
     box-shadow: 0 3px 10px rgba(6, 182, 212, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-saved {
+.nav-tab.active .badge-saved,
+.mobile-nav-btn.active .badge-saved,
+.nav-tab:hover .badge-saved,
+.mobile-nav-btn:hover .badge-saved,
+.portal-card-icon.badge-saved {
     background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important;
     box-shadow: 0 3px 10px rgba(244, 63, 94, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-search {
+.nav-tab.active .badge-search,
+.mobile-nav-btn.active .badge-search,
+.nav-tab:hover .badge-search,
+.mobile-nav-btn:hover .badge-search {
     background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;
     box-shadow: 0 3px 10px rgba(99, 102, 241, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-contact {
+.nav-tab.active .badge-contact,
+.mobile-nav-btn.active .badge-contact,
+.nav-tab:hover .badge-contact,
+.mobile-nav-btn:hover .badge-contact {
     background: linear-gradient(135deg, #10b981 0%, #0d9488 100%) !important;
     box-shadow: 0 3px 10px rgba(16, 185, 129, 0.45) !important;
+    opacity: 1 !important;
 }
 
-.badge-theme {
+.nav-tab.active .badge-theme,
+.mobile-nav-btn.active .badge-theme,
+.nav-tab:hover .badge-theme,
+.mobile-nav-btn:hover .badge-theme {
     background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) !important;
     box-shadow: 0 3px 10px rgba(245, 158, 11, 0.45) !important;
+    opacity: 1 !important;
 }
 
 /* Nav Tab Micro-animations */
