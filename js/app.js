@@ -60,15 +60,18 @@ window.getNicAutonomyInfo = function(nicText) {
     return { cleanText: text, type: type, badgeHtml: badgeHtml };
 };
 
-// 2026-2027 Academic Year Splash Dismiss Function (Auto-dismiss in 4.0s)
+// 2026-2027 Academic Year Splash Dismiss Function
 window.dismissWelcomeSplash = function() {
     const splash = document.getElementById('welcome-splash-overlay');
-    if (!splash || splash.classList.contains('fade-out')) return;
+    if (!splash) return;
     
     splash.classList.add('fade-out');
+    splash.style.opacity = '0';
+    splash.style.pointerEvents = 'none';
     setTimeout(() => {
         splash.style.display = 'none';
-    }, 450);
+        splash.style.visibility = 'hidden';
+    }, 150);
 };
 
 // Auto-dismiss splash overlay after 4.0 seconds smoothly for easy reading
@@ -272,22 +275,18 @@ window.switchTab = function(targetTab, pushHistory = true) {
 
     // 5. Push History State & Live Meta Tags Update
     if (pushHistory) {
-            if (location.pathname !== targetPath) {
-                history.pushState({ tab: targetTab, step: currentStep }, '', targetPath);
-            }
-        } catch (e) {}
+        const targetPath = window.getPathForTab ? window.getPathForTab(targetTab) : null;
+        if (targetPath) {
+            try {
+                if (location.pathname !== targetPath) {
+                    history.pushState({ tab: targetTab, step: currentStep }, '', targetPath);
+                }
+            } catch (e) {}
+        }
     }
 
     if (typeof window.updateLiveSEOMetadata === 'function') {
         window.updateLiveSEOMetadata(targetTab);
-    }
-
-    // 5. Instant scroll to top
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
-    // 6. Special Page Renders
-    if (targetTab === 'saved' && typeof window.renderSavedPlansList === 'function') {
-        window.renderSavedPlansList();
     }
 };
 
