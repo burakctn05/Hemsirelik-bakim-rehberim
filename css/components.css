@@ -1081,6 +1081,191 @@ body.dark-theme .splash-signature {
     100% { background-position: 200% 50%; }
 }
 
+/* ==========================================================================
+   Mobile Native UI/UX Enhancement System (Chips, Accordions & Thumb Ergonomics)
+   ========================================================================== */
+
+/* Horizontal Scrolling Category Chips Bar */
+.mobile-chips-wrapper {
+    margin: 14px 0 20px 0;
+    position: relative;
+    width: 100%;
+}
+
+.mobile-chips-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 2px 10px 2px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.mobile-chips-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.chip-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    min-height: 42px;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.chip-btn:active {
+    transform: scale(0.95);
+}
+
+.chip-btn.active, .chip-btn.chip-active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+    color: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35) !important;
+    font-weight: 700;
+}
+
+body.dark-theme .chip-btn {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
+}
+
+body.dark-theme .chip-btn.active, body.dark-theme .chip-btn.chip-active {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: #ffffff !important;
+    border-color: #34d399 !important;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* Mobile Accordion Collapsible Panels */
+.mobile-accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.accordion-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.accordion-panel.open {
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.12);
+}
+
+.accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    min-height: 48px;
+    background: var(--primary-light);
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--primary-dark);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+body.dark-theme .accordion-trigger {
+    background: rgba(6, 95, 70, 0.35);
+    color: #6ee7b7;
+}
+
+.accordion-panel.open .accordion-trigger {
+    border-bottom-color: var(--border);
+}
+
+.accordion-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: rgba(5, 150, 105, 0.15);
+    color: var(--primary);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.accordion-panel.open .accordion-chevron {
+    transform: rotate(180deg);
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.accordion-body {
+    padding: 16px 18px;
+    display: none;
+}
+
+.accordion-panel.open .accordion-body {
+    display: block;
+    animation: accordionFade 0.25s ease-out;
+}
+
+@keyframes accordionFade {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Ergonomics & Native Touch Target Enhancements */
+@media (max-width: 900px) {
+    body {
+        font-size: 16px; /* Native mobile base readable font size */
+        line-height: 1.6;
+    }
+    
+    .form-control, .form-select, input[type="text"], input[type="number"], select, textarea {
+        font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+        min-height: 46px;
+        padding: 12px 14px;
+        border-radius: var(--radius-sm);
+    }
+
+    button, .btn, .nav-tab, .mobile-nav-btn {
+        min-height: 44px; /* Apple / Android 44px min thumb target size */
+    }
+
+    .modal-card {
+        max-height: 92vh;
+        overflow-y: auto;
+        border-radius: var(--radius-lg);
+    }
+}
+
+
 
 
 

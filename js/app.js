@@ -2182,48 +2182,78 @@ window.openDiagnosisDetailModal = function(diagId) {
     const body = document.getElementById('detail-modal-body');
     if (body) {
         body.innerHTML = `
-            <div style="background: rgba(6,182,212,0.06); border-left: 4px solid #06b6d4; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
-                <strong style="color: #0891b2; font-size: 0.95rem;">📖 NANDA-I Akademik Tanımı:</strong>
-                <p style="margin-top: 4px; font-size: 0.9rem; color: var(--text-primary); line-height: 1.5;">${diag.definition}</p>
-            </div>
-
-            <div class="grid-2" style="margin-bottom: 16px;">
-                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px;">
-                    <h4 style="color: var(--warning); font-size: 0.95rem; margin-bottom: 8px;">🔍 Etiyoloji (İlişkili / Risk Faktörleri)</h4>
-                    <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
-                        ${(diag.etiology || []).map(e => `<li style="margin-bottom: 4px;">${e}</li>`).join('')}
-                    </ul>
+            <div class="mobile-accordion-group">
+                <!-- Accordion 1: Tanım (Expanded by Default) -->
+                <div class="accordion-panel open">
+                    <button type="button" class="accordion-trigger">
+                        <span>📖 NANDA-I Akademik Tanımı</span>
+                        <span class="accordion-chevron">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p style="font-size: 0.92rem; color: var(--text-primary); line-height: 1.6; margin: 0;">${diag.definition}</p>
+                    </div>
                 </div>
 
-                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px;">
-                    <h4 style="color: var(--info); font-size: 0.95rem; margin-bottom: 8px;">📋 Belirti ve Bulgular (Tanımlayıcı Özellikler)</h4>
-                    <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
-                        ${(diag.symptoms || []).map(s => `<li style="margin-bottom: 4px;">${s}</li>`).join('')}
-                    </ul>
+                <!-- Accordion 2: Etiyoloji -->
+                <div class="accordion-panel open">
+                    <button type="button" class="accordion-trigger">
+                        <span>🔍 Etiyoloji & Risk Faktörleri (${(diag.etiology || []).length})</span>
+                        <span class="accordion-chevron">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <ul style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                            ${(diag.etiology || []).map(e => `<li style="margin-bottom: 6px;">${e}</li>`).join('')}
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px; margin-bottom: 16px;">
-                <h4 style="color: var(--success); font-size: 0.95rem; margin-bottom: 8px;">🎯 Beklenen Hasta Çıktıları & Hedefler (NOC)</h4>
-                <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
-                    ${(diag.noc || []).map(n => `<li style="margin-bottom: 4px;">${n}</li>`).join('')}
-                </ul>
-            </div>
+                <!-- Accordion 3: Belirtiler -->
+                <div class="accordion-panel open">
+                    <button type="button" class="accordion-trigger">
+                        <span>📋 Belirti ve Bulgular (${(diag.symptoms || []).length})</span>
+                        <span class="accordion-chevron">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <ul style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                            ${(diag.symptoms || []).map(s => `<li style="margin-bottom: 6px;">${s}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
 
-            <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 14px; border-radius: 8px; margin-bottom: 16px;">
-                <h4 style="color: #3b82f6; font-size: 0.95rem; margin-bottom: 8px;">🩺 Hemşirelik Girişimleri (NIC) & Kanıta Dayalı Rasyonelleri</h4>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    ${(diag.nic || []).map((n, idx) => {
-                        const autonomy = window.getNicAutonomyInfo(n);
-                        const r = (diag.rationales || [])[idx] || (diag.rationales || [])[0];
-                        return `
-                            <div style="background: var(--bg-card-hover); padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border);">
-                                <div style="margin-bottom: 4px;">${autonomy.badgeHtml}</div>
-                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">${autonomy.cleanText}</div>
-                                ${r ? `<div style="font-size: 0.82rem; color: #0284c7; margin-top: 4px; padding-left: 12px;">🔬 <em>Girişim Rasyoneli / Bilimsel Gerekçesi: ${r}</em></div>` : ''}
-                            </div>
-                        `;
-                    }).join('')}
+                <!-- Accordion 4: NOC Hedefleri -->
+                <div class="accordion-panel open">
+                    <button type="button" class="accordion-trigger">
+                        <span>🎯 Beklenen Hasta Çıktıları (NOC - Hedefler)</span>
+                        <span class="accordion-chevron">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <ul style="padding-left: 18px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                            ${(diag.noc || []).map(n => `<li style="margin-bottom: 6px;">${n}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accordion 5: NIC Girişimleri -->
+                <div class="accordion-panel open">
+                    <button type="button" class="accordion-trigger">
+                        <span>🩺 Hemşirelik Girişimleri (NIC) & Kanıta Dayalı Rasyoneller</span>
+                        <span class="accordion-chevron">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            ${(diag.nic || []).map((n, idx) => {
+                                const autonomy = window.getNicAutonomyInfo(n);
+                                const r = (diag.rationales || [])[idx] || (diag.rationales || [])[0];
+                                return `
+                                    <div style="background: var(--bg-card-hover); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);">
+                                        <div style="margin-bottom: 4px;">${autonomy.badgeHtml}</div>
+                                        <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">${autonomy.cleanText}</div>
+                                        ${r ? `<div style="font-size: 0.82rem; color: #0284c7; margin-top: 4px; padding-left: 10px;">🔬 <em>Bilimsel Gerekçe: ${r}</em></div>` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -3106,6 +3136,53 @@ document.addEventListener('DOMContentLoaded', () => {
     if (legacyContactBtn) legacyContactBtn.remove();
     setTimeout(handleInitialAppRoute, 150);
 });
+
+/* ==========================================================================
+   Mobile Accordion & Category Filter Helper Utilities
+   ========================================================================== */
+
+// 1. Accordion Global Event Delegation
+document.addEventListener('click', function(e) {
+    const trigger = e.target.closest('.accordion-trigger');
+    if (trigger) {
+        const panel = trigger.closest('.accordion-panel');
+        if (panel) {
+            panel.classList.toggle('open');
+        }
+    }
+});
+
+// 2. Calculator Category Filter Helper
+window.filterCalculatorsCategory = function(category, btn) {
+    const container = document.getElementById('tab-calculators');
+    if (!container) return;
+
+    // Update active button state
+    const chips = container.querySelectorAll('.chip-btn');
+    chips.forEach(c => c.classList.remove('active', 'chip-active'));
+    if (btn) btn.classList.add('active', 'chip-active');
+
+    // Filter calculator cards
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(card => {
+        if (category === 'all') {
+            card.style.display = '';
+            return;
+        }
+
+        const text = card.textContent.toLowerCase();
+        let matches = false;
+
+        if (category === 'noroloji' && (text.includes('glasgow') || text.includes('gks') || text.includes('nörolojik'))) matches = true;
+        else if (category === 'basi-yarasi' && (text.includes('braden') || text.includes('norton') || text.includes('bası yarası'))) matches = true;
+        else if (category === 'ilac-sivi' && (text.includes('damla') || text.includes('dozaj') || text.includes('infüzyon') || text.includes('iv sıvı'))) matches = true;
+        else if (category === 'dusme' && (text.includes('itaki') || text.includes('düşme'))) matches = true;
+        else if (category === 'vki' && (text.includes('vücut kitle') || text.includes('vki') || text.includes('bilanço') || text.includes('sıvı dengesi') || text.includes('persentil'))) matches = true;
+
+        card.style.display = matches ? '' : 'none';
+    });
+};
+
 
 
 
