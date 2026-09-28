@@ -1166,6 +1166,8 @@ function renderStep3CustomizationList() {
 
     container.innerHTML = items.map((cp, index) => {
         const isMain = cp.isMainPlan !== false;
+        const isOpen = index === 0;
+
         let etiolText = cp.etiology || 'Belirtilmedi';
         if (etiolText !== 'Belirtilmedi' && !etiolText.toLowerCase().includes('ilişkili')) etiolText += ' ile ilişkili';
 
@@ -1173,61 +1175,81 @@ function renderStep3CustomizationList() {
         if (sympText !== 'Belirtilmedi' && !sympText.toLowerCase().includes('kanıtlanan')) sympText += ' ile kanıtlanan';
 
         return `
-        <div class="card" style="margin-bottom: 16px; border-left: 5px solid ${isMain ? '#ef4444' : '#3b82f6'};">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                <div style="flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
-                        <span class="badge" style="background: ${isMain ? '#ef4444' : '#3b82f6'}; color: #fff; font-weight: 700;">
-                            ${isMain ? '🔴 Ana Bakım Planı #' + (index + 1) : '🔵 Yan Bakım Planı #' + (index + 1)}
-                        </span>
-                        <span class="pes-badge-item pes-badge-p">Problem (P)</span>
-                    </div>
-                    <h3 style="color: var(--primary-dark); font-weight: 700; margin: 4px 0 10px 0;">${getDiagnosisTitle(cp)}</h3>
-                    
-                    <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 8px;">
-                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-                            <span class="pes-badge-item pes-badge-e">Etiyoloji (E)</span>
-                            <strong style="font-size: 0.85rem; color: var(--text-primary);">İlişkili Olduğu Durum:</strong>
-                        </div>
-                        <p style="font-size: 0.88rem; color: var(--text-primary); margin: 0; padding-left: 4px;">
-                            ${etiolText}
-                        </p>
-                    </div>
-
-                    <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-                            <span class="pes-badge-item pes-badge-s">Semptom / Belirtiler (S)</span>
-                            <strong style="font-size: 0.85rem; color: var(--text-primary);">Tanımlayıcı Özellikler & Kanıtlar:</strong>
-                        </div>
-                        <p style="font-size: 0.86rem; color: var(--text-secondary); margin: 0; padding-left: 4px;">
-                            ${sympText}
-                        </p>
-                    </div>
+        <div class="card step3-accordion-card ${isOpen ? 'open' : ''}" style="margin-bottom: 14px; border-left: 5px solid ${isMain ? '#ef4444' : '#3b82f6'}; padding: 0; overflow: hidden;">
+            <div class="step3-accordion-header" onclick="toggleStep3Accordion(this)" style="padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; background: var(--bg-surface); transition: background 0.2s ease;">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <span class="badge" style="background: ${isMain ? '#ef4444' : '#3b82f6'}; color: #fff; font-weight: 700; font-size: 0.78rem;">
+                        ${isMain ? '🔴 Ana Plan #' + (index + 1) : '🔵 Yan Plan #' + (index + 1)}
+                    </span>
+                    <h3 style="color: var(--primary-dark); font-weight: 700; margin: 0; font-size: 1.05rem;">${getDiagnosisTitle(cp)}</h3>
                 </div>
-                <button class="btn btn-sm btn-outline" onclick="openAddDiagnosisModal('${cp.diagnosisId}')" style="margin-left: 10px;">✏️ Düzenle</button>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="btn btn-sm btn-outline" onclick="event.stopPropagation(); openAddDiagnosisModal('${cp.diagnosisId}')" style="font-size: 0.8rem; padding: 4px 10px;">✏️ Düzenle</button>
+                    <span class="calc-accordion-chevron" style="width: 28px; height: 28px; font-size: 0.8rem;">▼</span>
+                </div>
             </div>
             
-            <div class="grid-2" style="font-size: 0.86rem; margin-top: 12px;">
-                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
-                    <strong style="color: var(--success);">NOC Hedefleri (${(cp.noc || []).length}):</strong>
-                    <ul style="padding-left: 16px; margin-top: 4px;">
-                        ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
-                    </ul>
+            <div class="step3-accordion-body" style="padding: 16px 18px; border-top: 1px solid var(--border); ${isOpen ? 'display: block;' : 'display: none;'}">
+                <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                        <span class="pes-badge-item pes-badge-e">Etiyoloji (E)</span>
+                        <strong style="font-size: 0.85rem; color: var(--text-primary);">İlişkili Olduğu Durum:</strong>
+                    </div>
+                    <p style="font-size: 0.88rem; color: var(--text-primary); margin: 0; padding-left: 4px;">${etiolText}</p>
                 </div>
-                <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
-                    <strong style="color: var(--info);">NIC Girişimleri (${(cp.nic || []).length}):</strong>
-                    <ul style="padding-left: 0; list-style: none; margin-top: 6px;">
-                        ${(cp.nic || []).map(n => {
-                            const autonomy = window.getNicAutonomyInfo(n);
-                            return `<li style="margin-bottom: 6px;">${autonomy.badgeHtml} <span style="font-size: 0.86rem; color: var(--text-primary);">${autonomy.cleanText}</span></li>`;
-                        }).join('')}
-                    </ul>
+
+                <div style="background: var(--bg-card-hover); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                        <span class="pes-badge-item pes-badge-s">Semptom / Belirtiler (S)</span>
+                        <strong style="font-size: 0.85rem; color: var(--text-primary);">Tanımlayıcı Özellikler & Kanıtlar:</strong>
+                    </div>
+                    <p style="font-size: 0.86rem; color: var(--text-secondary); margin: 0; padding-left: 4px;">${sympText}</p>
+                </div>
+
+                <div class="grid-2" style="font-size: 0.86rem;">
+                    <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
+                        <strong style="color: var(--success);">NOC Hedefleri (${(cp.noc || []).length}):</strong>
+                        <ul style="padding-left: 16px; margin-top: 4px;">
+                            ${(cp.noc || []).map(n => `<li>${n}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-dark); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
+                        <strong style="color: var(--info);">NIC Girişimleri (${(cp.nic || []).length}):</strong>
+                        <ul style="padding-left: 0; list-style: none; margin-top: 6px;">
+                            ${(cp.nic || []).map(n => {
+                                const autonomy = window.getNicAutonomyInfo(n);
+                                return `<li style="margin-bottom: 6px;">${autonomy.badgeHtml} <span style="font-size: 0.86rem; color: var(--text-primary);">${autonomy.cleanText}</span></li>`;
+                            }).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 14px; display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-outline" onclick="openAddDiagnosisModal('${cp.diagnosisId}')">✏️ Detaylı Düzenle</button>
+                    <button class="btn btn-sm btn-danger" onclick="removeDiagnosisItem('${cp.diagnosisId}')">🗑️ Tanıyı Plandan Çıkar</button>
                 </div>
             </div>
         </div>
     `;
     }).join('');
 }
+
+window.toggleStep3Accordion = function(headerEl) {
+    if (!headerEl) return;
+    const card = headerEl.closest('.step3-accordion-card');
+    if (!card) return;
+    const body = card.querySelector('.step3-accordion-body');
+    if (!body) return;
+
+    const isOpen = card.classList.contains('open');
+    if (isOpen) {
+        card.classList.remove('open');
+        body.style.display = 'none';
+    } else {
+        card.classList.add('open');
+        body.style.display = 'block';
+    }
+};
 
 window.removeDiagnosisItem = function(diagId) {
     carePlanBuilder.removeCarePlanItem(diagId);

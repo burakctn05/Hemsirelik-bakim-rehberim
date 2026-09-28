@@ -368,19 +368,19 @@
             <div class="stepper-container">
                 <div class="step-item active" onclick="goToWizardStep(1)">
                     <div class="step-number">1</div>
-                    <div class="step-title">Hasta & Vital Bulgular</div>
+                    <div class="step-title">Hasta & Vital</div>
                 </div>
                 <div class="step-item" onclick="goToWizardStep(2)">
                     <div class="step-number">2</div>
-                    <div class="step-title">NANDA Tanı Seçimi</div>
+                    <div class="step-title">NANDA Tanıları</div>
                 </div>
                 <div class="step-item" onclick="goToWizardStep(3)">
                     <div class="step-number">3</div>
-                    <div class="step-title">Özelleştirme (NIC/NOC)</div>
+                    <div class="step-title">NIC / NOC</div>
                 </div>
                 <div class="step-item" onclick="goToWizardStep(4)">
                     <div class="step-number">4</div>
-                    <div class="step-title">Önizleme & Çıktı</div>
+                    <div class="step-title">Önizleme & PDF</div>
                 </div>
             </div>
 
@@ -422,7 +422,7 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-age-input">Yaş (0 - 120)</label>
-                                        <input type="number" id="patient-age-input" name="patientAge" min="0" max="120" class="form-control" placeholder="Örn. 55">
+                                        <input type="number" inputmode="numeric" id="patient-age-input" name="patientAge" min="0" max="120" class="form-control" placeholder="Örn. 55">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-gender-select">Cinsiyet</label>
@@ -443,11 +443,11 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-weight-input">Kilo (kg)</label>
-                                        <input type="number" id="patient-weight-input" name="patientWeight" min="1" max="350" step="0.1" class="form-control" placeholder="Örn. 70">
+                                        <input type="number" inputmode="decimal" id="patient-weight-input" name="patientWeight" min="1" max="350" step="0.1" class="form-control" placeholder="Örn. 70">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="patient-height-input">Boy (cm)</label>
-                                        <input type="number" id="patient-height-input" name="patientHeight" min="30" max="250" class="form-control" placeholder="Örn. 175">
+                                        <input type="number" inputmode="numeric" id="patient-height-input" name="patientHeight" min="30" max="250" class="form-control" placeholder="Örn. 175">
                                     </div>
                                 </div>
                                 <div id="step1-bmi-badge" style="margin-bottom: 12px;"></div>
@@ -498,33 +498,33 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-ates-input">Vücut Sıcaklığı (°C)</label>
-                                        <input type="number" step="0.1" id="vital-ates-input" name="vitalAtes" class="form-control" placeholder="36.5">
+                                        <input type="number" inputmode="decimal" step="0.1" id="vital-ates-input" name="vitalAtes" class="form-control" placeholder="36.5">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-spo2-input">SpO2 (%)</label>
-                                        <input type="number" id="vital-spo2-input" name="vitalSpo2" class="form-control" placeholder="98">
+                                        <input type="number" inputmode="numeric" id="vital-spo2-input" name="vitalSpo2" class="form-control" placeholder="98">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-tansys-input">Tansiyon (Sistolik - mmHg)</label>
-                                        <input type="number" id="vital-tansys-input" name="vitalTansiyonSys" class="form-control" placeholder="120">
+                                        <input type="number" inputmode="numeric" id="vital-tansys-input" name="vitalTansiyonSys" class="form-control" placeholder="120">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-tandia-input">Tansiyon (Diastolik - mmHg)</label>
-                                        <input type="number" id="vital-tandia-input" name="vitalTansiyonDia" class="form-control" placeholder="80">
+                                        <input type="number" inputmode="numeric" id="vital-tandia-input" name="vitalTansiyonDia" class="form-control" placeholder="80">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-nabiz-input">Nabız (/dk)</label>
-                                        <input type="number" id="vital-nabiz-input" name="vitalNabiz" class="form-control" placeholder="75">
+                                        <input type="number" inputmode="numeric" id="vital-nabiz-input" name="vitalNabiz" class="form-control" placeholder="75">
                                     </div>
                                     <div class="form-group">
                                         <label class="formülübel" for="vital-solunum-input">Solunum Sayısı (/dk)</label>
-                                        <input type="number" id="vital-solunum-input" name="vitalSolunum" class="form-control" placeholder="16">
+                                        <input type="number" inputmode="numeric" id="vital-solunum-input" name="vitalSolunum" class="form-control" placeholder="16">
                                     </div>
                                 </div>
 
