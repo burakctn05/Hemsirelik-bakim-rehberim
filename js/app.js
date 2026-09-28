@@ -3183,6 +3183,32 @@ window.filterCalculatorsCategory = function(category, btn) {
     });
 };
 
+// 3. Clinical Scales & Calculators Accordion Toggle Function
+window.toggleCalcAccordion = function(headerEl) {
+    if (!headerEl) return;
+    const card = headerEl.closest('.calc-accordion-card');
+    if (!card) return;
+
+    const isOpen = card.classList.contains('open');
+
+    // Close all other accordion cards in calculators tab (Classic single-accordion behavior)
+    const allCards = document.querySelectorAll('.calc-accordion-card');
+    allCards.forEach(c => {
+        if (c !== card) {
+            c.classList.remove('open');
+        }
+    });
+
+    if (isOpen) {
+        card.classList.remove('open');
+    } else {
+        card.classList.add('open');
+        setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
+    }
+};
+
 
 
 

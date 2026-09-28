@@ -108,21 +108,6 @@
 </head>
 <body>
 
-    <!-- 2026-2027 Academic Year Glassmorphism Splash Overlay -->
-    <div id="welcome-splash-overlay" class="splash-overlay no-print" onclick="dismissWelcomeSplash()">
-        <div class="splash-card" onclick="event.stopPropagation()">
-            <div class="splash-badge">✨ 2026 – 2027 Akademik Yılı</div>
-            <h2 class="splash-title">🩺 2026–2027 Akademik Yılı Kutlu Olsun!</h2>
-            <div class="splash-quote">
-                "Hemşirelik sadece bir meslek değil; bilgi, merhamet ve bilimin insan hayatına dokunduğu en yüce sanattır. Yeni staj ve eğitim döneminizde klinik kararlarınız ve bilgeliğiniz rehberiniz olsun. Tüm hemşirelik öğrencilerine ve meslektaşlarımıza üstün başarılar dileriz!"
-            </div>
-            <div class="splash-signature">— Hemşirelik Bakım Rehberim</div>
-            <button class="splash-continue-btn" onclick="dismissWelcomeSplash()">
-                Uygulamaya Geç ➔
-            </button>
-        </div>
-    </div>
-
     <!-- Header & Navigation -->
     <header class="app-header">
         <div class="app-container header-content">
@@ -213,34 +198,24 @@
     <main class="app-container">
 
         <!-- ===================================================================
-             TAB 1: HOME / DASHBOARD (CLEAN & MODULAR LAUNCHPAD)
+             TAB 1: HOME / DASHBOARD (DIRECT & COMPACT ACCELERATED LAUNCHPAD)
              =================================================================== -->
         <section id="tab-home" class="tab-content active">
-            <!-- Hero Dashboard Banner -->
-            <div class="hero-card">
-                <div class="hero-text">
-                    <div class="hero-badge">✨ NANDA-I / NIC / NOC Klinik Standartlarında</div>
-                    <h2>Hemşirelik Bakım Planı ve Akademik Klinik Karar Destek Platformu</h2>
-                    <p>
-                        Klinik staj ve nöbetlerinizde hastanızın vital bulgularını girin, akıllı öneri motoruyla doğru NANDA tanılarını belirleyin, PES formatında özelleştirip **Renkli Akademik PDF / Yazdır** çıktısı alın!
-                    </p>
-                    <div class="hero-actions">
-                        <button class="btn btn-lg btn-primary" data-goto-tab="builder">
-                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
-                            Yeni Bakım Planı Başlat
-                        </button>
-                        <button class="btn btn-lg btn-secondary" data-goto-tab="templates">
-                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                            Hazır Vaka Şablonları (26+)
-                        </button>
-                        <button class="btn btn-lg btn-outline trigger-cmd-palette">
-                            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                            Hızlı Arama (Ctrl + K)
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-logo-wrapper no-print" style="display: flex; align-items: center; justify-content: center; padding: 10px;">
-                    <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Amblem" class="hero-logo-img">
+            <!-- Top Compact Quick Action Buttons Bar -->
+            <div class="home-top-quick-actions" style="margin-bottom: 20px;">
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-lg btn-primary" data-goto-tab="builder" style="flex: 1; min-width: 220px; justify-content: center;">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                        Yeni Bakım Planı Başlat
+                    </button>
+                    <button class="btn btn-lg btn-secondary" data-goto-tab="templates" style="flex: 1; min-width: 200px; justify-content: center;">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        Hazır Şablonlar (26+)
+                    </button>
+                    <button class="btn btn-lg btn-outline trigger-cmd-palette" style="flex: 1; min-width: 180px; justify-content: center;">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        Hızlı Arama (Ctrl + K)
+                    </button>
                 </div>
             </div>
 
@@ -748,7 +723,7 @@
 
 
         <!-- ===================================================================
-             TAB 4: CLINICAL CALCULATORS
+             TAB 4: CLINICAL CALCULATORS (ACCORDION CARDS SYSTEM)
              =================================================================== -->
         <section id="tab-calculators" class="tab-content">
             <!-- Mobile Horizontal Category Chips Bar -->
@@ -763,154 +738,171 @@
                 </div>
             </div>
 
-            <!-- Row 1: GKS & Braden -->
             <div class="grid-2">
                 <!-- 1. Glasgow Coma Scale (GKS) -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(14,165,233,0.06), #ffffff); border: 2px solid #0ea5e9; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-gks" style="background: linear-gradient(135deg, rgba(14,165,233,0.06), #ffffff); border: 2px solid #0ea5e9; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #e0f2fe; color: #0284c7;">🧠</span>
-                            <h3>Glasgow Koma Skoru (GKS)</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Glasgow Koma Skoru (GKS)</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Nörolojik Bilinç Düzeyi | 3-15 Puan</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #0ea5e9; color: #ffffff; font-weight: 700;">Nörolojik Değerlendirme</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #0ea5e9; color: #ffffff; font-weight: 700;">Nöroloji</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Bilinç düzeyinin klinik tespiti. Göz, sözel ve motor yanıtları değerlendirir (3-15 puan).</p>
                     
-                    <div class="form-group">
-                        <label class="formülübel" for="gcs-eye">Göz Açma Yanıtı (E)</label>
-                        <select id="gcs-eye" class="form-select gcs-input">
-                            <option value="4">4 - Spontan açık</option>
-                            <option value="3">3 - Sözel uyarana yanıt var</option>
-                            <option value="2">2 - Ağrılı uyarana yanıt var</option>
-                            <option value="1">1 - Yanıt yok</option>
-                        </select>
-                    </div>
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Bilinç düzeyinin klinik tespiti. Göz, sözel ve motor yanıtları değerlendirir (3-15 puan).</p>
+                        
+                        <div class="form-group">
+                            <label class="formülübel" for="gcs-eye">Göz Açma Yanıtı (E)</label>
+                            <select id="gcs-eye" class="form-select gcs-input">
+                                <option value="4">4 - Spontan açık</option>
+                                <option value="3">3 - Sözel uyarana yanıt var</option>
+                                <option value="2">2 - Ağrılı uyarana yanıt var</option>
+                                <option value="1">1 - Yanıt yok</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="gcs-verbal">Sözel Yanıt (V)</label>
-                        <select id="gcs-verbal" class="form-select gcs-input">
-                            <option value="5">5 - Oryante ve koopere</option>
-                            <option value="4">4 - Konfüze (Uyumsuz konuşma)</option>
-                            <option value="3">3 - Uygunsuz kelimeler</option>
-                            <option value="2">2 - Anlamsız sesler</option>
-                            <option value="1">1 - Yanıt yok</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="gcs-verbal">Sözel Yanıt (V)</label>
+                            <select id="gcs-verbal" class="form-select gcs-input">
+                                <option value="5">5 - Oryante ve koopere</option>
+                                <option value="4">4 - Konfüze (Uyumsuz konuşma)</option>
+                                <option value="3">3 - Uygunsuz kelimeler</option>
+                                <option value="2">2 - Anlamsız sesler</option>
+                                <option value="1">1 - Yanıt yok</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="gcs-motor">Motor Yanıt (M)</label>
-                        <select id="gcs-motor" class="form-select gcs-input">
-                            <option value="6">6 - Emirlere uyar</option>
-                            <option value="5">5 - Ağrıyı lokalize eder</option>
-                            <option value="4">4 - Ağrıdan kaçınır (Normal fleksiyon)</option>
-                            <option value="3">3 - Anormal fleksiyon (Dekortike)</option>
-                            <option value="2">2 - Ekstansiyon (Deserebre)</option>
-                            <option value="1">1 - Yanıt yok</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="gcs-motor">Motor Yanıt (M)</label>
+                            <select id="gcs-motor" class="form-select gcs-input">
+                                <option value="6">6 - Emirlere uyar</option>
+                                <option value="5">5 - Ağrıyı lokalize eder</option>
+                                <option value="4">4 - Ağrıdan kaçınır (Normal fleksiyon)</option>
+                                <option value="3">3 - Anormal fleksiyon (Dekortike)</option>
+                                <option value="2">2 - Ekstansiyon (Deserebre)</option>
+                                <option value="1">1 - Yanıt yok</option>
+                            </select>
+                        </div>
 
-                    <div style="margin-top: 16px; text-align: center; background: #f0f9ff; padding: 12px; border-radius: var(--radius-sm); border: 1px solid #bae6fd;">
-                        <h4 style="color: #0369a1; margin-bottom: 2px;">Toplam GKS Puanı</h4>
-                        <div id="gcs-score-display" style="font-size: 2.2rem; font-weight: 800; color: #0284c7;">15 / 15</div>
-                    </div>
+                        <div style="margin-top: 16px; text-align: center; background: #f0f9ff; padding: 12px; border-radius: var(--radius-sm); border: 1px solid #bae6fd;">
+                            <h4 style="color: #0369a1; margin-bottom: 2px;">Toplam GKS Puanı</h4>
+                            <div id="gcs-score-display" style="font-size: 2.2rem; font-weight: 800; color: #0284c7;">15 / 15</div>
+                        </div>
 
-                    <div id="gcs-interpretation" class="alert alert-success" style="margin-top: 12px;">
-                        Normal Bilinç Düzeyi (Oryante ve Koopere)
-                    </div>
-                    <div style="margin-top: 12px; text-align: center;">
-                        <button type="button" class="btn btn-sm btn-secondary" id="clear-gcs-btn">🧹 Formu Temizle</button>
+                        <div id="gcs-interpretation" class="alert alert-success" style="margin-top: 12px;">
+                            Normal Bilinç Düzeyi (Oryante ve Koopere)
+                        </div>
+                        <div style="margin-top: 12px; text-align: center;">
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-gcs-btn">🧹 Formu Temizle</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 2. Braden Pressure Ulcer Scale -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(245,158,11,0.06), #ffffff); border: 2px solid #f59e0b; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-braden" style="background: linear-gradient(135deg, rgba(245,158,11,0.06), #ffffff); border: 2px solid #f59e0b; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #fef3c7; color: #d97706;">🩺</span>
-                            <h3>Braden Bası Yarası Risk Ölçeği</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Braden Bası Yarası Risk Ölçeği</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Doku Bütünlüğü Skalası | 6-23 Puan</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #f59e0b; color: #ffffff; font-weight: 700;">Doku Bütünlüğü Skalası</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #f59e0b; color: #ffffff; font-weight: 700;">Bası Riski</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Bası yarası gelişme riskini 6 alt başlık üzerinden değerlendirir (6-23 puan).</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Bası yarası gelişme riskini 6 alt başlık üzerinden değerlendirir (6-23 puan).</p>
 
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-sensory">Duyusal Algılama</label>
-                            <select id="braden-sensory" class="form-select braden-input">
-                                <option value="4">4 - Kısıtlanma Yok</option>
-                                <option value="3">3 - Hafif Kısıtlı</option>
-                                <option value="2">2 - Çok Kısıtlı</option>
-                                <option value="1">1 - Tamamen Kısıtlı</option>
-                            </select>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-sensory">Duyusal Algılama</label>
+                                <select id="braden-sensory" class="form-select braden-input">
+                                    <option value="4">4 - Kısıtlanma Yok</option>
+                                    <option value="3">3 - Hafif Kısıtlı</option>
+                                    <option value="2">2 - Çok Kısıtlı</option>
+                                    <option value="1">1 - Tamamen Kısıtlı</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-moisture">Nemlilik</label>
+                                <select id="braden-moisture" class="form-select braden-input">
+                                    <option value="4">4 - Nadiren Nemli</option>
+                                    <option value="3">3 - Bazen Nemli</option>
+                                    <option value="2">2 - Sıkça Nemli</option>
+                                    <option value="1">1 - Sürekli Nemli</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-moisture">Nemlilik</label>
-                            <select id="braden-moisture" class="form-select braden-input">
-                                <option value="4">4 - Nadiren Nemli</option>
-                                <option value="3">3 - Bazen Nemli</option>
-                                <option value="2">2 - Sıkça Nemli</option>
-                                <option value="1">1 - Sürekli Nemli</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-activity">Aktivite</label>
-                            <select id="braden-activity" class="form-select braden-input">
-                                <option value="4">4 - Sık Yürür</option>
-                                <option value="3">3 - Bazen Yürür</option>
-                                <option value="2">2 - Sandalyeye Bağımlı</option>
-                                <option value="1">1 - Yatağa Bağımlı</option>
-                            </select>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-activity">Aktivite</label>
+                                <select id="braden-activity" class="form-select braden-input">
+                                    <option value="4">4 - Sık Yürür</option>
+                                    <option value="3">3 - Bazen Yürür</option>
+                                    <option value="2">2 - Sandalyeye Bağımlı</option>
+                                    <option value="1">1 - Yatağa Bağımlı</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-mobility">Mobilite</label>
+                                <select id="braden-mobility" class="form-select braden-input">
+                                    <option value="4">4 - Tam Hareketli</option>
+                                    <option value="3">3 - Hafif Kısıtlı</option>
+                                    <option value="2">2 - Çok Kısıtlı</option>
+                                    <option value="1">1 - Tam Hareketsiz</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-mobility">Mobilite</label>
-                            <select id="braden-mobility" class="form-select braden-input">
-                                <option value="4">4 - Tam Hareketli</option>
-                                <option value="3">3 - Hafif Kısıtlı</option>
-                                <option value="2">2 - Çok Kısıtlı</option>
-                                <option value="1">1 - Tam Hareketsiz</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-nutrition">Beslenme</label>
-                            <select id="braden-nutrition" class="form-select braden-input">
-                                <option value="4">4 - Mükemmel</option>
-                                <option value="3">3 - Yeterli</option>
-                                <option value="2">2 - Yetersiz</option>
-                                <option value="1">1 - Çok Kötü</option>
-                            </select>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-nutrition">Beslenme</label>
+                                <select id="braden-nutrition" class="form-select braden-input">
+                                    <option value="4">4 - Mükemmel</option>
+                                    <option value="3">3 - Yeterli</option>
+                                    <option value="2">2 - Yetersiz</option>
+                                    <option value="1">1 - Çok Kötü</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="formülübel" for="braden-friction">Sürtünme & Yırtılma</label>
+                                <select id="braden-friction" class="form-select braden-input">
+                                    <option value="3">3 - Sorun Yok</option>
+                                    <option value="2">2 - Potansiyel Sorun</option>
+                                    <option value="1">1 - Belirgin Sorun</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="formülübel" for="braden-friction">Sürtünme & Yırtılma</label>
-                            <select id="braden-friction" class="form-select braden-input">
-                                <option value="3">3 - Sorun Yok</option>
-                                <option value="2">2 - Potansiyel Sorun</option>
-                                <option value="1">1 - Belirgin Sorun</option>
-                            </select>
+
+                        <div style="margin-top: 14px; text-align: center; background: #fffbeb; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
+                            <h4 style="color: #b45309; margin-bottom: 2px;">Braden Riski Puanı</h4>
+                            <div id="braden-score-display" style="font-size: 2rem; font-weight: 800; color: #d97706;">23 / 23</div>
                         </div>
-                    </div>
 
-                    <div style="margin-top: 14px; text-align: center; background: #fffbeb; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
-                        <h4 style="color: #b45309; margin-bottom: 2px;">Braden Riski Puanı</h4>
-                        <div id="braden-score-display" style="font-size: 2rem; font-weight: 800; color: #d97706;">23 / 23</div>
-                    </div>
-
-                    <div id="braden-interpretation" class="alert alert-success" style="margin-top: 10px;">
-                        RİSK YOK / ÇOK DÜŞÜK RİSK
-                    </div>
-                    <ul id="braden-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
-                    <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                        <button type="button" class="btn btn-sm btn-outline" id="transfer-braden-btn">
-                            ⚡ Braden Skorunu Bakım Planıma Aktar
-                        </button>
-                        <button type="button" class="btn btn-sm btn-secondary" id="clear-braden-btn">
-                            🧹 Formu Temizle
-                        </button>
+                        <div id="braden-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                            RİSK YOK / ÇOK DÜŞÜK RİSK
+                        </div>
+                        <ul id="braden-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
+                        <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-sm btn-outline" id="transfer-braden-btn">
+                                ⚡ Braden Skorunu Bakım Planıma Aktar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-braden-btn">
+                                🧹 Formu Temizle
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -918,389 +910,458 @@
             <!-- Row 2: İtaki & MAP -->
             <div class="grid-2" style="margin-top: 24px;">
                 <!-- 3. Itaki Fall Risk Scale -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(239,68,68,0.06), #ffffff); border: 2px solid #ef4444; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-itaki" style="background: linear-gradient(135deg, rgba(239,68,68,0.06), #ffffff); border: 2px solid #ef4444; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #fee2e2; color: #dc2626;">🚷</span>
-                            <h3>İtaki Düşme Riski Ölçeği</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">İtaki Düşme Riski Ölçeği</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Hasta Güvenliği & Düşme Riski</p>
+                            </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span class="badge" style="background: #ef4444; color: #ffffff; font-weight: 700;">Hasta Güvenliği</span>
-                            <div id="itaki-score-display" style="font-size: 1.4rem; font-weight: 800; color: #dc2626;">0 Puan</div>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yatarak tedavi gören yetişkin hastalarda düşme riskini değerlendirir (≥5 Puan Yüksek Risk).</p>
-
-                    <div class="grid-2">
-                        <div style="background: rgba(239,68,68,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fca5a5;">
-                            <h5 style="color: #dc2626; margin-bottom: 8px; font-weight: 700;">Majör Riskler (Her Biri 5 Puan)</h5>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> 65 Yaş ve Üzeri Olması</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Son 3 Ay İçinde Düşme Öyküsü</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Bilinç Değişikliği / Konfüzyon</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Görme Kaybı / Bozukluğu</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Yürümede Denge Kaybı</label>
-                        </div>
-
-                        <div style="background: rgba(245,158,11,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
-                            <h5 style="color: #d97706; margin-bottom: 8px; font-weight: 700;">Minör Riskler (Her Biri 1 Puan)</h5>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Polifarmasi (&gt;4 İlaç)</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baş Dönmesi / Hipotansiyon</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> İnkontinans / Sık İdrar</label>
-                            <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baston / Yürüteç İhtiyacı</label>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #ef4444; color: #ffffff; font-weight: 700;">Düşme Riski</span>
+                            <span class="calc-accordion-chevron">▼</span>
                         </div>
                     </div>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yatarak tedavi gören yetişkin hastalarda düşme riskini değerlendirir (≥5 Puan Yüksek Risk).</p>
 
-                    <div id="itaki-interpretation" class="alert alert-success" style="margin-top: 12px;">
-                        DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
-                    </div>
-                    <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
-                    <div style="margin-top: 12px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                        <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
-                            ⚡ İtaki Skorunu Bakım Planıma Aktar
-                        </button>
-                        <button type="button" class="btn btn-sm btn-secondary" id="clear-itaki-btn">
-                            🧹 Formu Temizle
-                        </button>
+                        <div class="grid-2">
+                            <div style="background: rgba(239,68,68,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fca5a5;">
+                                <h5 style="color: #dc2626; margin-bottom: 8px; font-weight: 700;">Majör Riskler (Her Biri 5 Puan)</h5>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> 65 Yaş ve Üzeri Olması</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Son 3 Ay İçinde Düşme Öyküsü</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Bilinç Değişikliği / Konfüzyon</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Görme Kaybı / Bozukluğu</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-major-cb"> Yürümede Denge Kaybı</label>
+                            </div>
+
+                            <div style="background: rgba(245,158,11,0.04); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
+                                <h5 style="color: #d97706; margin-bottom: 8px; font-weight: 700;">Minör Riskler (Her Biri 1 Puan)</h5>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Polifarmasi (&gt;4 İlaç)</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baş Dönmesi / Hipotansiyon</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> İnkontinans / Sık İdrar</label>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.84rem;"><input type="checkbox" class="itaki-minor-cb"> Baston / Yürüteç İhtiyacı</label>
+                            </div>
+                        </div>
+
+                        <div id="itaki-interpretation" class="alert alert-success" style="margin-top: 12px;">
+                            DÜŞÜK DÜŞME RİSKİ (5 puanın altı)
+                        </div>
+                        <ul id="itaki-actions-list" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
+                        <div style="margin-top: 12px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-sm btn-outline" id="transfer-itaki-btn">
+                                ⚡ İtaki Skorunu Bakım Planıma Aktar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-itaki-btn">
+                                🧹 Formu Temizle
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 4. MAP Calculator -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(139,92,246,0.06), #ffffff); border: 2px solid #8b5cf6; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-map" style="background: linear-gradient(135deg, rgba(139,92,246,0.06), #ffffff); border: 2px solid #8b5cf6; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #ede9fe; color: #7c3aed;">🫀</span>
-                            <h3>Ortalama Arter Basıncı (MAP)</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Ortalama Arter Basıncı (MAP)</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Organ Perfüzyonu Basıncı</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #8b5cf6; color: #ffffff; font-weight: 700;">Organ Perfüzyonu</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #8b5cf6; color: #ffffff; font-weight: 700;">Hemodinamik</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">formülü MAP = Diastolik + (Sistolik - Diastolik) / 3. Hayati organ perfüzyonu için MAP ≥ 65 mmHg olmalıdır.</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">formülü MAP = Diastolik + (Sistolik - Diastolik) / 3. Hayati organ perfüzyonu için MAP ≥ 65 mmHg olmalıdır.</p>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="map-sys">Sistolik Tansiyon (Büyük Tansiyon - mmHg)</label>
-                        <input type="number" id="map-sys" min="30" max="300" class="form-control" placeholder="Örn. 120">
-                        <div class="input-error-msg" id="map-sys-error">Sistolik tansiyon 30 - 300 mmHg arasında olmalıdır.</div>
+                        <div class="form-group">
+                            <label class="formülübel" for="map-sys">Sistolik Tansiyon (Büyük Tansiyon - mmHg)</label>
+                            <input type="number" id="map-sys" min="30" max="300" class="form-control" placeholder="Örn. 120">
+                            <div class="input-error-msg" id="map-sys-error">Sistolik tansiyon 30 - 300 mmHg arasında olmalıdır.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="formülübel" for="map-dia">Diastolik Tansiyon (Küçük Tansiyon - mmHg)</label>
+                            <input type="number" id="map-dia" min="20" max="200" class="form-control" placeholder="Örn. 80">
+                            <div class="input-error-msg" id="map-dia-error">Diastolik tansiyon 20 - 200 mmHg arasında ve sistolikten küçük olmalıdır.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <button class="btn btn-primary btn-sm" id="calc-map-btn">🧮 MAP Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-map-btn">🧹 Formu Temizle</button>
+                        </div>
+
+                        <div id="map-result-output" style="margin-top: 12px;"></div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="formülübel" for="map-dia">Diastolik Tansiyon (Küçük Tansiyon - mmHg)</label>
-                        <input type="number" id="map-dia" min="20" max="200" class="form-control" placeholder="Örn. 80">
-                        <div class="input-error-msg" id="map-dia-error">Diastolik tansiyon 20 - 200 mmHg arasında ve sistolikten küçük olmalıdır.</div>
-                    </div>
-
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-map-btn">🧮 MAP Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-map-btn">🧹 Formu Temizle</button>
-                    </div>
-
-                    <div id="map-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
             <!-- Row 3: Fluid Balance & Urine Output -->
             <div class="grid-2" style="margin-top: 24px;">
                 <!-- 5. Fluid Balance -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(6,182,212,0.06), #ffffff); border: 2px solid #06b6d4; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-fluid" style="background: linear-gradient(135deg, rgba(6,182,212,0.06), #ffffff); border: 2px solid #06b6d4; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #cff4fc; color: #0891b2;">🌊</span>
-                            <h3>Aldığı - Çıkardığı Sıvı Dengesi (24s)</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Aldığı - Çıkardığı Sıvı Dengesi (24s)</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">24 Saatlik Sıvı Bilançosu (+/- mL)</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #06b6d4; color: #ffffff; font-weight: 700;">24s Bilanço</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #06b6d4; color: #ffffff; font-weight: 700;">24s Bilanço</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Hastanın 24 saatlik süre içerisinde aldığı ve çıkardığı toplam sıvı farkını (+/- mL) hesaplar.</p>
                     
-                    <div class="grid-2">
-                        <div style="background: rgba(6,182,212,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #a5f3fc;">
-                            <h5 style="color: #0891b2; margin-bottom: 6px; font-weight: 700;">📥 Alınan Sıvılar (mL)</h5>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-in-oral">Oral / NG (mL)</label>
-                                <input type="number" id="fluid-in-oral" min="0" max="20000" class="form-control" placeholder="1500">
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Hastanın 24 saatlik süre içerisinde aldığı ve çıkardığı toplam sıvı farkını (+/- mL) hesaplar.</p>
+                        
+                        <div class="grid-2">
+                            <div style="background: rgba(6,182,212,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #a5f3fc;">
+                                <h5 style="color: #0891b2; margin-bottom: 6px; font-weight: 700;">📥 Alınan Sıvılar (mL)</h5>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-in-oral">Oral / NG (mL)</label>
+                                    <input type="number" id="fluid-in-oral" min="0" max="20000" class="form-control" placeholder="1500">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-in-iv">IV Mayi (mL)</label>
+                                    <input type="number" id="fluid-in-iv" min="0" max="20000" class="form-control" placeholder="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-in-blood">Kan / Plazma (mL)</label>
+                                    <input type="number" id="fluid-in-blood" min="0" max="10000" class="form-control" placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-in-other">Diğer Alım (mL)</label>
+                                    <input type="number" id="fluid-in-other" min="0" max="10000" class="form-control" placeholder="0">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-in-iv">IV Mayi (mL)</label>
-                                <input type="number" id="fluid-in-iv" min="0" max="20000" class="form-control" placeholder="1000">
-                            </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-in-blood">Kan / Plazma (mL)</label>
-                                <input type="number" id="fluid-in-blood" min="0" max="10000" class="form-control" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-in-other">Diğer Alım (mL)</label>
-                                <input type="number" id="fluid-in-other" min="0" max="10000" class="form-control" placeholder="0">
+
+                            <div style="background: rgba(245,158,11,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
+                                <h5 style="color: #d97706; margin-bottom: 6px; font-weight: 700;">📤 Çıkarılan Sıvılar (mL)</h5>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-out-urine">İdrar (mL)</label>
+                                    <input type="number" id="fluid-out-urine" min="0" max="20000" class="form-control" placeholder="1200">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-out-drain">Dren / NG (mL)</label>
+                                    <input type="number" id="fluid-out-drain" min="0" max="10000" class="form-control" placeholder="150">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-out-vomit">Kusma (mL)</label>
+                                    <input type="number" id="fluid-out-vomit" min="0" max="10000" class="form-control" placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="formülübel" for="fluid-out-stool">Dışkı / Diğer (mL)</label>
+                                    <input type="number" id="fluid-out-stool" min="0" max="10000" class="form-control" placeholder="100">
+                                </div>
                             </div>
                         </div>
 
-                        <div style="background: rgba(245,158,11,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fde68a;">
-                            <h5 style="color: #d97706; margin-bottom: 6px; font-weight: 700;">📤 Çıkarılan Sıvılar (mL)</h5>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-out-urine">İdrar (mL)</label>
-                                <input type="number" id="fluid-out-urine" min="0" max="20000" class="form-control" placeholder="1200">
-                            </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-out-drain">Dren / NG (mL)</label>
-                                <input type="number" id="fluid-out-drain" min="0" max="10000" class="form-control" placeholder="150">
-                            </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-out-vomit">Kusma (mL)</label>
-                                <input type="number" id="fluid-out-vomit" min="0" max="10000" class="form-control" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="formülübel" for="fluid-out-stool">Dışkı / Diğer (mL)</label>
-                                <input type="number" id="fluid-out-stool" min="0" max="10000" class="form-control" placeholder="100">
-                            </div>
+                        <div style="display: flex; gap: 8px; margin-top: 14px;">
+                            <button class="btn btn-primary btn-sm" id="calc-fluid-btn">🧮 Bilanço Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-fluid-btn">🧹 Formu Temizle</button>
                         </div>
+                        <div id="fluid-result-output" style="margin-top: 12px;"></div>
                     </div>
-
-                    <div style="display: flex; gap: 8px; margin-top: 14px;">
-                        <button class="btn btn-primary btn-sm" id="calc-fluid-btn">🧮 Bilanço Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-fluid-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="fluid-result-output" style="margin-top: 12px;"></div>
                 </div>
 
                 <!-- 6. Urine Output / oligüria -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(234,179,8,0.06), #ffffff); border: 2px solid #eab308; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-urine" style="background: linear-gradient(135deg, rgba(234,179,8,0.06), #ffffff); border: 2px solid #eab308; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #fef9c3; color: #ca8a04;">🧪</span>
-                            <h3>Saatlik İdrar Çıkışı & oligüri Kontrolü</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Saatlik İdrar Çıkışı & oligüri Kontrolü</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Renal Perfüzyon (mL/kg/saat)</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #eab308; color: #ffffff; font-weight: 700;">Renal Takip</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #eab308; color: #ffffff; font-weight: 700;">Renal Takip</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Böbrek perfüzyonu takibi. İdrar çıkışının &lt; 0.5 mL/kg/saat olması oligüri ve böbrek hasarı uyarısı verir.</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Böbrek perfüzyonu takibi. İdrar çıkışının &lt; 0.5 mL/kg/saat olması oligüri ve böbrek hasarı uyarısı verir.</p>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
-                        <input type="number" id="urine-ml" min="0" max="20000" class="form-control" placeholder="Örn. 350">
-                        <div class="input-error-msg" id="urine-ml-error">Lütfen 0 - 20.000 mL arasında geçerli değer giriniz.</div>
+                        <div class="form-group">
+                            <label class="formülübel" for="urine-ml">Toplam İdrar Miktarı (mL)</label>
+                            <input type="number" id="urine-ml" min="0" max="20000" class="form-control" placeholder="Örn. 350">
+                            <div class="input-error-msg" id="urine-ml-error">Lütfen 0 - 20.000 mL arasında geçerli değer giriniz.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
+                            <input type="number" id="urine-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
+                            <div class="input-error-msg" id="urine-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="urine-hours">Takip Süresi (Saat)</label>
+                            <input type="number" id="urine-hours" min="1" max="168" class="form-control" value="24" placeholder="Örn. 8 veya 24">
+                            <div class="input-error-msg" id="urine-hours-error">Takip süresi 1 - 168 saat arasında olmalıdır.</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-urine-btn">🧹 Formu Temizle</button>
+                        </div>
+                        <div id="urine-result-output" style="margin-top: 12px;"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="urine-weight">Hasta Vücut Ağırlığı (kg)</label>
-                        <input type="number" id="urine-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
-                        <div class="input-error-msg" id="urine-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="urine-hours">Takip Süresi (Saat)</label>
-                        <input type="number" id="urine-hours" min="1" max="168" class="form-control" value="24" placeholder="Örn. 8 veya 24">
-                        <div class="input-error-msg" id="urine-hours-error">Takip süresi 1 - 168 saat arasında olmalıdır.</div>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-urine-btn">🧮 İdrar Hızını Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-urine-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="urine-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
             <!-- Row 4: Serum Drip & Med Dosage -->
             <div class="grid-2" style="margin-top: 24px;">
                 <!-- 7. Serum Drip Rate -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(16,185,129,0.06), #ffffff); border: 2px solid #10b981; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-drip" style="background: linear-gradient(135deg, rgba(16,185,129,0.06), #ffffff); border: 2px solid #10b981; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #d1fae5; color: #059669;">💧</span>
-                            <h3>Serum Damla Hızı (gtt/dk)</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Serum Damla Hızı (gtt/dk)</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">IV İnfüzyon Damla Hızı</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #10b981; color: #ffffff; font-weight: 700;">IV İnfüzyon Hızı</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #10b981; color: #ffffff; font-weight: 700;">IV Hız</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">IV Sıvı infüzyonunda dakikadaki damla sayısını tam doğru bulun.</p>
                     
-                    <div class="form-group">
-                        <label class="formülübel" for="drip-volume">Sıvı Miktarı (mL)</label>
-                        <input type="number" id="drip-volume" min="1" max="10000" class="form-control" placeholder="Örn. 500">
-                        <div class="input-error-msg" id="drip-volume-error">Sıvı miktarı 1 - 10.000 mL arasında olmalıdır.</div>
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">IV Sıvı infüzyonunda dakikadaki damla sayısını tam doğru bulun.</p>
+                        
+                        <div class="form-group">
+                            <label class="formülübel" for="drip-volume">Sıvı Miktarı (mL)</label>
+                            <input type="number" id="drip-volume" min="1" max="10000" class="form-control" placeholder="Örn. 500">
+                            <div class="input-error-msg" id="drip-volume-error">Sıvı miktarı 1 - 10.000 mL arasında olmalıdır.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="drip-hours">İnfüzyon Süresi (Saat)</label>
+                            <input type="number" id="drip-hours" min="0.1" max="168" step="0.1" class="form-control" placeholder="Örn. 8">
+                            <div class="input-error-msg" id="drip-hours-error">Süre 0.1 - 168 saat arasında olmalıdır.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="drip-factor">Damla Faktörü (1 mL = ? damla)</label>
+                            <select id="drip-factor" class="form-select">
+                                <option value="20">20 damla/mL (Standart Kaset/Set)</option>
+                                <option value="60">60 damla/mL (Mikro-damla / Pediatrik)</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <button class="btn btn-primary btn-sm" id="calc-drip-btn">🧮 Damla Hızını Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-drip-btn">🧹 Formu Temizle</button>
+                        </div>
+                        <div id="drip-result-output" style="margin-top: 12px;"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="drip-hours">İnfüzyon Süresi (Saat)</label>
-                        <input type="number" id="drip-hours" min="0.1" max="168" step="0.1" class="form-control" placeholder="Örn. 8">
-                        <div class="input-error-msg" id="drip-hours-error">Süre 0.1 - 168 saat arasında olmalıdır.</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="drip-factor">Damla Faktörü (1 mL = ? damla)</label>
-                        <select id="drip-factor" class="form-select">
-                            <option value="20">20 damla/mL (Standart Kaset/Set)</option>
-                            <option value="60">60 damla/mL (Mikro-damla / Pediatrik)</option>
-                        </select>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-drip-btn">🧮 Damla Hızını Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-drip-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="drip-result-output" style="margin-top: 12px;"></div>
                 </div>
 
                 <!-- 8. Med Dosage -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(99,102,241,0.06), #ffffff); border: 2px solid #6366f1; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-dose" style="background: linear-gradient(135deg, rgba(99,102,241,0.06), #ffffff); border: 2px solid #6366f1; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #e0e7ff; color: #4f46e5;">💉</span>
-                            <h3>İlaç Dozaj Hesaplayıcı</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">İlaç Dozaj Hesaplayıcı</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">(İstenen / Eldeki) × Hacim</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #6366f1; color: #ffffff; font-weight: 700;">Farmakolojik Dozaj</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #6366f1; color: #ffffff; font-weight: 700;">Farmakoloji</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">(İstenen Doz / Eldeki Doz) × Hacim formülü ile çekilecek enjeksiyon sıvısını bulun.</p>
                     
-                    <div class="form-group">
-                        <label class="formülübel" for="dose-desired">İstenen Doz (mg)</label>
-                        <input type="number" id="dose-desired" min="0.001" step="any" class="form-control" placeholder="Örn. 250">
-                        <div class="input-error-msg" id="dose-desired-error">Lütfen 0'dan büyük geçerli bir doz giriniz.</div>
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">(İstenen Doz / Eldeki Doz) × Hacim formülü ile çekilecek enjeksiyon sıvısını bulun.</p>
+                        
+                        <div class="form-group">
+                            <label class="formülübel" for="dose-desired">İstenen Doz (mg)</label>
+                            <input type="number" id="dose-desired" min="0.001" step="any" class="form-control" placeholder="Örn. 250">
+                            <div class="input-error-msg" id="dose-desired-error">Lütfen 0'dan büyük geçerli bir doz giriniz.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="dose-onhand">Ampuldeki / Eldeki Doz (mg)</label>
+                            <input type="number" id="dose-onhand" min="0.001" step="any" class="form-control" placeholder="Örn. 500">
+                            <div class="input-error-msg" id="dose-onhand-error">Eldeki doz 0'dan büyük olmalıdır.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="dose-volhand">Ampul Hacmi (mL)</label>
+                            <input type="number" id="dose-volhand" min="0.01" step="any" class="form-control" placeholder="Örn. 2">
+                            <div class="input-error-msg" id="dose-volhand-error">Hacim 0'dan büyük olmalıdır.</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <button class="btn btn-primary btn-sm" id="calc-dose-btn">🧮 Dozajı Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-dose-btn">🧹 Formu Temizle</button>
+                        </div>
+                        <div id="dose-result-output" style="margin-top: 12px;"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="dose-onhand">Ampuldeki / Eldeki Doz (mg)</label>
-                        <input type="number" id="dose-onhand" min="0.001" step="any" class="form-control" placeholder="Örn. 500">
-                        <div class="input-error-msg" id="dose-onhand-error">Eldeki doz 0'dan büyük olmalıdır.</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="dose-volhand">Ampul Hacmi (mL)</label>
-                        <input type="number" id="dose-volhand" min="0.01" step="any" class="form-control" placeholder="Örn. 2">
-                        <div class="input-error-msg" id="dose-volhand-error">Hacim 0'dan büyük olmalıdır.</div>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-dose-btn">🧮 Dozajı Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-dose-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="dose-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
             <!-- Row 5: Norton & FLACC -->
             <div class="grid-2" style="margin-top: 24px;">
                 <!-- 9. Norton Scale -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(236,72,153,0.06), #ffffff); border: 2px solid #ec4899; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-norton" style="background: linear-gradient(135deg, rgba(236,72,153,0.06), #ffffff); border: 2px solid #ec4899; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #fce7f3; color: #db2777;">🩺</span>
-                            <h3>Norton Bası Yarası Risk Ölçeği</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Norton Bası Yarası Risk Ölçeği</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Geriatrik Bası Riski (5-20 Puan)</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #ec4899; color: #ffffff; font-weight: 700;">Geriatrik & Cilt Riski</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #ec4899; color: #ffffff; font-weight: 700;">Norton Riski</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">5 klinik durum üzerinden bası yarası risk puanlaması yapar (5-20 puan).</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">5 klinik durum üzerinden bası yarası risk puanlaması yapar (5-20 puan).</p>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="norton-physical">Fiziksel Durum</label>
-                        <select id="norton-physical" class="form-select norton-input">
-                            <option value="4">4 - İyi</option>
-                            <option value="3">3 - Orta</option>
-                            <option value="2">2 - Kötü</option>
-                            <option value="1">1 - Çok Kötü</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="norton-mental">Zihinsel (Mental) Durum</label>
-                        <select id="norton-mental" class="form-select norton-input">
-                            <option value="4">4 - Açık / Oryante</option>
-                            <option value="3">3 - Apatik (İlgisiz)</option>
-                            <option value="2">2 - Konfüze</option>
-                            <option value="1">1 - Stupor / Stuporöz</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="norton-activity">Aktivite</label>
-                        <select id="norton-activity" class="form-select norton-input">
-                            <option value="4">4 - Yürür</option>
-                            <option value="3">3 - Yardım ile Yürür</option>
-                            <option value="2">2 - Sandalyeye Bağımlı</option>
-                            <option value="1">1 - Yatağa Bağımlı</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="norton-mobility">Hareketlilik (Mobilite)</label>
-                        <select id="norton-mobility" class="form-select norton-input">
-                            <option value="4">4 - Tam</option>
-                            <option value="3">3 - Hafif Kısıtlı</option>
-                            <option value="2">2 - Çok Kısıtlı</option>
-                            <option value="1">1 - Hareketsiz</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="norton-incontinence">İnkontinans (Çiş/Kaka Kaçırma)</label>
-                        <select id="norton-incontinence" class="form-select norton-input">
-                            <option value="4">4 - Yok</option>
-                            <option value="3">3 - Bazen</option>
-                            <option value="2">2 - Genellikle Üriner</option>
-                            <option value="1">1 - Çift İnkontinans (Her ikisi)</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="norton-physical">Fiziksel Durum</label>
+                            <select id="norton-physical" class="form-select norton-input">
+                                <option value="4">4 - İyi</option>
+                                <option value="3">3 - Orta</option>
+                                <option value="2">2 - Kötü</option>
+                                <option value="1">1 - Çok Kötü</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="norton-mental">Zihinsel (Mental) Durum</label>
+                            <select id="norton-mental" class="form-select norton-input">
+                                <option value="4">4 - Açık / Oryante</option>
+                                <option value="3">3 - Apatik (İlgisiz)</option>
+                                <option value="2">2 - Konfüze</option>
+                                <option value="1">1 - Stupor / Stuporöz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="norton-activity">Aktivite</label>
+                            <select id="norton-activity" class="form-select norton-input">
+                                <option value="4">4 - Yürür</option>
+                                <option value="3">3 - Yardım ile Yürür</option>
+                                <option value="2">2 - Sandalyeye Bağımlı</option>
+                                <option value="1">1 - Yatağa Bağımlı</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="norton-mobility">Hareketlilik (Mobilite)</label>
+                            <select id="norton-mobility" class="form-select norton-input">
+                                <option value="4">4 - Tam</option>
+                                <option value="3">3 - Hafif Kısıtlı</option>
+                                <option value="2">2 - Çok Kısıtlı</option>
+                                <option value="1">1 - Hareketsiz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="norton-incontinence">İnkontinans (Çiş/Kaka Kaçırma)</label>
+                            <select id="norton-incontinence" class="form-select norton-input">
+                                <option value="4">4 - Yok</option>
+                                <option value="3">3 - Bazen</option>
+                                <option value="2">2 - Genellikle Üriner</option>
+                                <option value="1">1 - Çift İnkontinans (Her ikisi)</option>
+                            </select>
+                        </div>
 
-                    <div style="margin-top: 14px; text-align: center; background: #fdf2f8; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fbcfe8;">
-                        <h4 style="color: #be185d; margin-bottom: 2px;">Norton Puanı</h4>
-                        <div id="norton-score-display" style="font-size: 2rem; font-weight: 800; color: #db2777;">20 / 20</div>
-                    </div>
-                    <div id="norton-interpretation" class="alert alert-success" style="margin-top: 10px;">
-                        DÜŞÜK RİSK / RİSK YOK (> 14 Puan)
-                    </div>
-                    <ul id="norton-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
-                    <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                        <button type="button" class="btn btn-sm btn-outline" id="transfer-norton-btn">
-                            ⚡ Norton Skorunu Bakım Planıma Aktar
-                        </button>
-                        <button type="button" class="btn btn-sm btn-secondary" id="clear-norton-btn">
-                            🧹 Formu Temizle
-                        </button>
+                        <div style="margin-top: 14px; text-align: center; background: #fdf2f8; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fbcfe8;">
+                            <h4 style="color: #be185d; margin-bottom: 2px;">Norton Puanı</h4>
+                            <div id="norton-score-display" style="font-size: 2rem; font-weight: 800; color: #db2777;">20 / 20</div>
+                        </div>
+                        <div id="norton-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                            DÜŞÜK RİSK / RİSK YOK (> 14 Puan)
+                        </div>
+                        <ul id="norton-recommendations" style="padding-left: 18px; font-size: 0.84rem; color: var(--text-secondary); margin-top: 6px;"></ul>
+                        <div style="margin-top: 14px; text-align: center; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-sm btn-outline" id="transfer-norton-btn">
+                                ⚡ Norton Skorunu Bakım Planıma Aktar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-norton-btn">
+                                🧹 Formu Temizle
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 10. FLACC Pediatric Pain Scale -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(168,85,247,0.06), #ffffff); border: 2px solid #a855f7; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-flacc" style="background: linear-gradient(135deg, rgba(168,85,247,0.06), #ffffff); border: 2px solid #a855f7; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #f3e8ff; color: #9333ea;">👶</span>
-                            <h3>FLACC Pediatrik & Ağrı Skalası</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">FLACC Pediatrik & Ağrı Skalası</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Pediatrik & Sözel Olmayan Ağrı</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #a855f7; color: #ffffff; font-weight: 700;">Pediatri & Yoğun Bakım</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #a855f7; color: #ffffff; font-weight: 700;">FLACC Ağrı</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.84rem; margin-bottom: 14px; color: var(--text-secondary);">Bebekler, çocuklar veya konuşamayan yoğun bakım hastaları için davranışsal ağrı değerlendirmesi (0-10 puan).</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.84rem; margin-bottom: 14px; color: var(--text-secondary);">Bebekler, çocuklar veya konuşamayan yoğun bakım hastaları için davranışsal ağrı değerlendirmesi (0-10 puan).</p>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="flacc-face">Yüz İfadesi (Face)</label>
-                        <select id="flacc-face" class="form-select flacc-input">
-                            <option value="0">0 - Belirgin özel bir ifade yok veya gülümser</option>
-                            <option value="1">1 - Ara sıra kaş çatma, huzursuz görünüm</option>
-                            <option value="2">2 - Sık kaş çatma, çene titremesi, diş sıkma</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="flacc-legs">Bacaklar (Legs)</label>
-                        <select id="flacc-legs" class="form-select flacc-input">
-                            <option value="0">0 - Normal veya gevşek</option>
-                            <option value="1">1 - Huzursuz, gergin, kasılmış</option>
-                            <option value="2">2 - Çırpınma veya bacakları karnına çekme</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="flacc-activity">Aktivite (Activity)</label>
-                        <select id="flacc-activity" class="form-select flacc-input">
-                            <option value="0">0 - Sakin yatar, rahat hareket eder</option>
-                            <option value="1">1 - Kıvranma, gerinme, ileri-geri sallanma</option>
-                            <option value="2">2 - Katılaşma, sürekli sarsılma veya arkaya kayma</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="flacc-cry">Ağlama (Cry)</label>
-                        <select id="flacc-cry" class="form-select flacc-input">
-                            <option value="0">0 - Ağlama yok (uyur veya uyanık)</option>
-                            <option value="1">1 - İnleme, sızlanma, ara sıra şikayet</option>
-                            <option value="2">2 - Sürekli ağlama, çığlık atma, sık şikayet</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="flacc-consolability">Sakinleştirilebilirlik (Consolability)</label>
-                        <select id="flacc-consolability" class="form-select flacc-input">
-                            <option value="0">0 - Sakin ve rahat</option>
-                            <option value="1">1 - Dokunma veya konuşma ile sakinleşir</option>
-                            <option value="2">2 - Sakinleştirmekte güçlük çekilir</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="flacc-face">Yüz İfadesi (Face)</label>
+                            <select id="flacc-face" class="form-select flacc-input">
+                                <option value="0">0 - Belirgin özel bir ifade yok veya gülümser</option>
+                                <option value="1">1 - Ara sıra kaş çatma, huzursuz görünüm</option>
+                                <option value="2">2 - Sık kaş çatma, çene titremesi, diş sıkma</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="flacc-legs">Bacaklar (Legs)</label>
+                            <select id="flacc-legs" class="form-select flacc-input">
+                                <option value="0">0 - Normal veya gevşek</option>
+                                <option value="1">1 - Huzursuz, gergin, kasılmış</option>
+                                <option value="2">2 - Çırpınma veya bacakları karnına çekme</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="flacc-activity">Aktivite (Activity)</label>
+                            <select id="flacc-activity" class="form-select flacc-input">
+                                <option value="0">0 - Sakin yatar, rahat hareket eder</option>
+                                <option value="1">1 - Kıvranma, gerinme, ileri-geri sallanma</option>
+                                <option value="2">2 - Katılaşma, sürekli sarsılma veya arkaya kayma</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="flacc-cry">Ağlama (Cry)</label>
+                            <select id="flacc-cry" class="form-select flacc-input">
+                                <option value="0">0 - Ağlama yok (uyur veya uyanık)</option>
+                                <option value="1">1 - İnleme, sızlanma, ara sıra şikayet</option>
+                                <option value="2">2 - Sürekli ağlama, çığlık atma, sık şikayet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="flacc-consolability">Sakinleştirilebilirlik (Consolability)</label>
+                            <select id="flacc-consolability" class="form-select flacc-input">
+                                <option value="0">0 - Sakin ve rahat</option>
+                                <option value="1">1 - Dokunma veya konuşma ile sakinleşir</option>
+                                <option value="2">2 - Sakinleştirmekte güçlük çekilir</option>
+                            </select>
+                        </div>
 
-                    <div style="margin-top: 14px; text-align: center; background: #faf5ff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #e9d5ff;">
-                        <h4 style="color: #7e22ce; margin-bottom: 2px;">FLACC Ağrı Skoru</h4>
-                        <div id="flacc-score-display" style="font-size: 2rem; font-weight: 800; color: #9333ea;">0 / 10</div>
-                    </div>
-                    <div id="flacc-interpretation" class="alert alert-success" style="margin-top: 10px;">
-                        AĞRI YOK / RAHAT (0 Puan)
-                    </div>
-                    <div style="margin-top: 14px; text-align: center;">
-                        <button type="button" class="btn btn-sm btn-secondary" id="clear-flacc-btn">🧹 Formu Temizle</button>
+                        <div style="margin-top: 14px; text-align: center; background: #faf5ff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #e9d5ff;">
+                            <h4 style="color: #7e22ce; margin-bottom: 2px;">FLACC Ağrı Skoru</h4>
+                            <div id="flacc-score-display" style="font-size: 2rem; font-weight: 800; color: #9333ea;">0 / 10</div>
+                        </div>
+                        <div id="flacc-interpretation" class="alert alert-success" style="margin-top: 10px;">
+                            AĞRI YOK / RAHAT (0 Puan)
+                        </div>
+                        <div style="margin-top: 14px; text-align: center;">
+                            <button type="button" class="btn btn-sm btn-secondary" id="clear-flacc-btn">🧹 Formu Temizle</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1308,131 +1369,157 @@
             <!-- Row 6: Parkland Burn & Pediatric Percentile -->
             <div class="grid-2" style="margin-top: 24px;">
                 <!-- 11. Parkland Burn Calculator -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(249,115,22,0.06), #ffffff); border: 2px solid #f97316; border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-parkland" style="background: linear-gradient(135deg, rgba(249,115,22,0.06), #ffffff); border: 2px solid #f97316; border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #ffedd5; color: #ea580c;">🔥</span>
-                            <h3>Yanık Yüzdesi & Parkland IV Sıvı</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Yanık Yüzdesi & Parkland IV Sıvı</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">4 mL × Kilo × % TBSA Yanık Sıvısı</p>
+                            </div>
                         </div>
-                        <span class="badge" style="background: #f97316; color: #ffffff; font-weight: 700;">Acil Resüsitasyon</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge" style="background: #f97316; color: #ffffff; font-weight: 700;">Yanık Sıvı</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">formülü 4 mL × Kilo (kg) × % Yanık Yüzdesi (% TBSA). Sıvının %50'si ilk 8 saatte, %50'si kalan 16 saatte verilir.</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">formülü 4 mL × Kilo (kg) × % Yanık Yüzdesi (% TBSA). Sıvının %50'si ilk 8 saatte, %50'si kalan 16 saatte verilir.</p>
 
-                    <div class="form-group">
-                        <label class="formülübel" for="parkland-weight">Hasta Vücut Ağırlığı (kg)</label>
-                        <input type="number" id="parkland-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
-                        <div class="input-error-msg" id="parkland-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
+                        <div class="form-group">
+                            <label class="formülübel" for="parkland-weight">Hasta Vücut Ağırlığı (kg)</label>
+                            <input type="number" id="parkland-weight" min="1" max="300" step="0.1" class="form-control" placeholder="Örn. 70">
+                            <div class="input-error-msg" id="parkland-weight-error">Hasta kilosu 1 - 300 kg arasında olmalıdır.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formülübel" for="parkland-burn">Yanık Yüzdesi (% TBSA - 9'lar Kuralı)</label>
+                            <input type="number" id="parkland-burn" min="1" max="100" step="1" class="form-control" placeholder="Örn. 25">
+                            <div class="input-error-msg" id="parkland-burn-error">Yanık yüzdesi %1 - %100 arasında olmalıdır.</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <button class="btn btn-primary btn-sm" id="calc-parkland-btn">🧮 Parkland Sıvısını Hesapla</button>
+                            <button class="btn btn-secondary btn-sm" id="clear-parkland-btn">🧹 Formu Temizle</button>
+                        </div>
+                        <div id="parkland-result-output" style="margin-top: 14px;"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="formülübel" for="parkland-burn">Yanık Yüzdesi (% TBSA - 9'lar Kuralı)</label>
-                        <input type="number" id="parkland-burn" min="1" max="100" step="1" class="form-control" placeholder="Örn. 25">
-                        <div class="input-error-msg" id="parkland-burn-error">Yanık yüzdesi %1 - %100 arasında olmalıdır.</div>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 16px;">
-                        <button class="btn btn-primary btn-sm" id="calc-parkland-btn">🧮 Parkland Sıvısını Hesapla</button>
-                        <button class="btn btn-secondary btn-sm" id="clear-parkland-btn">🧹 Formu Temizle</button>
-                    </div>
-                    <div id="parkland-result-output" style="margin-top: 14px;"></div>
                 </div>
 
                 <!-- 12. Pediatrik Boy & Kilo Persentil Hesaplayıcısı -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(13,148,136,0.06), #ffffff); border: 2px solid var(--primary); border-radius: var(--radius-md);">
-                    <div class="card-header">
+                <div class="card calc-accordion-card" id="calc-card-percentile" style="background: linear-gradient(135deg, rgba(13,148,136,0.06), #ffffff); border: 2px solid var(--primary); border-radius: var(--radius-md);">
+                    <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                         <div class="card-title">
                             <span class="card-icon" style="background: #ccfbf1; color: #0d9488;">👶</span>
-                            <h3>Pediatrik Boy & Kilo Persentili (0 - 18 Yaş)</h3>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Pediatrik Boy & Kilo Persentili (0 - 18 Yaş)</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">WHO & Olcay Neyzi Gelişim Skalası</p>
+                            </div>
                         </div>
-                        <span class="badge badge-primary">WHO & Olcay Neyzi</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge badge-primary">Pediatrik Persentil</span>
+                            <span class="calc-accordion-chevron">▼</span>
+                        </div>
                     </div>
-                    <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yaş, cinsiyet, boy ve kiloya göre %3, %15, %50, %85, %97 persentil seviyelerini hesaplar.</p>
+                    
+                    <div class="calc-accordion-body">
+                        <p style="font-size: 0.86rem; margin-bottom: 14px; color: var(--text-secondary);">Yaş, cinsiyet, boy ve kiloya göre %3, %15, %50, %85, %97 persentil seviyelerini hesaplar.</p>
 
-                    <div class="form-row">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="formülübel" for="percentile-gender">Cinsiyet</label>
+                                <select id="percentile-gender" class="form-select">
+                                    <option value="Erkek">Erkek 👦</option>
+                                    <option value="Kadın">Kız 👧</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="formülübel" for="percentile-age-years">Yaş (Yıl)</label>
+                                <input type="number" id="percentile-age-years" class="form-control" min="0" max="18" placeholder="Örn. 3">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="formülübel" for="percentile-age-months">Ay (0-11)</label>
+                                <input type="number" id="percentile-age-months" class="form-control" min="0" max="11" placeholder="Örn. 6">
+                            </div>
+                            <div class="form-group">
+                                <label class="formülübel" for="percentile-weight">Kilo (kg)</label>
+                                <input type="number" step="0.1" id="percentile-weight" class="form-control" placeholder="15.5">
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label class="formülübel" for="percentile-gender">Cinsiyet</label>
-                            <select id="percentile-gender" class="form-select">
-                                <option value="Erkek">Erkek 👦</option>
-                                <option value="Kadın">Kız 👧</option>
-                            </select>
+                            <label class="formülübel" for="percentile-height">Boy (cm)</label>
+                            <input type="number" step="0.5" id="percentile-height" class="form-control" placeholder="98">
                         </div>
-                        <div class="form-group">
-                            <label class="formülübel" for="percentile-age-years">Yaş (Yıl)</label>
-                            <input type="number" id="percentile-age-years" class="form-control" min="0" max="18" placeholder="Örn. 3">
+
+                        <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-primary btn-sm" id="calc-percentile-btn">🧮 Hesapla</button>
+                            <button type="button" class="btn btn-secondary btn-sm" id="clear-percentile-btn">🧹 Formu Temizle</button>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="formülübel" for="percentile-age-months">Ay (0-11)</label>
-                            <input type="number" id="percentile-age-months" class="form-control" min="0" max="11" placeholder="Örn. 6">
-                        </div>
-                        <div class="form-group">
-                            <label class="formülübel" for="percentile-weight">Kilo (kg)</label>
-                            <input type="number" step="0.1" id="percentile-weight" class="form-control" placeholder="15.5">
-                        </div>
+                        <div id="percentile-result-output" style="margin-top: 12px;"></div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="formülübel" for="percentile-height">Boy (cm)</label>
-                        <input type="number" step="0.5" id="percentile-height" class="form-control" placeholder="98">
-                    </div>
-
-                    <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
-                        <button type="button" class="btn btn-primary btn-sm" id="calc-percentile-btn">🧮 Hesapla</button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="clear-percentile-btn">🧹 Formu Temizle</button>
-                    </div>
-
-                    <div id="percentile-result-output" style="margin-top: 12px;"></div>
                 </div>
             </div>
 
-            <!-- 8. Klinik IV Sıvı & Sık Kullanılan İlaç Hızlı Rehberi -->
-            <div class="card" style="margin-top: 24px;">
-                <div class="card-header">
+            <!-- 13. Klinik IV Sıvı & Sık Kullanılan İlaç Hızlı Rehberi -->
+            <div class="card calc-accordion-card" id="calc-card-guide" style="margin-top: 24px;">
+                <div class="card-header calc-accordion-header" onclick="toggleCalcAccordion(this)">
                     <div class="card-title">
                         <span class="card-icon">💊</span>
-                        <h3>Klinik IV Sıvı ve İlaç Hızlı Rehberi (Stajyer & İntörn Notları)</h3>
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.1rem;">Klinik IV Sıvı ve İlaç Hızlı Rehberi</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 2px 0 0 0;">Stajyer & İntörn Pratik Klinik Notları</p>
+                        </div>
                     </div>
-                    <span class="badge badge-primary">Klinik Pratik</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="badge badge-primary">Klinik Pratik</span>
+                        <span class="calc-accordion-chevron">▼</span>
+                    </div>
                 </div>
 
-                <div class="grid-2">
-                    <!-- IV Fluids -->
-                    <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                        <h4 style="color: var(--primary-dark); margin-bottom: 12px;">💧 Sık Kullanılan IV Serumlar & Özellikleri</h4>
-                        
-                        <div style="margin-bottom: 12px;">
-                            <strong style="color: var(--primary);">%0.9 NaCl (İzotonik Serum Fizyolojik):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Vasküler volüm genişletme, kan transfüzyonu öncesi/sonrası, cerrahi sıvı desteği.<br>• <em>Hemşirelik Notu:</em> Sıvı yüklenmesi, akciğer sesleri (raller) ve ödem izlenmelidir.</p>
+                <div class="calc-accordion-body">
+                    <div class="grid-2">
+                        <!-- IV Fluids -->
+                        <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                            <h4 style="color: var(--primary-dark); margin-bottom: 12px;">💧 Sık Kullanılan IV Serumlar & Özellikleri</h4>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--primary);">%0.9 NaCl (İzotonik Serum Fizyolojik):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Vasküler volüm genişletme, kan transfüzyonu öncesi/sonrası, cerrahi sıvı desteği.<br>• <em>Hemşirelik Notu:</em> Sıvı yüklenmesi, akciğer sesleri (raller) ve ödem izlenmelidir.</p>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--primary);">Ringer Laktat (RL):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Yanık, travma, ağır ameliyat ve elektrolit kayıpları.<br>• <em>Hemşirelik Notu:</em> Laktat içerdiği için ağır karaciğer yetmezliği olan hastalarda dikkatli olunmalı.</p>
+                            </div>
+
+                            <div>
+                                <strong style="color: var(--primary);">%5 Dextroz (Dekstroz):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Kalori sağlama, dehidratasyon, insülin ile birlikte hiperkalemi tedavisi.<br>• <em>Hemşirelik Notu:</em> Kan şekeri takibi yapılmalı, tek başına kan transfüzyon setiyle verilmez (hemoliz riski).</p>
+                            </div>
                         </div>
 
-                        <div style="margin-bottom: 12px;">
-                            <strong style="color: var(--primary);">Ringer Laktat (RL):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Yanık, travma, ağır ameliyat ve elektrolit kayıpları.<br>• <em>Hemşirelik Notu:</em> Laktat içerdiği için ağır karaciğer yetmezliği olan hastalarda dikkatli olunmalı.</p>
-                        </div>
+                        <!-- Emergency Meds -->
+                        <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                            <h4 style="color: var(--secondary); margin-bottom: 12px;">💉 Klinik İlaç İnfüzyon & Hemşirelik Dikkat Noktaları</h4>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--secondary);">Parasetamol IV (Perfalgan 1000 mg):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> 15 dakikalık IV infüzyon şeklinde verilir.<br>• <em>Hemşirelik Notu:</em> Maksimum günlük doz 4 gr (4000 mg) aşılmamalıdır.</p>
+                            </div>
 
-                        <div>
-                            <strong style="color: var(--primary);">%5 Dextroz (Dekstroz):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Kullanım:</em> Kalori sağlama, dehidratasyon, insülin ile birlikte hiperkalemi tedavisi.<br>• <em>Hemşirelik Notu:</em> Kan şekeri takibi yapılmalı, tek başına kan transfüzyon setiyle verilmez (hemoliz riski).</p>
-                        </div>
-                    </div>
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--secondary);">Furosemid (Desal 20 mg Ampul):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Yavaş IV puşe (1-2 dakikada).<br>• <em>Hemşirelik Notu:</em> İdrar çıkışı saatlik izlenmeli, Hipokalemi (K+ düşüklüğü) ve tansiyon takibi yapılmalıdır.</p>
+                            </div>
 
-                    <!-- Emergency Meds -->
-                    <div style="background: var(--bg-card-hover); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                        <h4 style="color: var(--secondary); margin-bottom: 12px;">💉 Klinik İlaç İnfüzyon & Hemşirelik Dikkat Noktaları</h4>
-                        
-                        <div style="margin-bottom: 12px;">
-                            <strong style="color: var(--secondary);">Parasetamol IV (Perfalgan 1000 mg):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> 15 dakikalık IV infüzyon şeklinde verilir.<br>• <em>Hemşirelik Notu:</em> Maksimum günlük doz 4 gr (4000 mg) aşılmamalıdır.</p>
-                        </div>
-
-                        <div style="margin-bottom: 12px;">
-                            <strong style="color: var(--secondary);">Furosemid (Desal 20 mg Ampul):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Yavaş IV puşe (1-2 dakikada).<br>• <em>Hemşirelik Notu:</em> İdrar çıkışı saatlik izlenmeli, Hipokalemi (K+ düşüklüğü) ve tansiyon takibi yapılmalıdır.</p>
-                        </div>
-
-                        <div>
-                            <strong style="color: var(--secondary);">Enoksaparin (Clexane Subkutan Enjeksiyon):</strong>
-                            <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Abdominal bölgeden 90° açıyla SC uygulanır.<br>• <em>Hemşirelik Notu:</em> Enjeksiyon yerine masaj yapılmaz (ekimoz riski). Trombosit ve kanama takibi yapılır.</p>
+                            <div>
+                                <strong style="color: var(--secondary);">Enoksaparin (Clexane Subkutan Enjeksiyon):</strong>
+                                <p style="font-size: 0.85rem; margin-top: 2px;">• <em>Uygulama:</em> Abdominal bölgeden 90° açıyla SC uygulanır.<br>• <em>Hemşirelik Notu:</em> Enjeksiyon yerine masaj yapılmaz (ekimoz riski). Trombosit ve kanama takibi yapılır.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1972,19 +2059,15 @@
         </button>
         <button class="mobile-nav-btn" data-tab="builder" onclick="switchTab('builder')">
             <span class="mobile-nav-icon nav-icon-badge badge-builder"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-            <span class="mobile-nav-label">Bakım Planı</span>
+            <span class="mobile-nav-label">Plan Sihirbazı</span>
         </button>
         <button class="mobile-nav-btn" data-tab="calculators" onclick="switchTab('calculators')">
             <span class="mobile-nav-icon nav-icon-badge badge-calculators"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg></span>
-            <span class="mobile-nav-label">Hesaplama</span>
+            <span class="mobile-nav-label">Ölçekler</span>
         </button>
         <button class="mobile-nav-btn trigger-cmd-palette" type="button" onclick="if(window.openCommandPalette) window.openCommandPalette();">
             <span class="mobile-nav-icon nav-icon-badge badge-search"><svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <span class="mobile-nav-label">Hızlı Ara</span>
-        </button>
-        <button class="mobile-nav-btn" data-tab="saved" onclick="switchTab('saved')">
-            <span class="mobile-nav-icon nav-icon-badge badge-saved"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></span>
-            <span class="mobile-nav-label">Favoriler</span>
         </button>
     </nav>
 
