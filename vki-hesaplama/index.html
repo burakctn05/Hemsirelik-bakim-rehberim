@@ -139,6 +139,12 @@
                     </span>
                     Kaydedilenler
                 </button>
+                <button class="nav-tab" data-tab="blog" onclick="switchTab('blog')">
+                    <span class="nav-icon-badge badge-blog">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="15" y2="7"></line><line x1="9" y1="11" x2="15" y2="11"></line></svg>
+                    </span>
+                    Blog & Rehber
+                </button>
                 <button class="nav-tab trigger-cmd-palette" id="cmd-palette-trigger" title="Hızlı Arama (Ctrl + K)">
                     <span class="nav-icon-badge badge-search">
                         <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -179,6 +185,10 @@
                     <button class="btn btn-lg btn-secondary" data-goto-tab="templates" style="flex: 1; min-width: 200px; justify-content: center;">
                         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                         Hazır Şablonlar (26+)
+                    </button>
+                    <button class="btn btn-lg btn-outline" data-goto-tab="blog" style="flex: 1; min-width: 180px; justify-content: center;">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="15" y2="7"></line><line x1="9" y1="11" x2="15" y2="11"></line></svg>
+                        Blog & Rehberler
                     </button>
                     <button class="btn btn-lg btn-outline trigger-cmd-palette" style="flex: 1; min-width: 180px; justify-content: center;">
                         <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -1579,6 +1589,81 @@
             </section>
         </section>
 
+        <!-- ===================================================================
+             TAB 7: BLOG & KLINIK REHBERLER
+             =================================================================== -->
+        <section id="tab-blog" class="tab-content">
+            <!-- Blog Main List View -->
+            <div id="blog-list-view">
+                <div class="card blog-hero-header" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%); border: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div>
+                            <span class="ecg-pulse-badge" style="margin-bottom: 8px;">📚 Klinik Kütüphane & Rehber</span>
+                            <h2 style="font-size: 1.8rem; margin: 4px 0 8px 0; color: var(--text-primary);">Hemşirelik Blogu & Akademik Rehberler</h2>
+                            <p style="color: var(--text-secondary); max-width: 680px; margin: 0; font-size: 0.95rem;">
+                                NANDA-I bakım planı hazırlama rehberleri, klinik vaka örnekleri, staj ipuçları ve hemşirelik mesleki bilgi bankası.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; max-width: 380px;">
+                            <input type="text" id="blog-search-input" class="form-control" placeholder="Blogda veya rehberlerde ara..." oninput="renderBlogCards()">
+                        </div>
+                    </div>
+
+                    <!-- Category Pills -->
+                    <div class="blog-categories-bar" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-sm blog-cat-btn active" data-cat="all" onclick="filterBlogCategory('all')">Tüm Yazılar</button>
+                        <button class="btn btn-sm blog-cat-btn" data-cat="Temel Bilgiler" onclick="filterBlogCategory('Temel Bilgiler')">📘 Temel Bilgiler</button>
+                        <button class="btn btn-sm blog-cat-btn" data-cat="Vaka Örnekleri" onclick="filterBlogCategory('Vaka Örnekleri')">🏥 Vaka Örnekleri</button>
+                        <button class="btn btn-sm blog-cat-btn" data-cat="Staj & Eğitim" onclick="filterBlogCategory('Staj & Eğitim')">🎓 Staj & Eğitim</button>
+                    </div>
+                </div>
+
+                <!-- Featured Post Container -->
+                <div id="blog-featured-container" style="margin-bottom: 24px;"></div>
+
+                <!-- Blog Cards Grid -->
+                <div id="blog-cards-grid" class="blog-grid"></div>
+            </div>
+
+            <!-- Blog Article Detail View (Hidden by default) -->
+            <div id="blog-article-view" style="display: none;">
+                <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <button class="btn btn-outline btn-sm" onclick="showBlogList(true)">
+                        ← Tüm Blog Yazılarına Dön
+                    </button>
+                    <div class="blog-breadcrumbs" id="blog-article-breadcrumbs" style="font-size: 0.85rem; color: var(--text-secondary);">
+                        Ana Sayfa > Blog & Rehber > <span id="breadcrumb-article-title"></span>
+                    </div>
+                </div>
+
+                <article class="card blog-article-card" style="padding: 28px; border: 1px solid var(--border);">
+                    <header class="blog-article-header" style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+                            <span class="badge" id="article-category-badge" style="background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem;"></span>
+                            <span id="article-read-time" style="font-size: 0.85rem; color: var(--text-secondary);">⏱️ 6 dk okuma</span>
+                            <span id="article-date" style="font-size: 0.85rem; color: var(--text-secondary);">📅 1 Ekim 2026</span>
+                        </div>
+                        <h1 id="article-title" style="font-size: 2.1rem; line-height: 1.3; font-weight: 800; color: var(--text-primary); margin-bottom: 16px;"></h1>
+                        <div class="blog-author-bar" style="display: flex; align-items: center; gap: 12px;">
+                            <div style="font-size: 2rem;" id="article-author-avatar">👨‍⚕️</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text-primary);" id="article-author-name">Hemşire Burak ÇETİN</div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary);" id="article-author-title">Klinik Karar Destek Uzmanı</div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div id="article-body-content" class="blog-article-body"></div>
+                </article>
+
+                <!-- Related Articles Section -->
+                <div style="margin-top: 36px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--text-primary);">📚 İlgili Diğer Rehberler</h3>
+                    <div id="blog-related-grid" class="blog-grid"></div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
 
@@ -2033,6 +2118,10 @@
             <span class="mobile-nav-icon nav-icon-badge badge-calculators"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg></span>
             <span class="mobile-nav-label">Ölçekler</span>
         </button>
+        <button class="mobile-nav-btn" data-tab="blog" onclick="switchTab('blog')">
+            <span class="mobile-nav-icon nav-icon-badge badge-blog"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
+            <span class="mobile-nav-label">Blog</span>
+        </button>
         <button class="mobile-nav-btn trigger-cmd-palette" type="button" onclick="if(window.openCommandPalette) window.openCommandPalette();">
             <span class="mobile-nav-icon nav-icon-badge badge-search"><svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <span class="mobile-nav-label">Hızlı Ara</span>
@@ -2045,6 +2134,8 @@
     <script src="js/calculators.js?v=8.3"></script>
     <script src="js/carePlanBuilder.js?v=8.3"></script>
     <script src="js/storage.js?v=8.3"></script>
+    <script src="js/blogData.js?v=8.3"></script>
+    <script src="js/blogApp.js?v=8.3"></script>
     <script src="js/app.js?v=8.3"></script>
 </body>
 </html>
