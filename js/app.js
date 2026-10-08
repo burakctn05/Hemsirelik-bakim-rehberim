@@ -113,22 +113,22 @@ window.APP_ROUTES = [
 ];
 
 window.getPathForTab = function(targetTab, articleSlug) {
-    if (targetTab === 'builder') return '/hemsirelik-bakim-plani-olustur';
-    if (targetTab === 'templates') return '/klinik-vaka-bakim-planlari';
-    if (targetTab === 'calculators') return '/klinik-hesaplayicilar';
-    if (targetTab === 'dictionary' || targetTab === 'guide') return '/nanda-hemsirelik-tanilari';
-    if (targetTab === 'saved') return '/kayitli-bakim-planlari';
+    if (targetTab === 'builder') return '/hemsirelik-bakim-plani-olustur/';
+    if (targetTab === 'templates') return '/klinik-vaka-bakim-planlari/';
+    if (targetTab === 'calculators') return '/klinik-hesaplayicilar/';
+    if (targetTab === 'dictionary' || targetTab === 'guide') return '/nanda-hemsirelik-tanilari/';
+    if (targetTab === 'saved') return '/kayitli-bakim-planlari/';
     if (targetTab === 'blog') {
-        if (articleSlug) return '/blog/' + articleSlug;
-        return '/blog';
+        if (articleSlug) return '/blog/' + articleSlug + '/';
+        return '/blog/';
     }
     return '/';
 };
 
 window.resolveRouteFromPath = function(pathname) {
     if (!pathname) return { path: '/', tab: 'home' };
-    const cleanPath = pathname.replace(/\/$/, '') || '/';
-    const match = window.APP_ROUTES.find(r => r.path === cleanPath || r.path === pathname);
+    const cleanPath = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+    const match = window.APP_ROUTES.find(r => r.path === cleanPath || r.path === pathname || (r.path + '/') === pathname);
     if (match) return match;
     return { path: '/', tab: 'home' };
 };
@@ -139,25 +139,35 @@ window.ROUTE_METADATA = {
         description: 'Hemşirelik öğrencileri ve intörnler için hemşirelik bakım planları, NANDA hemşirelik tanıları, klinik hesaplayıcılar ve pratik hemşirelik araçları.',
         canonical: 'https://hemsirelikrehberi.com.tr/'
     },
-    '/blog': {
+    '/blog/': {
         title: 'Hemşirelik Blogu & Akademik Rehberler | Hemşirelik Rehberi',
         description: 'Hemşirelik bakım planı hazırlama rehberleri, NANDA tanıları, klinik vaka örnekleri, staj ipuçları ve akademik hemşirelik bilgi bankası.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/'
     },
-    '/blog/hemsirelik-bakim-plani-nedir': {
+    '/blog/hemsirelik-bakim-plani-nedir/': {
         title: 'Hemşirelik Bakım Planı Nedir? Adım Adım Nasıl Hazırlanır? | Hemşirelik Rehberi',
         description: 'Hemşirelik bakım planı hazırlamanın 5 temel adımı (ADPIE), NANDA tanı yapısı, ölçülebilir NOC hedefleri ve etkili NIC girişimleri rehberi.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog/hemsirelik-bakim-plani-nedir'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/hemsirelik-bakim-plani-nedir/'
     },
-    '/blog/nanda-hemsirelik-tanilari-nedir': {
+    '/blog/nanda-hemsirelik-tanilari-nedir/': {
         title: 'NANDA Hemşirelik Tanıları Nedir? En Çok Kullanılan Tanılar | Hemşirelik Rehberi',
         description: 'NANDA-I hemşirelik tanıları sınıflandırma sistemi, tıbbi teşhisten farkı ve klinik stajlarda en sık karşılaşılan NANDA tanıları listesi.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog/nanda-hemsirelik-tanilari-nedir'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/nanda-hemsirelik-tanilari-nedir/'
     },
-    '/blog/cerrahi-hastasinda-hemsirelik-bakim-plani-ornegi': {
+    '/blog/cerrahi-hastasinda-hemsirelik-bakim-plani-ornegi/': {
         title: 'Cerrahi Hastasında Hemşirelik Bakım Planı Örneği | Hemşirelik Rehberi',
         description: 'Genel cerrahi kliniğinde yatan post-op hasta vakası üzerinden hazırlanmış eksiksiz NANDA, NIC ve NOC hemşirelik bakım planı örneği.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog/cerrahi-hastasinda-hemsirelik-bakim-plani-ornegi'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/cerrahi-hastasinda-hemsirelik-bakim-plani-ornegi/'
+    },
+    '/blog/diyabetik-hastada-nanda-bakim-plani-ornegi/': {
+        title: 'Diyabetik Hastada NANDA Bakım Planı Örneği | Hemşirelik Rehberi',
+        description: 'Tip 2 Diyabet tanılı bir hastanın hiperglisemi, diyabetik ayak riski ve öz bakım yönetimi için NANDA-I standartlarında bakım planı.',
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/diyabetik-hastada-nanda-bakim-plani-ornegi/'
+    },
+    '/blog/stajda-bakim-plani-hazirlama-ipuclari/': {
+        title: 'Hemşirelik Öğrencileri İçin Stajda Bakım Planı Hazırlama İpuçları | Hemşirelik Rehberi',
+        description: 'Klinik stajlarda öğretim elemanlarından tam puan alacak hemşirelik bakım planı hazırlama taktikleri, sık yapılan hatalar ve ipuçları.',
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/stajda-bakim-plani-hazirlama-ipuclari/'
     },
     '/blog/diyabetik-hastada-nanda-bakim-plani-ornegi': {
         title: 'Diyabetik Hastada NANDA Bakım Planı Örneği | Hemşirelik Rehberi',
