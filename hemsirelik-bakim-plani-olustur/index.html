@@ -82,21 +82,32 @@
                 <button type="button" class="top-left-back-btn" id="global-top-left-back-btn" onclick="handleSmartAppBack()" style="display: none;" title="Önceki Adıma / Sekmeye Dön">
                     ← Geri
                 </button>
-                <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Logo" class="app-logo-img">
-                <div class="brand-text">
-                    <h1>Hemşirelik Bakım Rehberim</h1>
-                    <p>
-                        NANDA-I Bakım Planı & Klinik Asistan
-                        <span class="ecg-pulse-badge" title="NANDA-I Canlı Klinik Karar Destek Sistemi">
-                            <svg class="ecg-svg" viewBox="0 0 100 24" fill="none" stroke="currentColor">
-                                <path class="ecg-path" d="M0 12 L20 12 L25 5 L30 19 L35 0 L40 24 L45 12 L50 12 L100 12" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                    </p>
+                <div class="logo-main-group" onclick="switchTab('home')" style="cursor: pointer;">
+                    <img src="assets/logo.png" alt="Hemşirelik Bakım Rehberim Logo" class="app-logo-img">
+                    <div class="brand-text">
+                        <h1>Hemşirelik Rehberim</h1>
+                        <p class="brand-subtext">
+                            NANDA-I & Klinik Asistan
+                            <span class="ecg-pulse-badge" title="NANDA-I Canlı Klinik Karar Destek Sistemi">
+                                <svg class="ecg-svg" viewBox="0 0 100 24" fill="none" stroke="currentColor">
+                                    <path class="ecg-path" d="M0 12 L20 12 L25 5 L30 19 L35 0 L40 24 L45 12 L50 12 L100 12" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </p>
 
-                    <div id="dev-brand-trigger" onmousedown="event.preventDefault();" style="font-size: 0.8rem; color: #a7f3d0; font-weight: 700; margin-top: 4px; letter-spacing: 0.03em; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;" title="Geliştirici Paneli (3 Kez Tıklayın)">
-                        👨‍⚕️ Geliştirici: <strong style="color: #ffffff;">Hemşire Burak ÇETİN</strong>
+                        <div id="dev-brand-trigger" onmousedown="event.preventDefault();" style="font-size: 0.8rem; color: #a7f3d0; font-weight: 700; margin-top: 4px; letter-spacing: 0.03em; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;" title="Geliştirici Paneli (3 Kez Tıklayın)">
+                            👨‍⚕️ Geliştirici: <strong style="color: #ffffff;">Hemşire Burak ÇETİN</strong>
+                        </div>
                     </div>
+                </div>
+
+                <div class="mobile-header-actions">
+                    <button type="button" class="mobile-action-btn" id="mobile-search-btn" onclick="if(window.openCommandPalette) window.openCommandPalette();" title="Hızlı Arama">
+                        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <button type="button" class="mobile-action-btn" id="mobile-theme-toggle-btn" onclick="if(window.toggleThemeMode) window.toggleThemeMode();" title="Gece Nöbeti Modu">
+                        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
                 </div>
             </div>
 

@@ -3079,38 +3079,44 @@ function initDevAdminModal() {
 /* ==========================================================================
    Theme Toggle System (Hastane Gece Nöbeti / Gece Modu)
    ========================================================================== */
-function initThemeToggle() {
+window.toggleThemeMode = function() {
+    const isDark = document.body.classList.toggle('dark-theme');
+    document.documentElement.classList.toggle('dark-theme', isDark);
+    
     const themeBtn = document.getElementById('theme-toggle-btn');
-    if (!themeBtn) return;
+    const mobileThemeBtn = document.getElementById('mobile-theme-toggle-btn');
 
+    if (isDark) {
+        localStorage.setItem('bakimrehberim_theme', 'dark');
+        if (themeBtn) themeBtn.innerHTML = '☀️ Gündüz Modu';
+        if (mobileThemeBtn) mobileThemeBtn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+        if (window.showToast) window.showToast('🌙 Gece Modu (Karanlık Tema) Aktifleştirildi', 'info');
+    } else {
+        localStorage.setItem('bakimrehberim_theme', 'light');
+        if (themeBtn) themeBtn.innerHTML = '🌙 Gece Modu';
+        if (mobileThemeBtn) mobileThemeBtn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+        if (window.showToast) window.showToast('☀️ Gündüz Modu Aktifleştirildi', 'info');
+    }
+};
+
+function initThemeToggle() {
     const currentTheme = localStorage.getItem('bakimrehberim_theme');
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const mobileThemeBtn = document.getElementById('mobile-theme-toggle-btn');
+
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-theme');
         document.documentElement.classList.add('dark-theme');
-        themeBtn.innerHTML = '☀️ Gündüz Modu';
-    } else {
-        document.body.classList.remove('dark-theme');
-        document.documentElement.classList.remove('dark-theme');
-        themeBtn.innerHTML = '🌙 Gece Modu';
+        if (themeBtn) themeBtn.innerHTML = '☀️ Gündüz Modu';
+        if (mobileThemeBtn) mobileThemeBtn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
     }
 
-    themeBtn.addEventListener('click', (e) => {
-        if (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        const isDark = document.body.classList.toggle('dark-theme');
-        document.documentElement.classList.toggle('dark-theme', isDark);
-        if (isDark) {
-            localStorage.setItem('bakimrehberim_theme', 'dark');
-            themeBtn.innerHTML = '☀️ Gündüz Modu';
-            if (window.showToast) window.showToast('🌙 Gece Modu (Karanlık Tema) Aktifleştirildi', 'info');
-        } else {
-            localStorage.setItem('bakimrehberim_theme', 'light');
-            themeBtn.innerHTML = '🌙 Gece Modu';
-            if (window.showToast) window.showToast('☀️ Gündüz Modu Aktifleştirildi', 'info');
-        }
-    });
+    if (themeBtn) {
+        themeBtn.addEventListener('click', (e) => {
+            if (e) { e.stopPropagation(); e.preventDefault(); }
+            window.toggleThemeMode();
+        });
+    }
 }
 
 /* ==========================================================================
