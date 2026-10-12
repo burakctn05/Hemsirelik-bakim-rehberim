@@ -172,84 +172,85 @@ window.ROUTE_METADATA = {
     '/blog/diyabetik-hastada-nanda-bakim-plani-ornegi': {
         title: 'Diyabetik Hastada NANDA Bakım Planı Örneği | Hemşirelik Rehberi',
         description: 'Tip 2 Diyabet tanılı bir hastanın hiperglisemi, diyabetik ayak riski ve öz bakım yönetimi için NANDA-I standartlarında bakım planı.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog/diyabetik-hastada-nanda-bakim-plani-ornegi'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/diyabetik-hastada-nanda-bakim-plani-ornegi/'
     },
     '/blog/stajda-bakim-plani-hazirlama-ipuclari': {
         title: 'Hemşirelik Öğrencileri İçin Stajda Bakım Planı Hazırlama İpuçları | Hemşirelik Rehberi',
         description: 'Klinik stajlarda öğretim elemanlarından tam puan alacak hemşirelik bakım planı hazırlama taktikleri, sık yapılan hatalar ve ipuçları.',
-        canonical: 'https://hemsirelikrehberi.com.tr/blog/stajda-bakim-plani-hazirlama-ipuclari'
+        canonical: 'https://hemsirelikrehberi.com.tr/blog/stajda-bakim-plani-hazirlama-ipuclari/'
     },
     '/hemsirelik-bakim-plani-olustur': {
         title: 'Hemşirelik Bakım Planı Oluştur | NANDA, NIC ve NOC',
         description: 'NANDA hemşirelik tanıları, NIC girişimleri ve NOC sonuçları ile klinik duruma uygun hemşirelik bakım planı oluşturun.',
-        canonical: 'https://hemsirelikrehberi.com.tr/hemsirelik-bakim-plani-olustur'
+        canonical: 'https://hemsirelikrehberi.com.tr/hemsirelik-bakim-plani-olustur/'
     },
     '/klinik-vaka-bakim-planlari': {
         title: 'Klinik Vaka Bakım Planları | Hemşirelik Rehberi',
         description: 'Farklı klinik durumlar için hazırlanmış örnek hemşirelik bakım planlarını ve vaka temelli bakım planı şablonlarını inceleyin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/klinik-vaka-bakim-planlari'
+        canonical: 'https://hemsirelikrehberi.com.tr/klinik-vaka-bakim-planlari/'
     },
     '/klinik-hesaplayicilar': {
         title: 'Klinik Hesaplayıcılar | Hemşirelik Rehberi',
         description: 'Hemşirelik öğrencileri ve sağlık profesyonelleri için GKS, Braden, Norton, Barthel, VKİ, sıvı dengesi ve diğer klinik hesaplama araçları.',
-        canonical: 'https://hemsirelikrehberi.com.tr/klinik-hesaplayicilar'
+        canonical: 'https://hemsirelikrehberi.com.tr/klinik-hesaplayicilar/'
     },
     '/gks-hesaplama': {
         title: 'Glasgow Koma Skalası (GKS) Hesaplama | Hemşirelik Rehberi',
         description: 'Glasgow Koma Skalası (GKS) puanını göz, sözel ve motor yanıtlar üzerinden hesaplayın ve bilinç düzeyinin değerlendirilmesinde kullanın.',
-        canonical: 'https://hemsirelikrehberi.com.tr/gks-hesaplama'
+        canonical: 'https://hemsirelikrehberi.com.tr/gks-hesaplama/'
     },
     '/braden-olcegi': {
         title: 'Braden Ölçeği Hesaplama | Basınç Yarası Riski',
         description: 'Braden Ölçeği ile duyusal algı, nem, aktivite, mobilite, beslenme ve sürtünme açısından basınç yarası riskini değerlendirin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/braden-olcegi'
+        canonical: 'https://hemsirelikrehberi.com.tr/braden-olcegi/'
     },
     '/norton-olcegi': {
         title: 'Norton Ölçeği Hesaplama | Basınç Yarası Riski',
         description: 'Norton Ölçeği kullanarak fiziksel durum, mental durum, aktivite, mobilite ve inkontinans üzerinden basınç yarası riskini değerlendirin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/norton-olcegi'
+        canonical: 'https://hemsirelikrehberi.com.tr/norton-olcegi/'
     },
     '/barthel-indeksi': {
         title: 'Barthel İndeksi Hesaplama | Günlük Yaşam Aktiviteleri',
         description: 'Barthel İndeksi ile beslenme, banyo, giyinme, mobilite, tuvalet ve diğer günlük yaşam aktivitelerindeki bağımsızlık düzeyini değerlendirin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/barthel-indeksi'
+        canonical: 'https://hemsirelikrehberi.com.tr/barthel-indeksi/'
     },
     '/damla-hizi-hesaplama': {
         title: 'IV Damla Hızı Hesaplama | Hemşirelik Rehberi',
         description: 'IV sıvı tedavisinde damla/dakika hızını hesaplayın. Serum hacmi, süre ve set faktörüne göre pratik damla hızı hesaplama aracı.',
-        canonical: 'https://hemsirelikrehberi.com.tr/damla-hizi-hesaplama'
+        canonical: 'https://hemsirelikrehberi.com.tr/damla-hizi-hesaplama/'
     },
     '/vki-hesaplama': {
         title: 'Vücut Kitle İndeksi (VKİ) Hesaplama | Hemşirelik Rehberi',
         description: 'Boy ve kilo bilgilerinizi kullanarak Vücut Kitle İndeksi (VKİ) değerini hesaplayın ve sonucu değerlendirin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/vki-hesaplama'
+        canonical: 'https://hemsirelikrehberi.com.tr/vki-hesaplama/'
     },
     '/sivi-dengesi-hesaplama': {
         title: 'Sıvı Dengesi Hesaplama | Hemşirelik Rehberi',
         description: 'Alınan ve çıkarılan sıvı miktarlarını kullanarak hastanın günlük sıvı dengesini hesaplayın ve sıvı bilançosunu değerlendirin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/sivi-dengesi-hesaplama'
+        canonical: 'https://hemsirelikrehberi.com.tr/sivi-dengesi-hesaplama/'
     },
     '/kan-gazi-analizi': {
         title: 'Kan Gazı Analizi | Hemşirelik Rehberi',
         description: 'Arter kan gazı değerlerini değerlendirmeye yardımcı olan pratik kan gazı analiz aracı ile pH, PaCO₂, HCO₃ ve diğer değerleri inceleyin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/kan-gazi-analizi'
+        canonical: 'https://hemsirelikrehberi.com.tr/kan-gazi-analizi/'
     },
     '/nanda-hemsirelik-tanilari': {
         title: 'NANDA Hemşirelik Tanıları | Hemşirelik Rehberi',
         description: 'NANDA hemşirelik tanılarını arayın, tanı açıklamalarını inceleyin ve hemşirelik bakım planı hazırlarken uygun tanıları belirleyin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/nanda-hemsirelik-tanilari'
+        canonical: 'https://hemsirelikrehberi.com.tr/nanda-hemsirelik-tanilari/'
     },
     '/kayitli-bakim-planlari': {
         title: 'Kayıtlı Hemşirelik Bakım Planları | Hemşirelik Rehberi',
         description: 'Daha önce oluşturduğunuz hemşirelik bakım planlarına erişin, kayıtlı planlarınızı inceleyin ve gerektiğinde yeniden düzenleyin.',
-        canonical: 'https://hemsirelikrehberi.com.tr/kayitli-bakim-planlari'
+        canonical: 'https://hemsirelikrehberi.com.tr/kayitli-bakim-planlari/'
     }
 };
 
 window.updateLiveSEOMetadata = function(pathOrTab) {
     let targetPath = typeof pathOrTab === 'string' && pathOrTab.startsWith('/') ? pathOrTab : window.getPathForTab(pathOrTab);
     const cleanPath = targetPath ? targetPath.replace(/\/$/, '') || '/' : '/';
-    const meta = window.ROUTE_METADATA[cleanPath] || window.ROUTE_METADATA['/'];
+    const slashPath = cleanPath === '/' ? '/' : cleanPath + '/';
+    const meta = window.ROUTE_METADATA[slashPath] || window.ROUTE_METADATA[cleanPath] || window.ROUTE_METADATA['/'];
 
     if (meta.title) document.title = meta.title;
 
