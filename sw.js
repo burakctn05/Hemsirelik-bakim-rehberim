@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bakimrehberim-v8.3';
+const CACHE_NAME = 'bakimrehberim-v8.4';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -10,6 +10,8 @@ const ASSETS_TO_CACHE = [
     './js/calculators.js',
     './js/carePlanBuilder.js',
     './js/storage.js',
+    './js/blogData.js',
+    './js/blogApp.js',
     './js/app.js',
     './assets/logo.png',
     './manifest.json'

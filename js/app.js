@@ -321,9 +321,10 @@ window.switchTab = function(targetTab, pushHistory = true) {
     // 3. Scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
 
-    // 4. Update Top-Left Smart Back Button & Mobile Dock UI & Saved list
+    // 4. Update Top-Left Smart Back Button & Mobile Dock UI & Saved list & Wizard Sticky Bar
     if (typeof window.updateTopLeftBackButtonUI === 'function') window.updateTopLeftBackButtonUI();
     if (typeof updateMobileSelectedDockUI === 'function') updateMobileSelectedDockUI();
+    if (typeof window.updateWizardStickyBarUI === 'function') window.updateWizardStickyBarUI();
     if (targetTab === 'saved' && typeof renderSavedPlansList === 'function') renderSavedPlansList();
     if (targetTab === 'blog' && typeof window.renderBlogCards === 'function') {
         const routeInfo = window.resolveRouteFromPath(location.pathname);
@@ -641,6 +642,7 @@ function initCarePlanWizard() {
         }
 
         updateMobileSelectedDockUI();
+        if (typeof window.updateWizardStickyBarUI === 'function') window.updateWizardStickyBarUI();
         if (typeof window.updateTopLeftBackButtonUI === 'function') window.updateTopLeftBackButtonUI();
 
         if (pushHistory) {
@@ -3304,6 +3306,82 @@ window.toggleCalcAccordion = function(headerEl) {
         setTimeout(() => {
             card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 80);
+    }
+};
+
+/* ==========================================================================
+   4. Mobile Menu Bottom Sheet & Wizard Sticky Action Bar
+   ========================================================================== */
+window.toggleMobileMenuSheet = function(forceOpen) {
+    const sheet = document.getElementById('mobile-menu-sheet');
+    if (!sheet) return;
+    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !sheet.classList.contains('active');
+
+    if (shouldOpen) {
+        // Update saved count badge in sheet
+        const savedBadge = document.getElementById('sheet-saved-count-badge');
+        if (savedBadge && window.storage && typeof window.storage.getSavedPlans === 'function') {
+            const count = window.storage.getSavedPlans().length;
+            savedBadge.textContent = count > 0 ? `${count} adet kayıtlı plan` : 'Cihazınızda saklanan planlar';
+        }
+        // Update theme label in sheet
+        const themeLabel = document.getElementById('sheet-theme-label');
+        if (themeLabel) {
+            const isDark = document.body.classList.contains('dark-theme');
+            themeLabel.textContent = isDark ? '🌙 Gece Nöbeti Açık (Değiştir)' : '☀️ Aydınlık Mod Açık (Değiştir)';
+        }
+        sheet.classList.add('active');
+        document.body.classList.add('modal-open');
+    } else {
+        sheet.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+};
+
+window.updateWizardStickyBarUI = function() {
+    const bar = document.getElementById('wizard-mobile-actions');
+    if (!bar) return;
+
+    if (typeof currentActiveTab !== 'undefined' && currentActiveTab === 'builder') {
+        bar.style.display = 'flex';
+        const numDisp = document.getElementById('wizard-sticky-step-num');
+        const nextBtn = document.getElementById('wizard-sticky-next-btn');
+        const backBtn = document.getElementById('wizard-sticky-back-btn');
+
+        const step = typeof currentStep !== 'undefined' ? currentStep : 1;
+        if (numDisp) numDisp.textContent = step;
+
+        if (backBtn) {
+            backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+            backBtn.textContent = step === 2 ? '← Hasta' : (step === 3 ? '← Tanı' : '← NIC/NOC');
+        }
+
+        if (nextBtn) {
+            if (step === 1) {
+                nextBtn.innerHTML = 'Tanı Seçimi →';
+            } else if (step === 2) {
+                nextBtn.innerHTML = 'NIC / NOC →';
+            } else if (step === 3) {
+                nextBtn.innerHTML = 'Önizleme →';
+            } else if (step === 4) {
+                nextBtn.innerHTML = '📄 PDF İndir';
+            }
+        }
+    } else {
+        bar.style.display = 'none';
+    }
+};
+
+window.wizardStickyNextHandler = function() {
+    const step = typeof currentStep !== 'undefined' ? currentStep : 1;
+    if (step === 1) {
+        if (typeof window.goToWizardStep === 'function') window.goToWizardStep(2);
+    } else if (step === 2) {
+        if (typeof window.goToWizardStep === 'function') window.goToWizardStep(3);
+    } else if (step === 3) {
+        if (typeof window.goToWizardStep === 'function') window.goToWizardStep(4);
+    } else if (step === 4) {
+        if (typeof window.exportToPdf === 'function') window.exportToPdf();
     }
 };
 
