@@ -617,21 +617,39 @@
             <!-- STEP 4: Preview & Export/Print -->
             <div id="wizard-step-4" class="wizard-step-panel" style="display: none;">
                 <!-- Header Actions for Output -->
-                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;" class="no-print">
-                    <button class="btn btn-secondary" onclick="goToWizardStep(3)">← Düzenlemeye Dön</button>
-
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="btn btn-primary" id="save-plan-btn">💾 Uygulamaya Kaydet</button>
-                        <button class="btn btn-outline" id="print-plan-btn">🖨️ Yazdır / PDF İndir</button>
-                        <button class="btn btn-secondary" id="export-word-btn" title="MS Word (.doc) belgesi olarak indir">📝 Word (.doc)</button>
-                        <button class="btn btn-secondary" id="copy-plan-btn" title="Bakım planı metnini kopyala (WhatsApp/Word yapıştırmak için)">📋 Panoya Kopyala</button>
-                        <button class="btn btn-secondary" id="export-json-btn" title="Bakım planını JSON yedeği olarak indir">📤 JSON Yedekle</button>
-                        <button class="btn btn-secondary" id="import-json-btn" title="Yedeklenmiş JSON bakım planı dosyasını yükle">📥 JSON İçe Aktar</button>
-
+                <div class="step4-actions-card no-print">
+                    <div class="step4-primary-actions">
+                        <button type="button" class="btn btn-success btn-lg" id="print-plan-btn" onclick="window.printCarePlan()" style="background: linear-gradient(135deg, #10b981, #059669); border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
+                            <svg class="svg-icon" viewBox="0 0 24 24" style="margin-right: 6px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                            🖨️ Renkli PDF İndir / Yazdır
+                        </button>
+                        <button type="button" class="btn btn-primary btn-lg" id="save-plan-btn">
+                            💾 Bakım Planını Kaydet
+                        </button>
+                    </div>
+                    <div class="step4-secondary-actions">
+                        <button type="button" class="btn btn-outline" onclick="goToWizardStep(3)">
+                            ← Düzenlemeye Dön
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="export-word-btn" title="MS Word (.doc) belgesi olarak indir">
+                            📝 Word (.doc)
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="copy-plan-btn" title="Bakım planı metnini kopyala">
+                            📋 Panoya Kopyala
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="export-json-btn" title="Bakım planını JSON yedeği olarak indir">
+                            📤 JSON Yedekle
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="import-json-btn" title="Yedeklenmiş JSON bakım planı dosyasını yükle">
+                            📥 JSON İçe Aktar
+                        </button>
                         <input type="file" id="import-json-file-input" accept=".json" style="display:none;">
                     </div>
+                </div>
 
-
+                <!-- Academic Scroll Notice Banner for Mobile -->
+                <div class="mobile-table-scroll-hint no-print">
+                    <span>👉 Tabloyu <strong>sağa-sola kaydırarak</strong> tüm NANDA tanı, NOC ve NIC girişimlerini inceleyebilirsiniz 👈</span>
                 </div>
 
                 <!-- Print Title Header (Visible in Print/PDF mode) -->
@@ -639,7 +657,6 @@
                     <h1>HEMŞİRELİK BAKIM PLANI</h1>
                     <p>Hemşirelik Bakım Rehberim Dijital Akademik Formadı</p>
                 </div>
-
 
                 <!-- Academic Rendered Table -->
                 <div id="care-plan-table-container"></div>
@@ -2019,7 +2036,7 @@
             <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Seçilenleri Gör ↑</span>
         </div>
         <div class="mobile-dock-actions">
-            <button type="button" class="btn btn-sm btn-primary" onclick="goToWizardStep(3)" style="border-radius: var(--radius-full); padding: 6px 14px;">
+            <button type="button" class="btn btn-sm btn-primary" id="mobile-dock-next-btn" onclick="goToWizardStep(3)" style="border-radius: var(--radius-full); padding: 6px 14px;">
                 İleri: Özelleştir →
             </button>
         </div>
@@ -2040,7 +2057,7 @@
             </div>
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
                 <button type="button" class="btn btn-secondary" onclick="closeSelectedDiagnosesDrawer()">Tanı Eklemeye Devam Et</button>
-                <button type="button" class="btn btn-primary" onclick="closeSelectedDiagnosesDrawer(); goToWizardStep(3);">İleri: Detayları Özelleştir →</button>
+                <button type="button" class="btn btn-primary" id="drawer-dock-next-btn" onclick="closeSelectedDiagnosesDrawer(); goToWizardStep(3);">İleri: Detayları Özelleştir →</button>
             </div>
         </div>
     </div>
@@ -2160,7 +2177,6 @@
             <div class="mobile-sheet-footer">
                 <div class="sheet-dev-badge" id="sheet-dev-badge-trigger" onclick="if(window.triggerDevBrandClick) window.triggerDevBrandClick();">
                     👨‍⚕️ Geliştirici: <strong>Hemşire Burak ÇETİN</strong>
-                    <span class="sheet-version-tag">v8.4 Estetik & Ergonomi</span>
                 </div>
             </div>
         </div>

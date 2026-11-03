@@ -1142,6 +1142,8 @@ function updateMobileSelectedDockUI() {
     const countNum = document.getElementById('mobile-dock-count-num');
     const drawerCount = document.getElementById('drawer-diagnoses-count');
     const drawerList = document.getElementById('drawer-diagnoses-list');
+    const dockBtn = document.getElementById('mobile-dock-next-btn');
+    const drawerBtn = document.getElementById('drawer-dock-next-btn');
 
     const items = carePlanBuilder.currentPlan.carePlans || [];
     const count = items.length;
@@ -1154,6 +1156,26 @@ function updateMobileSelectedDockUI() {
         if (typeof currentActiveTab !== 'undefined' && currentActiveTab === 'builder' && count > 0 && (currentStep === 2 || currentStep === 3)) {
             dock.classList.add('active');
             dock.style.setProperty('display', 'flex', 'important');
+
+            if (currentStep === 2) {
+                if (dockBtn) {
+                    dockBtn.innerHTML = 'İleri: Özelleştir (Adım 3) →';
+                    dockBtn.onclick = function() { window.goToWizardStep(3); };
+                }
+                if (drawerBtn) {
+                    drawerBtn.innerHTML = 'İleri: Detayları Özelleştir (Adım 3) →';
+                    drawerBtn.onclick = function() { window.closeSelectedDiagnosesDrawer(); window.goToWizardStep(3); };
+                }
+            } else if (currentStep === 3) {
+                if (dockBtn) {
+                    dockBtn.innerHTML = 'İleri: Önizleme & PDF (Adım 4) →';
+                    dockBtn.onclick = function() { window.goToWizardStep(4); };
+                }
+                if (drawerBtn) {
+                    drawerBtn.innerHTML = 'İleri: Önizleme & PDF (Adım 4) →';
+                    drawerBtn.onclick = function() { window.closeSelectedDiagnosesDrawer(); window.goToWizardStep(4); };
+                }
+            }
         } else {
             dock.classList.remove('active');
             dock.style.setProperty('display', 'none', 'important');
@@ -3353,7 +3375,13 @@ window.updateWizardStickyBarUI = function() {
 
         if (backBtn) {
             backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
-            backBtn.textContent = step === 2 ? '← Hasta' : (step === 3 ? '← Tanı' : '← NIC/NOC');
+            backBtn.textContent = step === 2 ? '← Hasta' : (step === 3 ? '← Tanı' : (step === 4 ? '← Düzenle' : '← Geri'));
+            backBtn.onclick = function() {
+                if (step === 2) window.goToWizardStep(1);
+                else if (step === 3) window.goToWizardStep(2);
+                else if (step === 4) window.goToWizardStep(3);
+                else if (typeof window.handleSmartAppBack === 'function') window.handleSmartAppBack();
+            };
         }
 
         if (nextBtn) {
@@ -3362,9 +3390,9 @@ window.updateWizardStickyBarUI = function() {
             } else if (step === 2) {
                 nextBtn.innerHTML = 'NIC / NOC →';
             } else if (step === 3) {
-                nextBtn.innerHTML = 'Önizleme →';
+                nextBtn.innerHTML = 'Önizleme & PDF →';
             } else if (step === 4) {
-                nextBtn.innerHTML = '📄 PDF İndir';
+                nextBtn.innerHTML = '🖨️ PDF İndir / Yazdır';
             }
         }
     } else {
@@ -3381,7 +3409,7 @@ window.wizardStickyNextHandler = function() {
     } else if (step === 3) {
         if (typeof window.goToWizardStep === 'function') window.goToWizardStep(4);
     } else if (step === 4) {
-        if (typeof window.exportToPdf === 'function') window.exportToPdf();
+        if (typeof window.printCarePlan === 'function') window.printCarePlan();
     }
 };
 

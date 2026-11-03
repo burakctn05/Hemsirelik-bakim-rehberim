@@ -2932,5 +2932,173 @@ body.dark-theme .sheet-version-tag {
     }
 }
 
+/* ==========================================================================
+   Step 4 Preview & Output Toolbar Card & Mobile Ergonomics
+   ========================================================================== */
+.step4-actions-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body.dark-theme .step4-actions-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.step4-primary-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.step4-primary-actions .btn {
+    flex: 1;
+    min-width: 220px;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.step4-secondary-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+}
+
+body.dark-theme .step4-secondary-actions {
+    border-top-color: #334155;
+}
+
+.step4-secondary-actions .btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+}
+
+.mobile-table-scroll-hint {
+    display: none;
+}
+
+/* Patient Print/Screen Summary Card */
+.patient-print-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.autonomy-legend-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+    .step4-actions-card {
+        padding: 12px;
+        margin-bottom: 14px;
+    }
+
+    .step4-primary-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .step4-primary-actions .btn {
+        width: 100%;
+        min-width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .step4-secondary-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .step4-secondary-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 6px;
+        font-size: 0.8rem;
+    }
+
+    .mobile-table-scroll-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(16, 185, 129, 0.1));
+        border: 1px dashed var(--secondary);
+        border-radius: 12px;
+        padding: 8px 12px;
+        margin-bottom: 14px;
+        font-size: 0.78rem;
+        color: var(--primary-dark);
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    body.dark-theme .mobile-table-scroll-hint {
+        background: rgba(14, 165, 233, 0.15);
+        color: #7dd3fc;
+        border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .patient-print-summary {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .autonomy-legend-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 10px 12px;
+    }
+
+    .plan-table-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        border-radius: 12px !important;
+        margin-bottom: 80px !important;
+    }
+
+    .plan-table {
+        min-width: 700px !important;
+        font-size: 0.82rem !important;
+    }
+
+    .plan-table th, .plan-table td {
+        padding: 10px 8px !important;
+    }
+}
+
 
 
